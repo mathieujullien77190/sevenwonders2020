@@ -28,7 +28,7 @@
 <template name="effectWar_template">
     <div class="effect_container effect_war">
         {{#each symbol in getWarSymbols}}
-        <span>{{symbol}}</span>
+        {{ > war_template size=size}}
         {{/each}}
     </div>
 </template>

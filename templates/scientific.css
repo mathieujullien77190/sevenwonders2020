@@ -1,5 +1,5 @@
 .scientific_container {
-    border: solid 1px black;
+    border: solid 1px transparent;
     border-radius: 50%;
 }
 
@@ -29,16 +29,21 @@
 }
 
 
+
+*[class^="scientific"]{
+    background-position: center;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
 .scientific_id_1 {
-    background-color: rgb(58, 131, 58);
+    background-image: url("/images/scientifics/compass.png");
 }
 
 .scientific_id_2 {
-    background-color: rgb(33, 71, 33);
-    
+    background-image: url("/images/scientifics/wheel.png");
 }
 
 .scientific_id_3 {
-    background-color: rgb(17, 119, 111);
+    background-image: url("/images/scientifics/tablet.png");
 }
 

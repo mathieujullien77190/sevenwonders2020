@@ -1,6 +1,6 @@
 .ressource_container {
     border-radius: 50%;
-    border: solid 1px black;
+    border: solid 1px transparent;
 }
 
 .ressource_size_mini {
@@ -29,30 +29,36 @@
 }
 
 
+
+*[class^="ressource"]{
+    background-position: center;
+    background-size: 100% 100%;
+    background-repeat:  no-repeat;
+}
 .ressource_id_1 {
-    background-color: orangered;
+    background-image: url("/images/resources/clay.png");
 }
 
 .ressource_id_3 {
-    background-color: gray;
+    background-image: url("/images/resources/stone.png");
 }
 
 .ressource_id_4 {
-    background-color: green;
+    background-image: url("/images/resources/wood.png");
 }
 
 .ressource_id_2 {
-    background-color: black;
+    background-image: url("/images/resources/ore.png");
 }
 
 .ressource_id_5 {
-    background-color: blue;
+    background-image: url("/images/resources/glass.png");
 }
 
 .ressource_id_6 {
-    background-color: fuchsia;
+    background-image: url("/images/resources/textile.png");
 }
 
 .ressource_id_7 {
-    background-color: bisque;
+    background-image: url("/images/resources/papyrus.png");
 }
