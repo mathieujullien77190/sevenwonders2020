@@ -86,7 +86,7 @@
 
 <template name="effectDefeat_template">
     <div class="effect_container effect_defeat">
-        <div class="effect_symbol bg_{{effect.color}}">
+        <div class="effect_symbol defeat size_big">
             {{ > victoryPoint_template victoryPoint=effect.victoryPoint size=getSizePoint}}
             {{ > coin_template coins=effect.coins size=getSizePoint}}
         </div>
@@ -119,7 +119,7 @@
 
 <template name="effectStep_template">
     <div class="effect_container effect_step">
-        <div class="effect_symbol bg_{{effect.color}}">
+        <div class="effect_symbol step size_big">
             {{ > victoryPoint_template victoryPoint=effect.victoryPoint size=getSizePoint}}
             {{ > coin_template coins=effect.coins size=getSizePoint}}
         </div>
