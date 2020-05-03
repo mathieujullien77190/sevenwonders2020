@@ -651,20 +651,19 @@ const yellowCards = [
         image: '',
         effects: [{ type: 'cardColor', apply: ['own'], coins: 2, victoryPoint: 2, color: 'gray' }],
         links: []
+    },
+    {
+        id: 75,
+        name: 'Arène',
+        color: 'yellow',
+        age: [3],
+        nbsPlayers: [3, 5, 6],
+        ressourcesCost: [3, 3,2],
+        coinsCost: 0,
+        image: '',
+        effects: [{ type: 'step', apply: ['own'], coins: 1, victoryPoint: 1}],
+        links: []
     }
-    // ,
-    // {
-    //     id: 51,
-    //     name: 'Arène',
-    //     color: 'yellow',
-    //     age: [3],
-    //     nbsPlayers: [3, 5, 6],
-    //     ressourcesCost: [3, 3,2],
-    //     coinsCost: 0,
-    //     image: '',
-    //     effects: [{ type: 'step', apply: ['own'], coins: 1, victoryPoint: 1}],
-    //     links: []
-    // }
 ]
 
 const greenCards = [
