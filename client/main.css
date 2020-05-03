@@ -3,10 +3,11 @@ body {
   font-family: sans-serif;
 }
 
-.cards, .wonders {
+
+.cards, .wonders, .board, .board_info, .board_cardsAge, .board_players {
   overflow: hidden;
 }
 
-.cards .card_container, .wonders .wonder_container {
+.cards .card_container, .wonders .wonder_container, .board_cardsAge .card_container {
   float: left;
 }

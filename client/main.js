@@ -6,10 +6,12 @@ import { getListCards } from '../data/cards'
 import { Wonder } from '../model/Wonder'
 import { getListWonders } from '../data/wonders'
 import { Player } from '../model/Player'
+import { Board } from '../model/Board'
 
 import '../templates/player.html'
 import '../templates/card.html'
 import '../templates/wonder.html'
+import '../templates/board.html'
 import '../templates/step.html'
 import '../templates/ressource.html'
 import '../templates/scientific.html'
@@ -22,10 +24,40 @@ import './main.html'
 window.cards = getListCards().map(card => new Card(card))
 window.wonders = getListWonders().map(wonder => new Wonder(wonder))
 window.players = [
-    new Player({ pseudo: 'SuperMatou', id: 1 }),
+    new Player({ pseudo: 'superMatou', id: 1 }),
     new Player({ pseudo: 'flopinouch', id: 2 }),
-    new Player({ pseudo: 'Momo', id: 3 })
+    new Player({ pseudo: 'momo', id: 3 }),
+    new Player({ pseudo: 'manou', id: 4 }),
+    new Player({ pseudo: 'gregou', id: 5 }),
+    new Player({ pseudo: 'rourou', id: 6 }),
+    new Player({ pseudo: 'amandou', id: 7 })
 ]
+window.board = new Board({ id: 1, allCards: window.cards })
+
+board.addPlayer(players[0])
+board.addPlayer(players[1])
+board.addPlayer(players[2])
+
+
+window.superMatou = board.getPlayer('superMatou')
+window.flopinouch = board.getPlayer('flopinouch')
+window.momo = board.getPlayer('momo')
+
+superMatou.setWonder(1)
+flopinouch.setWonder(3)
+momo.setWonder(4)
+
+Template.board_template.events({
+    'click .nextAge'(event) {
+        board.nextAge()
+    },
+    'click .nextRound'(event) {
+        board.nextRound()
+    },
+    'click .addPlayer'(event) {
+        board.addPlayer(players[board.players.length])
+    }
+});
 
 Template.body.helpers({
     cards() {
@@ -34,8 +66,8 @@ Template.body.helpers({
     wonders() {
         return window.wonders
     },
-    players() {
-        return window.players
+    board() {
+        return window.board
     }
 });
 
