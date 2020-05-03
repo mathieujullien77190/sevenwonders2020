@@ -1,0 +1,57 @@
+.link_container {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: rotate(180deg);
+    background-color: white;
+    padding: 2px 0px 10px 0px;
+    display: inline-flex;
+    align-items: center;
+    margin-bottom: -3px;
+}
+
+.link_container .victoryPoint {
+    color: black;
+}
+
+.link_container .ressource_container {
+    margin: 0;
+}
+
+.link_effect .effect_container div {
+    height: 10px;
+    width: 10px;
+}
+
+.link_container .effect_container .ressource_size_4 {
+    width: 7px;
+    height:7px;
+}
+
+.link_name {
+    font-size: 10px;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.link_color_blue {
+    border-left: solid 1px blue;
+    border-right: solid 1px blue;
+}
+
+.link_color_red {
+    border-left: solid 1px red;
+    border-right: solid 1px red;
+}
+
+.link_color_green {
+    border-left: solid 1px green;
+    border-right: solid 1px green;
+}
+
+.link_color_yellow {
+    border-left: solid 1px yellow;
+    border-right: solid 1px yellow;
+}
+
+

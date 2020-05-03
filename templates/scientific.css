@@ -1,0 +1,44 @@
+.scientific_container {
+    border: solid 1px black;
+    border-radius: 50%;
+}
+
+.scientific_size_mini {
+    width: 15px;
+    height: 15px;
+}
+
+.scientific_size_1 {
+    width: 30px;
+    height: 30px;
+}
+
+.scientific_size_2 {
+    width: 30px;
+    height: 30px;
+}
+
+.scientific_size_3 {
+    width: 20px;
+    height: 20px;
+}
+
+.scientific_size_4 {
+    width: 13px;
+    height: 13px;
+}
+
+
+.scientific_id_1 {
+    background-color: rgb(58, 131, 58);
+}
+
+.scientific_id_2 {
+    background-color: rgb(33, 71, 33);
+    
+}
+
+.scientific_id_3 {
+    background-color: rgb(17, 119, 111);
+}
+

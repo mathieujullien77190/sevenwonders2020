@@ -1,0 +1,41 @@
+.wonder_container {
+    font-family: monospace;
+    margin: 10px;
+    border: solid 3px #000000;
+    border-radius: 2px;
+    position: relative;
+    width: 450px;
+    height: 200px;
+    background-color: lightgray;
+}
+
+.wonder_name {
+    font-size: 20px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    text-align: right;
+    padding: 5px;
+    width: auto;
+}
+
+.wonder_advantage {
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 50px;
+}
+
+.wonder_steps {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}

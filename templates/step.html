@@ -1,0 +1,9 @@
+<template name="step_template">
+    <div class="step_container">
+        <div class="step_effect">
+            {{#each effect in step.effects}}
+            {{> effect_template effect=effect size="big"}}
+            {{/each}}
+        </div>
+    </div>
+</template>

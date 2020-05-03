@@ -1,0 +1,23 @@
+<template name="wonder_template">
+    <div class="wonder_container">
+        <div class="wonder_advantage bg_{{getAdvantageColor}}">
+            {{#if wonder.hasAdvantageCoins}}
+            {{ > coin_template coins=wonder.advantageCoins size="big"}}
+            {{/if}}
+            {{#if wonder.hasAdvantageRessource}}
+            {{> ressource_template ressource=wonder.advantageRessource size="big"}}
+            {{/if}}
+        </div>
+
+        <div class="wonder_name">
+            {{wonder.name}}<br />({{wonder.face}})
+        </div>
+
+        <div class="wonder_steps">
+            {{#each step in wonder.steps}}
+            {{> step_template step=step}}
+            {{/each}}
+        </div>
+
+    </div>
+</template>

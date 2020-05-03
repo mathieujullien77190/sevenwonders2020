@@ -1,0 +1,12 @@
+body {
+  padding: 10px;
+  font-family: sans-serif;
+}
+
+.cards, .wonders {
+  overflow: hidden;
+}
+
+.cards .card_container, .wonders .wonder_container {
+  float: left;
+}

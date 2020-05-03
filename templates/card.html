@@ -1,0 +1,29 @@
+<template name="card_template">
+    <div class="card_container bg_{{card.color}} card_big">
+
+        <div class="card_cost">
+            {{#if card.hasCoinsCost}}
+            <span class="coin">{{card.coinsCost}}</span>
+            {{/if}}
+            {{#each ressource in card.ressourcesCost}}
+            {{> ressource_template ressource=ressource size="mini"}}
+            {{/each}}
+        </div>
+        <div class="card_effect">
+            {{#each effect in card.effects}}
+            {{> effect_template effect=effect size="big"}}
+            {{/each}}
+        </div>
+        <div class="card_name">
+            {{card.name}}
+        </div>
+        <div class="card_image">
+            <div class="card_links">
+                {{#each link in card.links}}
+                {{> link_template card=link}}
+                {{/each}}
+            </div>
+        </div>
+
+    </div>
+</template>

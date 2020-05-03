@@ -1,0 +1,12 @@
+<template name="link_template">
+    <div class="link_container link_color_{{card.color}}">
+        <div class="link_name">
+            {{card.name}}
+        </div>
+        <div class="link_effect">
+            {{#each effect in card.effects}}
+            {{> effect_template effect=effect size="small"}}
+            {{/each}}
+        </div>
+    </div>
+</template>

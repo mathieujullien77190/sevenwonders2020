@@ -1,0 +1,19 @@
+.step_container {
+    width: 100px;
+    background: darkgray;
+    margin: 0 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom: none
+}
+
+.step_effect {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}

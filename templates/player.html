@@ -1,0 +1,25 @@
+<template name="player_template">
+    <div class="player_container">
+        <div class="player_pseudo">{{player.pseudo}}</div>
+        <div class="player_wonder">
+            {{#if player.wonder}}
+            {{> wonder_template wonder=player.wonder}}
+            {{/if}}
+        </div>
+        <div class="player_choiceCards">
+            {{#each card in player.choiceCards}}
+            {{> card_template card=card}}
+            {{/each}}
+        </div>
+        <div class="player_wonderCards">
+            {{#each card in player.wondersCards}}
+            {{> card_template card=card}}
+            {{/each}}
+        </div>
+        <div class="player_myCards">
+            {{#each card in player.myCards}}
+            {{> card_template card=card}}
+            {{/each}}
+        </div>
+    </div>
+</template>

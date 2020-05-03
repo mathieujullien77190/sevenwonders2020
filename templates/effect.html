@@ -1,0 +1,74 @@
+<template name="effect_template">
+    {{> Template.dynamic template=getTemplate data=(getData size)}}
+</template>
+
+<template name="effectRessources_template">
+    <div class="effect_container effect_ressources">
+        {{#each ressource in effect.ressources}}
+        {{> ressource_template ressource=ressource size=effect.ressources.length}}
+        {{#if effect.hasOperatorOr}}
+        <span class="separator">/</span>
+        {{/if}}
+        {{/each}}
+    </div>
+</template>
+
+<template name="effectVictoryPoints_template">
+    <div class="effect_container effect_victoryPoints">
+        {{ > victoryPoint_template victoryPoint=effect.value size=size}}
+    </div>
+</template>
+
+<template name="effectMoney_template">
+    <div class="effect_container effect_money">
+        {{ > coin_template coins=effect.value size=size}}
+    </div>
+</template>
+
+<template name="effectWar_template">
+    <div class="effect_container effect_war">
+        {{#each symbol in getWarSymbols}}
+        <span>{{symbol}}</span>
+        {{/each}}
+    </div>
+</template>
+
+<template name="effectScientific_template">
+    <div class="effect_container effect_scientific">
+        {{#each symbol in effect.symbols}}
+        {{> scientific_template scientific=symbol size=effect.symbols.length}}
+        <span class="separator">/</span>
+        {{/each}}
+    </div>
+</template>
+
+<template name="effectReduction_template">
+    <div class="effect_container effect_reduction">
+
+
+        {{ > coin_template coins=effect.value size="normal"}}
+        <div class="effect_reduction_container">
+            {{#if effect.isApplyLeft}}
+            <span class="effect_arrow arrowLeft">&#9668;</span>
+            {{/if}}
+            {{#each ressource in effect.ressources}}
+            {{> ressource_template ressource=ressource size=effect.ressources.length}}
+            {{/each}}
+            {{#if effect.isApplyRight}}
+            <span class="effect_arrow arrowRight">&#9658;</span>
+            {{/if}}
+        </div>
+
+    </div>
+</template>
+
+
+<template name="effectCardColor_template">
+    <div class="effect_container effect_cardColor">
+        <div class="effect_card bg_{{effect.color}}">
+            {{ > victoryPoint_template victoryPoint=effect.victoryPoint size=getSizePoint}}
+            {{ > coin_template coins=effect.coins size=getSizePoint}}
+        </div>
+
+    </div>
+</template>
