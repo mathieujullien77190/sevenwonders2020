@@ -2,7 +2,7 @@ import { Wonder } from './Wonder'
 import { getWonder } from '../data/wonders'
 import { ReactiveVar } from 'meteor/reactive-var'
 import { Player } from './Player'
-import { shuffle } from './helpers'
+import { shuffle, initArray } from './helpers'
 
 export class Board {
 
@@ -32,7 +32,7 @@ export class Board {
 
     nextAge() {
         this._age.set(this.age < 4 ? this.age + 1 : 0)
-        this._ageCards.set(shuffle(this.getAgeCards(this.age)))
+        this._ageCards.set(this.getAgeCards(this.age, this.players.length))
     }
 
     nextRound() {
@@ -42,10 +42,19 @@ export class Board {
         })
     }
 
-    getAgeCards(age) {
-        return this.allCards.filter(card => {
-            return card.age.includes(age)
-        })
+    getAgeCards(age, nbsPlayers) {
+        const baseCards = this.allCards.filter(card => {
+            return card.age.includes(age) && card.color !== 'purple'
+        }).reduce((acc, curr) => {
+            const nbCard = curr.nbsPlayers.filter(nb => nb <= nbsPlayers).length
+            const cards = initArray(nbCard, curr)
+            return [...acc, ...cards]
+        }, [])
+        const purpleCards = shuffle(this.allCards.filter(card => {
+            return card.color === 'purple' && card.age.includes(age)
+        })).filter((card, index) => index < nbsPlayers + 2)
+
+        return shuffle([...baseCards, ...purpleCards])
     }
 
     getRoundCards(player) {

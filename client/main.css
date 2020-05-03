@@ -4,10 +4,10 @@ body {
 }
 
 
-.cards, .wonders, .board, .board_info, .board_cardsAge, .board_players {
+.cards, .wonders, .board {
   overflow: hidden;
 }
 
-.cards .card_container, .wonders .wonder_container, .board_cardsAge .card_container {
+.card_container{
   float: left;
 }

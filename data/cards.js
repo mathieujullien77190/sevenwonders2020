@@ -126,7 +126,7 @@ const brownCards = [
         name: 'Scierie',
         color: 'brown',
         age: [2],
-        nbsPlayers: [3,4],
+        nbsPlayers: [3, 4],
         ressourcesCost: [],
         coinsCost: 1,
         image: '',
@@ -138,7 +138,7 @@ const brownCards = [
         name: 'Carrière',
         color: 'brown',
         age: [2],
-        nbsPlayers: [3,4],
+        nbsPlayers: [3, 4],
         ressourcesCost: [],
         coinsCost: 1,
         image: '',
@@ -150,7 +150,7 @@ const brownCards = [
         name: 'Briqueterie',
         color: 'brown',
         age: [2],
-        nbsPlayers: [3,4],
+        nbsPlayers: [3, 4],
         ressourcesCost: [],
         coinsCost: 1,
         image: '',
@@ -162,7 +162,7 @@ const brownCards = [
         name: 'Fonderie',
         color: 'brown',
         age: [2],
-        nbsPlayers: [3,4],
+        nbsPlayers: [3, 4],
         ressourcesCost: [],
         coinsCost: 1,
         image: '',
@@ -171,7 +171,7 @@ const brownCards = [
     }
 ]
 
-const greyCards = [     
+const greyCards = [
     {
         id: 14,
         name: 'Métier à tisser',
@@ -515,7 +515,7 @@ const redCards = [
     }
 ]
 
-const yellowCards = [    
+const yellowCards = [
     {
         id: 41,
         name: 'Taverne',

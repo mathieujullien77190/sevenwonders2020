@@ -1,5 +1,4 @@
 import { Template } from 'meteor/templating'
-import { ReactiveVar } from 'meteor/reactive-var'
 
 import { Card } from '../model/Card'
 import { getListCards } from '../data/cards'
@@ -38,14 +37,9 @@ board.addPlayer(players[0])
 board.addPlayer(players[1])
 board.addPlayer(players[2])
 
-
-window.superMatou = board.getPlayer('superMatou')
-window.flopinouch = board.getPlayer('flopinouch')
-window.momo = board.getPlayer('momo')
-
-superMatou.setWonder(1)
-flopinouch.setWonder(3)
-momo.setWonder(4)
+players[0].setWonder(1)
+players[1].setWonder(2)
+players[2].setWonder(3)
 
 Template.board_template.events({
     'click .nextAge'(event) {
@@ -56,6 +50,7 @@ Template.board_template.events({
     },
     'click .addPlayer'(event) {
         board.addPlayer(players[board.players.length])
+        board.players[board.players.length - 1].setWonder(4)
     }
 });
 
