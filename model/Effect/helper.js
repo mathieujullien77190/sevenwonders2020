@@ -5,6 +5,13 @@ import { EMoney } from './EMoney'
 import { EWar } from './EWar'
 import { EScientific } from './EScientific'
 import { ECardColor } from './ECardColor'
+import { ECopyCardColor } from './ECopyCardColor'
+import { EDefeat } from './EDefeat'
+import { EDualPlay } from './EDualPlay'
+import { EFreeLastCard } from './EFreeLastCard'
+import { EPickCard } from './EPickCard'
+import { EWarVictoryPoints } from './EWarVictoryPoints'
+import { EStep } from './EStep'
 
 const classEffects = {
     reduction: EReduction,
@@ -13,7 +20,14 @@ const classEffects = {
     money: EMoney,
     war: EWar,
     scientific: EScientific,
-    cardColor: ECardColor
+    cardColor: ECardColor,
+    copyCardColor: ECopyCardColor,
+    defeat: EDefeat,
+    dualPlay: EDualPlay,
+    freeLastCard: EFreeLastCard,
+    pickCard: EPickCard,
+    warVictoryPoints: EWarVictoryPoints,
+    step: EStep
 }
 
 export const constructEffect = (type, config) => {

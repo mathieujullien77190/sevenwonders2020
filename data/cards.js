@@ -49,6 +49,18 @@ const brownCards = [
         links: []
     },
     {
+        id: 74,
+        name: 'Friche',
+        color: 'brown',
+        age: [1],
+        nbsPlayers: [6],
+        ressourcesCost: [],
+        coinsCost: 1,
+        image: '',
+        effects: [{ type: 'ressources', apply: ['own'], ressources: [4, 1], operator: 'or' }],
+        links: []
+    },
+    {
         id: 5,
         name: 'Excavation',
         color: 'brown',
@@ -113,7 +125,7 @@ const brownCards = [
         id: 10,
         name: 'Scierie',
         color: 'brown',
-        age: [1],
+        age: [2],
         nbsPlayers: [3,4],
         ressourcesCost: [],
         coinsCost: 1,
@@ -125,7 +137,7 @@ const brownCards = [
         id: 11,
         name: 'Carrière',
         color: 'brown',
-        age: [1],
+        age: [2],
         nbsPlayers: [3,4],
         ressourcesCost: [],
         coinsCost: 1,
@@ -137,7 +149,7 @@ const brownCards = [
         id: 12,
         name: 'Briqueterie',
         color: 'brown',
-        age: [1],
+        age: [2],
         nbsPlayers: [3,4],
         ressourcesCost: [],
         coinsCost: 1,
@@ -149,14 +161,14 @@ const brownCards = [
         id: 13,
         name: 'Fonderie',
         color: 'brown',
-        age: [1],
+        age: [2],
         nbsPlayers: [3,4],
         ressourcesCost: [],
         coinsCost: 1,
         image: '',
         effects: [{ type: 'ressources', apply: ['own'], ressources: [2, 2], operator: 'and' }],
         links: []
-    },
+    }
 ]
 
 const greyCards = [     
@@ -868,18 +880,18 @@ const purpleCards = [
         effects: [{ type: 'cardColor', apply: ['left', 'right'], victoryPoint: 1, color: 'red' }],
         links: []
     },
-    // {
-    //     id: 69,
-    //     name: 'Guilde des stratèges',
-    //     color: 'purple',
-    //     age: [3],
-    //     nbsPlayers: [3],
-    //     ressourcesCost: [2, 2, 3, 6],
-    //     coinsCost: 0,
-    //     image: '',
-    //     effects: [{ type: 'defeatPoint', apply: ['left', 'right'], victoryPoint: 1 }],
-    //     links: []
-    // },
+    {
+        id: 69,
+        name: 'Guilde des stratèges',
+        color: 'purple',
+        age: [3],
+        nbsPlayers: [3],
+        ressourcesCost: [2, 2, 3, 6],
+        coinsCost: 0,
+        image: '',
+        effects: [{ type: 'defeat', apply: ['left', 'right'], victoryPoint: 1 }],
+        links: []
+    },
     {
         id: 70,
         name: 'Guilde des armateurs',
@@ -919,20 +931,19 @@ const purpleCards = [
         image: '',
         effects: [{ type: 'cardColor', apply: ['left', 'right'], victoryPoint: 1, color: 'blue' }],
         links: []
+    },
+    {
+        id: 73,
+        name: 'Guilde des bâtisseurs',
+        color: 'purple',
+        age: [3],
+        nbsPlayers: [3],
+        ressourcesCost: [3, 3, 1, 1, 5],
+        coinsCost: 0,
+        image: '',
+        effects: [{ type: 'step', apply: ['own', 'left', 'right'], victoryPoint: 1 }],
+        links: []
     }
-    // ,
-    // {
-    //     id: 73,
-    //     name: 'Guilde des bâtisseurs',
-    //     color: 'purple',
-    //     age: [3],
-    //     nbsPlayers: [3],
-    //     ressourcesCost: [3, 3, 1, 1, 5],
-    //     coinsCost: 0,
-    //     image: '',
-    //     effects: [{ type: 'step', apply: ['own', 'left', 'right'], victoryPoint: 1 }],
-    //     links: []
-    // }
 ];
 
 const cards = [

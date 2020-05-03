@@ -12,4 +12,11 @@ export class ECardColor extends Effect {
         this.coins = config.coins
         this.victoryPoint = config.victoryPoint
     }
+    
+    hasCoins() {
+        return this.coins > 0
+    }
+    hasVictoryPoints() {
+        return this.victoryPoint > 0
+    }
 }

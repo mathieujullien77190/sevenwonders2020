@@ -66,9 +66,62 @@
 <template name="effectCardColor_template">
     <div class="effect_container effect_cardColor">
         <div class="effect_card bg_{{effect.color}}">
+            {{#if effect.hasVictoryPoints}}
+            {{ > victoryPoint_template victoryPoint=effect.victoryPoint size=getSizePoint}}
+            {{/if}}
+            {{#if effect.hasCoins}}
+            {{ > coin_template coins=effect.coins size=getSizePoint}}
+            {{/if}}
+        </div>
+
+    </div>
+</template>
+
+<template name="effectCopyCardColor_template">
+    <div class="effect_container effect_copyCardColor">
+        <div class="effect_card bg_{{effect.color}}">            
+        </div>
+    </div>
+</template>
+
+<template name="effectDefeat_template">
+    <div class="effect_container effect_defeat">
+        <div class="effect_symbol bg_{{effect.color}}">
             {{ > victoryPoint_template victoryPoint=effect.victoryPoint size=getSizePoint}}
             {{ > coin_template coins=effect.coins size=getSizePoint}}
         </div>
+    </div>
+</template>
 
+<template name="effectWarVictoryPoint_template">
+    <div class="effect_container effect_warVictoryPoint">
+        <div class="effect_symbol bg_{{effect.color}}">
+            {{ > victoryPoint_template victoryPoint=effect.victoryPoint size=getSizePoint}}
+            {{ > coin_template coins=effect.coins size=getSizePoint}}
+        </div>
+    </div>
+</template>
+
+<template name="effectDualPlay_template">
+    <div class="effect_container effect_dualPlay">
+    </div>
+</template>
+
+<template name="effectFreeLastCard_template">
+    <div class="effect_container effect_freeLastCard">
+    </div>
+</template>
+
+<template name="effectPickCard_template">
+    <div class="effect_container effect_pickCard">
+    </div>
+</template>
+
+<template name="effectStep_template">
+    <div class="effect_container effect_step">
+        <div class="effect_symbol bg_{{effect.color}}">
+            {{ > victoryPoint_template victoryPoint=effect.victoryPoint size=getSizePoint}}
+            {{ > coin_template coins=effect.coins size=getSizePoint}}
+        </div>
     </div>
 </template>
