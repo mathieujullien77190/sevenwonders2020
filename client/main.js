@@ -1,3 +1,4 @@
+import 'bootstrap'
 import { Template } from 'meteor/templating'
 
 import { Card } from '../model/Card'

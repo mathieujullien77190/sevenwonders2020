@@ -692,7 +692,7 @@ const greenCards = [
         coinsCost: 0,
         image: '',
         effects: [{ type: 'scientific', apply: ['own'], symbols: [2] }],
-        links: [36, 56]
+        links: [56, 36]
     },
     {
         id: 54,
@@ -718,7 +718,7 @@ const greenCards = [
         coinsCost: 0,
         image: '',
         effects: [{ type: 'scientific', apply: ['own'], symbols: [1] }],
-        links: [51, 59]
+        links: [59, 51]
     },
     {
         id: 56,
@@ -730,7 +730,7 @@ const greenCards = [
         coinsCost: 0,
         image: '',
         effects: [{ type: 'scientific', apply: ['own'], symbols: [2] }],
-        links: [40, 60]
+        links: [60, 40]
     },
     {
         id: 57,
@@ -754,7 +754,7 @@ const greenCards = [
         coinsCost: 0,
         image: '',
         effects: [{ type: 'scientific', apply: ['own'], symbols: [3] }],
-        links: [62, 63]
+        links: [63, 62]
     },
 
     // Âge 3
