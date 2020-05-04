@@ -1,13 +1,15 @@
 import 'bootstrap'
 import { Template } from 'meteor/templating'
+import { Meteor } from 'meteor/meteor'
 
 import { Card } from '../model/Card'
-import { getAllCards } from '../data/cards'
+import { allCards, getCard } from '../data/cards'
 import { Wonder } from '../model/Wonder'
 import { getListWonders } from '../data/wonders'
+import { Player } from '../model/Player'
 
 
-import { getBoardObj, getBoardMongo } from '../both/board'
+import { getBoardObj, getBoardMongo, getBoardsMongo } from '../both/board'
 
 
 import '../templates/player.html'
@@ -22,23 +24,22 @@ import '../templates/link.html'
 import '../templates/atoms.html'
 import './main.html'
 
-//debug
-getBoardObj().init()
+let READY = new ReactiveVar(false)
 
-window.cards = getAllCards().map(card => new Card(card))
+
+window.cards = allCards.map(card => new Card(card))
 window.wonders = getListWonders().map(wonder => new Wonder(wonder))
 
-Template.board_template.events({
-    'click .nextAge'(event) {
-        getBoardObj().nextAge()
-    },
-    'click .nextRound'(event) {
-        board.nextRound()
-    },
-    'click .addPlayer'(event) {
-        board.addPlayer(players[board.players.length])
-        board.players[board.players.length - 1].setWonder(4)
-    }
+Meteor.startup(() => {
+    window.setTimeout(() => {
+        //debug
+        window.boardsMongo = getBoardsMongo()
+        window.boardObj = getBoardObj()
+        boardObj.init()
+
+        READY.set(true);
+
+    }, 1000)
 });
 
 Template.body.helpers({
@@ -49,20 +50,27 @@ Template.body.helpers({
         return window.wonders
     },
     board() {
-        return getBoardMongo()
+        return READY.get() ? getBoardMongo() : {}
     }
 });
+
+Template.board_template.events({
+    'click .nextAge'(event) {
+        getBoardObj().nextAge()
+    }
+});
+
 
 Template.board_template.helpers({
     getAgeCards() {
         const boardMongo = getBoardMongo()
-        const boardObj = getBoardObj()
         if (boardMongo && boardMongo.ageCards) {
-            return boardMongo.ageCards.map(id => boardObj.findCard(id))
+            return boardMongo.ageCards.map(uniqId => new Card(getCard(uniqId)))
         } else {
             return []
         }
     }
+
 })
 
 Template.wonder_template.helpers({

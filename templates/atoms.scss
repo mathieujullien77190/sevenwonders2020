@@ -11,24 +11,24 @@
     background-size: 100% 100%;
     background-repeat:  no-repeat;
     background-image: url("/images/global/coin.png");
-}
 
-.coin.size_big {
-    height: 25px;
-    width: 25px;
-    font-size: 20px;
-}
+    &.size_big {
+        height: 25px;
+        width: 25px;
+        font-size: 20px;
+    }
 
-.coin.size_normal {
-    height: 15px;
-    width: 15px;
-    font-size: 12px;
-}
+    &.size_normal {
+        height: 15px;
+        width: 15px;
+        font-size: 12px;
+    }
 
-.coin.size_small {
-    height: 10px;
-    width: 10px;
-    font-size: 8px;
+    &.size_small {
+        height: 10px;
+        width: 10px;
+        font-size: 8px;
+    }
 }
 
 .victoryPoint {

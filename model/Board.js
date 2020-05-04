@@ -1,5 +1,6 @@
 
 import { shuffle } from './helpers'
+import { Player } from './Player'
 
 export class Board {
 
@@ -7,10 +8,11 @@ export class Board {
 
         this.id = config.id
         this.allCards = config.allCards
-        this._age = 0
-        this._players = []
-        this._ageCards = []
-        this._round = 0
+
+        this._age = config.age ? config.age : 0
+        this._nbsPlayers = config.nbsPlayers ? config.nbsPlayers : 3
+        this._ageCards = config.ageCards ? config.ageCards : []
+        this._round = config.round ? config.round : 0
 
         this.update = actions && actions.update ? actions.update : () => { }
         this.create = actions && actions.create ? actions.create : () => { }
@@ -21,55 +23,30 @@ export class Board {
         this.create(this.toJson())
     }
 
-    findCard(id) {
-        const cards = this.allCards.filter(card => card.id === id)
-        return cards.length === 1 ? cards[0] : null
-    }
-
-    addPlayer(player) {
+    addPlayer() {
         if (this.age === 0) {
-            this._players = [...this.players, player]
-        } else {
-            console.error("Error => Add player age = 0")
+            this._nbPlayer++
+            this.update(this.toJson())
         }
-    }
-
-    getPlayer(pseudo) {
-        const players = this.players.filter(player => player.pseudo === pseudo)
-        return players[0] ? players[0] : null
     }
 
     nextAge() {
         this._age = this.age < 4 ? this.age + 1 : 0
-        this._ageCards = this.calcAgeCards(this.age, this.players.length)
+        this._ageCards = this.calcAgeCards(this.age, this.nbsPlayers)
         this.update(this.toJson())
-    }
-
-    nextRound() {
-        this._round = this.round < 6 ? this.round + 1 : 1
-        this.players.forEach((player, index) => {
-            player.setChoiceCards(this.getRoundCards(this.players.length, index))
-        })
     }
 
     calcAgeCards(age, nbsPlayers) {
         const baseCards = this.allCards.filter(card => {
             return age >= 1 && age <= 3 && card.age.includes(age) && card.color !== 'purple' && card.nbsPlayer <= nbsPlayers
-        }).map(card => card.id)
+        })
 
         const purpleCards = shuffle(this.allCards.filter(card => {
             return card.color === 'purple' && age === 3
-        })).filter((card, index) => index < nbsPlayers + 2).map(card => card.id)
+        })).filter((card, index) => index < nbsPlayers + 2)
 
         return shuffle([...baseCards, ...purpleCards])
     }
-
-    getRoundCards(nbsPlayers, indexPlayer) {
-        return this.ageCards.filter((card, index) => {
-            return index % nbsPlayers === indexPlayer
-        })
-    }
-
 
     get age() {
         return this._age
@@ -79,8 +56,8 @@ export class Board {
         return this._ageCards
     }
 
-    get players() {
-        return this._players
+    get nbsPlayers() {
+        return this._nbsPlayers
     }
 
     get round() {
@@ -91,7 +68,8 @@ export class Board {
         return {
             age: this.age,
             id: this.id,
-            ageCards: this.ageCards
+            ageCards: this.ageCards.map(card => card.uniqId),
+            nbsPlayers: this.nbsPlayers
         }
     }
 

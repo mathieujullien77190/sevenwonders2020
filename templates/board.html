@@ -3,17 +3,12 @@
         <div class="board_info">
             <h3>Info</h3>
             <p>age : {{board.age}} <button class="nextAge">Age suivant</button></p>
+            <p>nombre joueurs : {{board.nbsPlayers}} </p>
         </div>
         <div class="board_cardsAge">
             <h3>Cards Age</h3>
             {{#each card in getAgeCards}}
             {{> card_template card=card}}
-            {{/each}}
-        </div>
-        <div class="board_players">
-            <h3>Players</h3>
-            {{#each player in board.players}}
-            {{> player_template player=player}}
             {{/each}}
         </div>
     </div>

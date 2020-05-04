@@ -1,35 +1,43 @@
 import { Mongo } from 'meteor/mongo';
 import { Board } from '../model/Board'
 import { Card } from '../model/Card'
-import { getAllCards } from '../data/cards'
-import { Player } from '../model/Player'
-import { addObject, updateObject } from './mongoHelpers'
+import { allCards, getCard } from '../data/cards'
+import { addObject, updateObject, getObject } from './mongoHelpers'
 
-const allCards = getAllCards().map(card => new Card(card))
+
 const ID = 1
-
 const boardsMongo = new Mongo.Collection('boards')
 
-const boardObj = new Board(
-    { id: ID, allCards: allCards },
-    {
-        update: (objectState) => {
-            updateObject(objectState, boardsMongo)
-        },
-        create: (objectState) => {
-            addObject(objectState, boardsMongo)
-        }
-    }
-)
-boardObj.addPlayer(new Player({ pseudo: 'superMatou', id: 1 }))
-boardObj.addPlayer(new Player({ pseudo: 'flopinouch', id: 2 }))
-boardObj.addPlayer(new Player({ pseudo: 'momo', id: 3 }))
 
+export const getBoardsMongo = () => {
+    return boardsMongo
+}
 
 export const getBoardMongo = () => {
-    return boardsMongo.findOne({ id: ID })
+    return getObject(ID, boardsMongo)
 }
 
 export const getBoardObj = () => {
-    return boardObj
+    const mongoBoard = getObject(ID, boardsMongo)
+
+    const baseConfig = { id: ID, allCards: allCards.map(card => new Card(card)) }
+
+    const config = mongoBoard ? {
+        ...baseConfig,
+        ageCards: mongoBoard.ageCards.map(uniqId => getCard(uniqId)),
+        age: mongoBoard.age,
+        nbsPlayers: mongoBoard.nbsPlayers
+    } : baseConfig
+
+    return new Board(
+        config,
+        {
+            update: (objectState) => {
+                updateObject(objectState, boardsMongo)
+            },
+            create: (objectState) => {
+                addObject(objectState, boardsMongo)
+            }
+        }
+    )
 }

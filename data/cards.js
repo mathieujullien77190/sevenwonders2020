@@ -957,18 +957,27 @@ const cards = [
     ...purpleCards
 ]
 
-export const getCard = (id) => {
+const getAllCards = () => cards.reduce((acc, curr) => {
+    const nbCard = curr.nbsPlayers.length
+    const cards = initArray(nbCard, curr).map((card, index) => {
+        return { ...card, uniqId: `${card.id}_${curr.nbsPlayers[index]}`, nbsPlayer: curr.nbsPlayers[index] }
+    })
+    return [...acc, ...cards]
+}, [])
+
+export const allCards = getAllCards()
+
+export const getCard = (uniqId) => {
+    const result = allCards.filter(card => card.uniqId === uniqId)
+    return result.length === 1 ? result[0] : null;
+}
+
+export const getCardLink = (id) => {
     const result = cards.filter(card => card.id === id)
     return result.length === 1 ? result[0] : null;
 }
 
-export const getAllCards = () => cards.reduce((acc, curr) => {
-    const nbCard = curr.nbsPlayers.length
-    const cards = initArray(nbCard, curr).map((card, index) => {
-        return { ...card, id: `${card.id}_${curr.nbsPlayers[index]}`, nbsPlayer: curr.nbsPlayers[index] }
-    })
-    return [...acc, ...cards]
-}, [])
+
 
 // example card : 
 // {

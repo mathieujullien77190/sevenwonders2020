@@ -1,13 +1,14 @@
 import { Ressource } from './Ressource'
 import { constructEffect } from './Effect/helper'
 import { getRessource } from '../data/ressources'
-import { getCard } from '../data/cards'
+import { getCardLink } from '../data/cards'
 
 export class Card {
 
     constructor(config) {
 
         this.id = config.id
+        this.uniqId = config.uniqId
         this.name = config.name
         this.color = config.color
         this.age = [...config.age]
@@ -16,7 +17,7 @@ export class Card {
         this.coinsCost = config.coinsCost
         this.image = config.image
         this.effects = config.effects.map(effect => constructEffect(effect.type, effect))
-        this.links = config.links.map(id => new Card(getCard(id)))
+        this.links = config.links.map(id => new Card(getCardLink(id)))
     }
 
     hasRessourcesCost() {
