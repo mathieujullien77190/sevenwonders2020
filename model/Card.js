@@ -28,5 +28,9 @@ export class Card {
         return this.coinsCost > 0
     }
 
+    toJson() {
+        JSON.parse(JSON.stringify(this))
+    }
+
 }
 

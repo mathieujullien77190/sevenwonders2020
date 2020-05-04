@@ -3,7 +3,7 @@ import { Template } from 'meteor/templating'
 import { Meteor } from 'meteor/meteor'
 
 import { Card } from '../model/Card'
-import { allCards, getCard } from '../data/cards'
+import { allCards } from '../data/cards'
 import { Wonder } from '../model/Wonder'
 import { getListWonders } from '../data/wonders'
 import { Player } from '../model/Player'
@@ -30,6 +30,16 @@ let READY = new ReactiveVar(false)
 window.cards = allCards.map(card => new Card(card))
 window.wonders = getListWonders().map(wonder => new Wonder(wonder))
 
+const allPlayers = [
+    new Player({ id: 1, pseudo: 'Matou' }),
+    new Player({ id: 2, pseudo: 'Gregou' }),
+    new Player({ id: 3, pseudo: 'flouflou' }),
+    new Player({ id: 4, pseudo: 'Manou' }),
+    new Player({ id: 5, pseudo: 'Morgou' }),
+    new Player({ id: 6, pseudo: 'Mandou' }),
+    new Player({ id: 7, pseudo: 'Lorou' }),
+]
+
 Meteor.startup(() => {
     window.setTimeout(() => {
         //debug
@@ -55,23 +65,21 @@ Template.body.helpers({
 });
 
 Template.board_template.events({
-    'click .nextAge'(event) {
-        getBoardObj().nextAge()
+    'click .nextAge'() {
+        window.boardObj.nextAge()
+    },
+    'click .addPlayer'() {
+        const nbPlayer = window.boardObj.players.length
+        window.boardObj.addPlayer(allPlayers[nbPlayer % allPlayers.length])
+    },
+    'click .delPlayer'() {
+        const indexLastPlayer = window.boardObj.players.length - 1
+        if (indexLastPlayer >= 0) {
+            window.boardObj.delPlayer(window.boardObj.players[indexLastPlayer])
+        }
     }
 });
 
-
-Template.board_template.helpers({
-    getAgeCards() {
-        const boardMongo = getBoardMongo()
-        if (boardMongo && boardMongo.ageCards) {
-            return boardMongo.ageCards.map(uniqId => new Card(getCard(uniqId)))
-        } else {
-            return []
-        }
-    }
-
-})
 
 Template.wonder_template.helpers({
     getAdvantageColor() {

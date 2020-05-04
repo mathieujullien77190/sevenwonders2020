@@ -967,11 +967,6 @@ const getAllCards = () => cards.reduce((acc, curr) => {
 
 export const allCards = getAllCards()
 
-export const getCard = (uniqId) => {
-    const result = allCards.filter(card => card.uniqId === uniqId)
-    return result.length === 1 ? result[0] : null;
-}
-
 export const getCardLink = (id) => {
     const result = cards.filter(card => card.id === id)
     return result.length === 1 ? result[0] : null;

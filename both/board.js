@@ -1,11 +1,11 @@
 import { Mongo } from 'meteor/mongo';
 import { Board } from '../model/Board'
 import { Card } from '../model/Card'
-import { allCards, getCard } from '../data/cards'
+import { allCards } from '../data/cards'
 import { addObject, updateObject, getObject } from './mongoHelpers'
 
 
-const ID = 1
+const ID = 12
 const boardsMongo = new Mongo.Collection('boards')
 
 
@@ -24,9 +24,7 @@ export const getBoardObj = () => {
 
     const config = mongoBoard ? {
         ...baseConfig,
-        ageCards: mongoBoard.ageCards.map(uniqId => getCard(uniqId)),
-        age: mongoBoard.age,
-        nbsPlayers: mongoBoard.nbsPlayers
+        ...mongoBoard,
     } : baseConfig
 
     return new Board(
