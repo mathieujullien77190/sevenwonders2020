@@ -12,42 +12,42 @@ export class Player {
 
         this.points = 0
         this.coins = 3
-        this._wonder = new ReactiveVar([])
-        this._choiceCards = new ReactiveVar([])
-        this._myCards = new ReactiveVar([])
-        this._wonderCards = new ReactiveVar([])
+        this._wonder = []
+        this._choiceCards = []
+        this._myCards = []
+        this._wonderCards = []
     }
 
     setWonder(id) {
-        this._wonder.set(new Wonder(getWonder(id)))
+        this._wonder = new Wonder(getWonder(id))
     }
 
     setChoiceCards(cards) {
-        this._choiceCards.set([...cards])
+        this._choiceCards = [...cards]
     }
 
     addCard(card) {
-        this._myCards.set([...this.myCards, card])
+        this._myCards = [...this.myCards, card]
     }
 
     addWonderCard(card) {
-        this._wonderCards.set([...this.wonderCards, card])
+        this._wonderCards = [...this.wonderCards, card]
     }
 
     get choiceCards() {
-        return this._choiceCards.get()
+        return this._choiceCards
     }
 
     get myCards() {
-        return this._choiceCards.get()
+        return this._myCards
     }
 
     get wonderCards() {
-        return this._wonderCards.get()
+        return this._wonderCards
     }
 
     get wonder() {
-        return this._wonder.get()
+        return this._wonder
     }
 
 }

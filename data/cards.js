@@ -1,3 +1,5 @@
+import { initArray } from '../model/helpers'
+
 const brownCards = [
     // Âge 1
     {
@@ -658,10 +660,10 @@ const yellowCards = [
         color: 'yellow',
         age: [3],
         nbsPlayers: [3, 5, 6],
-        ressourcesCost: [3, 3,2],
+        ressourcesCost: [3, 3, 2],
         coinsCost: 0,
         image: '',
-        effects: [{ type: 'step', apply: ['own'], coins: 1, victoryPoint: 1}],
+        effects: [{ type: 'step', apply: ['own'], coins: 1, victoryPoint: 1 }],
         links: []
     }
 ]
@@ -955,11 +957,29 @@ const cards = [
     ...purpleCards
 ]
 
-export const getListCards = (filterFn) => {
-    return filterFn ? cards.filter(filterFn) : cards;
-}
-
 export const getCard = (id) => {
     const result = cards.filter(card => card.id === id)
     return result.length === 1 ? result[0] : null;
 }
+
+export const getAllCards = () => cards.reduce((acc, curr) => {
+    const nbCard = curr.nbsPlayers.length
+    const cards = initArray(nbCard, curr).map((card, index) => {
+        return { ...card, id: `${card.id}_${curr.nbsPlayers[index]}`, nbsPlayer: curr.nbsPlayers[index] }
+    })
+    return [...acc, ...cards]
+}, [])
+
+// example card : 
+// {
+//     id: '1_3',
+//     name: 'Chantier',
+//     color: 'brown',
+//     age: [1],
+//     nbsPlayer: 3,
+//     ressourcesCost: [],
+//     coinsCost: 0,
+//     image: '',
+//     effects: [{ type: 'ressources', apply: ['own'], ressources: [4] }],
+//     links: []
+// }

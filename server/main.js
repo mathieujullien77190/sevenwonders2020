@@ -1,5 +1,6 @@
-import { Meteor } from 'meteor/meteor';
+import { getBoardObj } from '../both/board'
 
 Meteor.startup(() => {
-  // code to run on server at startup
+  console.log('start')
+  getBoardObj().init()
 });

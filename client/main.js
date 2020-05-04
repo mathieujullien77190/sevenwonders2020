@@ -1,11 +1,13 @@
 import { Template } from 'meteor/templating'
 
 import { Card } from '../model/Card'
-import { getListCards } from '../data/cards'
+import { getAllCards } from '../data/cards'
 import { Wonder } from '../model/Wonder'
 import { getListWonders } from '../data/wonders'
-import { Player } from '../model/Player'
-import { Board } from '../model/Board'
+
+
+import { getBoardObj, getBoardMongo } from '../both/board'
+
 
 import '../templates/player.html'
 import '../templates/card.html'
@@ -20,30 +22,14 @@ import '../templates/atoms.html'
 import './main.html'
 
 //debug
-window.cards = getListCards().map(card => new Card(card))
+getBoardObj().init()
+
+window.cards = getAllCards().map(card => new Card(card))
 window.wonders = getListWonders().map(wonder => new Wonder(wonder))
-window.players = [
-    new Player({ pseudo: 'superMatou', id: 1 }),
-    new Player({ pseudo: 'flopinouch', id: 2 }),
-    new Player({ pseudo: 'momo', id: 3 }),
-    new Player({ pseudo: 'manou', id: 4 }),
-    new Player({ pseudo: 'gregou', id: 5 }),
-    new Player({ pseudo: 'rourou', id: 6 }),
-    new Player({ pseudo: 'amandou', id: 7 })
-]
-window.board = new Board({ id: 1, allCards: window.cards })
-
-board.addPlayer(players[0])
-board.addPlayer(players[1])
-board.addPlayer(players[2])
-
-players[0].setWonder(1)
-players[1].setWonder(2)
-players[2].setWonder(3)
 
 Template.board_template.events({
     'click .nextAge'(event) {
-        board.nextAge()
+        getBoardObj().nextAge()
     },
     'click .nextRound'(event) {
         board.nextRound()
@@ -62,9 +48,21 @@ Template.body.helpers({
         return window.wonders
     },
     board() {
-        return window.board
+        return getBoardMongo()
     }
 });
+
+Template.board_template.helpers({
+    getAgeCards() {
+        const boardMongo = getBoardMongo()
+        const boardObj = getBoardObj()
+        if (boardMongo && boardMongo.ageCards) {
+            return boardMongo.ageCards.map(id => boardObj.findCard(id))
+        } else {
+            return []
+        }
+    }
+})
 
 Template.wonder_template.helpers({
     getAdvantageColor() {

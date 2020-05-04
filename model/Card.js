@@ -11,7 +11,7 @@ export class Card {
         this.name = config.name
         this.color = config.color
         this.age = [...config.age]
-        this.nbsPlayers = [...config.nbsPlayers]
+        this.nbsPlayer = config.nbsPlayer
         this.ressourcesCost = config.ressourcesCost.map(id => new Ressource(getRessource(id)))
         this.coinsCost = config.coinsCost
         this.image = config.image
