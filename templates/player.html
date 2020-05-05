@@ -1,6 +1,12 @@
 <template name="player_template">
     <div class="player_container">
-        <div class="player_pseudo">{{player.pseudo}}</div>
+        <h4 class="player_pseudo">{{player.pseudo}}</h4>
+
+        <p>Choisir une merveille : </p>
+        {{#each wonder in wonders}}
+        <button class="wonder_button_{{wonder.id}}">{{wonder.name}} ({{wonder.face}})</button>
+        {{/each}}
+
         <div class="player_wonder">
             {{#if player.wonder}}
             {{> wonder_template wonder=player.wonder}}

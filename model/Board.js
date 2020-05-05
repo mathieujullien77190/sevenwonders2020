@@ -1,5 +1,6 @@
 
 import { shuffle } from './helpers'
+import { Player } from './Player'
 
 export class Board {
 
@@ -10,7 +11,7 @@ export class Board {
 
         this.data = {
             age: config.age ? config.age : 0,
-            players: config.players ? config.players : [],
+            players: config.players ? config.players.map(player => new Player(player)) : [],
             ageCards: config.ageCards ? config.ageCards : [],
             round: config.round ? config.round : 0,
         };
@@ -26,7 +27,7 @@ export class Board {
 
     addPlayer(player) {
         if (this.age === 0 && !this.getPlayer(player.id) && this.players.length <= 7) {
-            this.players = [...this.players, player]
+            this.players = [...this.players, new Player(player)]
             this.update(this.toJson())
         }
     }
@@ -103,7 +104,11 @@ export class Board {
     }
 
     toJson() {
-        return JSON.parse(JSON.stringify({ ...this.data, id: this.id }))
+        return JSON.parse(JSON.stringify({
+            ...this.data,
+            id: this.id,
+            players: this.players.map(player => player.toJson())
+        }))
     }
 
 

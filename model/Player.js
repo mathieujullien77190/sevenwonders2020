@@ -1,25 +1,24 @@
-import { Wonder } from './Wonder'
-import { getWonder } from '../data/wonders'
-import { ReactiveVar } from 'meteor/reactive-var'
-
 
 export class Player {
 
     constructor(config) {
 
         this.id = config.id
-        this.pseudo = config.pseudo
 
-        this.points = 0
-        this.coins = 3
-        this._wonder = []
-        this._choiceCards = []
-        this._myCards = []
-        this._wonderCards = []
+        this.data = {
+            pseudo: config.pseudo ? config.pseudo : 'inconnu',
+            points: config.points ? config.points : 0,
+            coins: config.coins ? config.coins : 3,
+            wonder: config.wonder ? config.wonder : null,
+            choiceCards: config.choiceCards ? config.choiceCards : [],
+            myCards: config.myCards ? config.myCards : [],
+            wonderCards: config.wonderCards ? config.wonderCards : []
+        }
+
     }
 
-    setWonder(id) {
-        this._wonder = new Wonder(getWonder(id))
+    setWonder(wonder) {
+        this._wonder = new Wonder(wonder)
     }
 
     setChoiceCards(cards) {
@@ -34,21 +33,58 @@ export class Player {
         this._wonderCards = [...this.wonderCards, card]
     }
 
-    get choiceCards() {
-        return this._choiceCards
+    get pseudo() {
+        return this.data.pseudo
     }
 
-    get myCards() {
-        return this._myCards
-    }
-
-    get wonderCards() {
-        return this._wonderCards
+    get points() {
+        return this.data.points
     }
 
     get wonder() {
-        return this._wonder
+        return this.data.wonder
     }
+
+    get choiceCards() {
+        return this.data.choiceCards
+    }
+
+    get myCards() {
+        return this.data.myCards
+    }
+
+    get wonderCards() {
+        return this.data.wonderCards
+    }
+
+    set pseudo(pseudo) {
+        this.data.pseudo = pseudo
+    }
+
+    set points(points) {
+        this.data.points = points
+    }
+
+    set wonder(wonder) {
+        this.data.wonder = wonder
+    }
+
+    set choiceCards(choiceCards) {
+        this.data.choiceCards = choiceCards
+    }
+
+    set myCards(myCards) {
+        this.data.myCards = myCards
+    }
+
+    set wonderCards(wonderCards) {
+        this.data.wonderCards = wonderCards
+    }
+
+    toJson() {
+        return JSON.parse(JSON.stringify({ ...this.data, id: this.id }))
+    }
+
 
 }
 

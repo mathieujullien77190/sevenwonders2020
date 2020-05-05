@@ -6,7 +6,8 @@ import { Card } from '../model/Card'
 import { allCards } from '../data/cards'
 import { Wonder } from '../model/Wonder'
 import { getListWonders } from '../data/wonders'
-import { Player } from '../model/Player'
+import { random } from '../both/randomHelper'
+
 
 
 import { getBoardObj, getBoardMongo, getBoardsMongo } from '../both/board'
@@ -31,13 +32,13 @@ window.cards = allCards.map(card => new Card(card))
 window.wonders = getListWonders().map(wonder => new Wonder(wonder))
 
 const allPlayers = [
-    new Player({ id: 1, pseudo: 'Matou' }),
-    new Player({ id: 2, pseudo: 'Gregou' }),
-    new Player({ id: 3, pseudo: 'flouflou' }),
-    new Player({ id: 4, pseudo: 'Manou' }),
-    new Player({ id: 5, pseudo: 'Morgou' }),
-    new Player({ id: 6, pseudo: 'Mandou' }),
-    new Player({ id: 7, pseudo: 'Lorou' }),
+    { id: 1, pseudo: 'Matou' },
+    { id: 2, pseudo: 'Gregou' },
+    { id: 3, pseudo: 'flouflou' },
+    { id: 4, pseudo: 'Manou' },
+    { id: 5, pseudo: 'Morgou' },
+    { id: 6, pseudo: 'Mandou' },
+    { id: 7, pseudo: 'Lorou' },
 ]
 
 Meteor.startup(() => {
@@ -61,6 +62,14 @@ Template.body.helpers({
     },
     board() {
         return READY.get() ? getBoardMongo() : {}
+    }
+});
+
+Template.player_template.helpers({
+    wonders() {
+        const nameWonders = [...new Set(window.wonders.map(wonder => wonder.name))]
+        const select = nameWonders[random(nameWonders.length - 1)]
+        return window.wonders.filter(wonder => wonder.name === select)
     }
 });
 
