@@ -1,0 +1,37 @@
+<template name="player_template">
+    <div class="card" style="margin:10px;">
+        <div class="card-header">
+            <h3>
+                {{player.pseudo}}
+                <span class="badge badge-info">points : {{player.points}}</span>
+                <span class="badge badge-info">Monnaie : {{player.coins}}</span>
+            </h3>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                <h5>Merveille</h5>
+                {{#if player.wonder}}
+                {{> wonder_template wonder=player.wonder}}
+                {{/if}}
+            </li>
+            <li class="list-group-item">
+                <h5>Choix carte tour</h5>
+                {{#each card in player.choiceCards}}
+                {{> card_template card=card}}
+                {{/each}}
+            </li>
+            <li class="list-group-item">
+                <h5>Cartes merveille</h5>
+                {{#each card in player.wondersCards}}
+                {{> card_template card=card}}
+                {{/each}}
+            </li>
+            <li class="list-group-item">
+                <h5>Cartes posées</h5>
+                {{#each card in player.myCards}}
+                {{> card_template card=card}}
+                {{/each}}
+            </li>
+        </ul>
+    </div>
+</template>

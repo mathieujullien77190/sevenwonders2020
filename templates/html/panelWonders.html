@@ -1,0 +1,21 @@
+<template name="panelWonders_template">
+    <div class="card" style="margin:10px;">
+        <div class="card-header">
+            <h3>MERVEILLES<span class="badge badge-info float-right">{{wonders.length}}</span></h3>
+        </div>
+        <div class="card-body">
+            {{#each wonder in wonders}}
+            <div class="card float-left" style="width:auto;margin: 5px;">
+                <div class="card-header">
+                    {{wonder.name}}
+                </div>
+                {{> wonder_template wonder=wonder}}
+                <div class="card-footer text-muted">
+                    id : {{wonder.id}}
+                </div>
+            </div>
+
+            {{/each}}
+        </div>
+    </div>
+</template>

@@ -1,0 +1,48 @@
+<template name="board_template">
+    <div class="card" style="margin:10px;">
+        <div class="card-header">
+            <h3>
+                Board
+
+
+                <button type="button" class="btn btn-danger float-right logout">Deconnexion</button>
+            </h3>
+        </div>
+
+        <div class="card-body">
+            <button type="button" class="btn btn-primary nextAge">Age suivant</button>
+            <button type="button" class="btn btn-primary addPlayer">Ajouter joueur</button>
+            <button type="button" class="btn btn-primary delPlayer">Supprimer joueur</button>
+        </div>
+    </div>
+
+    <div class="card" style="margin:10px;">
+        <div class="card-header">
+            <h3>
+                Cartes age {{board.age}}
+                <span class="badge badge-info float-right">{{board.ageCards.length}}</span>
+            </h3>
+        </div>
+        <div class="card-body">
+            {{#each card in board.ageCards}}
+            {{> card_template card=card}}
+            {{/each}}
+        </div>
+    </div>
+
+    <div class="card" style="margin:10px;">
+        <div class="card-header">
+            <h3>
+                Joueurs
+                <span class="badge badge-info float-right">{{board.players.length}}</span>
+            </h3>
+        </div>
+
+        <div class="card-body">
+            {{#each player in board.players}}
+            {{> player_template player=player}}
+            {{/each}}
+        </div>
+    </div>
+
+</template>

@@ -965,6 +965,7 @@ const getAllCards = () => cards.reduce((acc, curr) => {
     return [...acc, ...cards]
 }, [])
 
+
 export const allCards = getAllCards()
 
 export const getCardLink = (id) => {

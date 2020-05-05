@@ -10,18 +10,27 @@ import { random } from '../both/randomHelper'
 
 import { getBoardObj, getBoardMongo, getBoardsMongo } from '../both/board'
 
-import '../templates/accueil.html'
-import '../templates/player.html'
-import '../templates/card.html'
-import '../templates/wonder.html'
-import '../templates/board.html'
-import '../templates/step.html'
-import '../templates/ressource.html'
-import '../templates/scientific.html'
-import '../templates/effect.html'
-import '../templates/link.html'
-import '../templates/atoms.html'
+
+import '../templates/html/accueil.html'
+import '../templates/html/player.html'
+import '../templates/html/card.html'
+import '../templates/html/wonder.html'
+import '../templates/html/step.html'
+import '../templates/html/ressource.html'
+import '../templates/html/scientific.html'
+import '../templates/html/effect.html'
+import '../templates/html/link.html'
+import '../templates/html/atoms.html'
 import './main.html'
+
+import '../templates/html/panelCards.html'
+import '../templates/helpers/panelCards.js'
+
+import '../templates/html/panelWonders.html'
+import '../templates/helpers/panelWonders.js'
+
+import '../templates/html/board.html'
+import '../templates/helpers/board.js'
 
 let READY = new ReactiveVar(false)
 
@@ -52,29 +61,11 @@ Meteor.startup(() => {
 });
 
 Template.accueil_template.helpers({
-    cards() {
-        return window.cards
-    },
     wonders() {
         return window.wonders
     },
     board() {
         return READY.get() ? getBoardMongo() : {}
-    }
-});
-
-Template.accueil_template.events({
-    'click .logout'() {
-        Meteor.logout()
-    }
-});
-
-
-Template.player_template.helpers({
-    wonders() {
-        const nameWonders = [...new Set(window.wonders.map(wonder => wonder.name))]
-        const select = nameWonders[random(nameWonders.length - 1)]
-        return window.wonders.filter(wonder => wonder.name === select)
     }
 });
 

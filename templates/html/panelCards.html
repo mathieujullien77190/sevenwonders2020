@@ -1,0 +1,21 @@
+<template name="panelCards_template">
+    <div class="card" style="margin:10px;">
+        <div class="card-header">
+            <h3>CARTES<span class="badge badge-info float-right">{{cards.length}}</span></h3>
+        </div>
+        <div class="card-body">
+            {{#each card in cards}}
+            <div class="card float-left" style="width:auto;margin: 5px;">
+                <div class="card-header">
+                    age : {{card.age}} / player : {{card.nbsPlayer}}
+                </div>
+                {{> card_template card=card}}
+                <div class="card-footer text-muted">
+                    id : {{card.id}} - uniqId : {{card.uniqId}}
+                </div>
+            </div>
+
+            {{/each}}
+        </div>
+    </div>
+</template>
