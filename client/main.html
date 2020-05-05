@@ -3,22 +3,9 @@
 </head>
 
 <body>
-  <h1>Board</h1>
-  <div class="board">
-    {{> board_template board=board}}
-  </div>
-
-  <h1>Wonders</h1>
-  <div class="wonders">
-    {{#each wonder in wonders}}
-    {{> wonder_template wonder=wonder}}
-    {{/each}}
-  </div>
-
-  <h1>Cards</h1>
-  <div class="cards">
-    {{#each card in cards}}
-    {{> card_template card=card}}
-    {{/each}}
-  </div>
+  {{#if currentUser}}
+  {{> accueil_template}}
+  {{else}}
+  {{> atForm}}
+  {{/if}}
 </body>

@@ -8,11 +8,9 @@ import { Wonder } from '../model/Wonder'
 import { getListWonders } from '../data/wonders'
 import { random } from '../both/randomHelper'
 
-
-
 import { getBoardObj, getBoardMongo, getBoardsMongo } from '../both/board'
 
-
+import '../templates/accueil.html'
 import '../templates/player.html'
 import '../templates/card.html'
 import '../templates/wonder.html'
@@ -53,7 +51,7 @@ Meteor.startup(() => {
     }, 1000)
 });
 
-Template.body.helpers({
+Template.accueil_template.helpers({
     cards() {
         return window.cards
     },
@@ -64,6 +62,13 @@ Template.body.helpers({
         return READY.get() ? getBoardMongo() : {}
     }
 });
+
+Template.accueil_template.events({
+    'click .logout'() {
+        Meteor.logout()
+    }
+});
+
 
 Template.player_template.helpers({
     wonders() {

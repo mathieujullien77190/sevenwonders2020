@@ -2,12 +2,3 @@ body {
   padding: 10px;
   font-family: sans-serif;
 }
-
-
-.cards, .wonders, .board {
-  overflow: hidden;
-}
-
-.card_container{
-  float: left;
-}
