@@ -4,6 +4,7 @@ import { difference } from './difference'
 import { arrayMax } from './arrayMax'
 import { arrayUniq } from './arrayUniq'
 import { toRessourceLabels } from '../../data/ressources'
+import { Meteor } from 'meteor/meteor';
 
 const getIndexPlayer = (player, players) => {
     const ids = players.map(player => player.id)
@@ -62,8 +63,7 @@ const getGroupRessources = (effectsRessources) => {
 
 }
 
-export const getRessourcesCombinaisons = (player, cost, isNeighbour) => {
-    const costId = cost.map(ressource => ressource.id)
+export const getRessourcesCombinaisons = (player, costId, isNeighbour) => {
     const ressourcesCards = getGroupRessources(getEffectsRessourcesCards(player.boardCards, isNeighbour))
     const ressourcesWonder = getGroupRessources(getEffectsRessourcesWonder(player.wonder))
     const ressourcesSteps = !isNeighbour ? getGroupRessources(getEffectsRessourcesSteps(player.wonder.steps)) : []
@@ -76,12 +76,19 @@ export const getRessourcesCombinaisons = (player, cost, isNeighbour) => {
     const findBest = cartesianRClear.map(item => {
         const inter = intersect(costId, item)
         const diff = difference(costId, inter)
-        return { difference: toRessourceLabels(diff), intersect: toRessourceLabels(inter), nbs: inter.length, id: diff.join('') }
+        return {
+            differenceVisu: toRessourceLabels(diff),
+            difference: diff,
+            intersectVisu: toRessourceLabels(inter),
+            intersect: inter,
+            nbs: inter.length,
+            id: diff.join('')
+        }
     })
     const maxR = arrayMax(findBest.map(item => item.nbs))
     const findBestOfTheBest = findBest.filter(item => item.nbs === maxR)
     const findBestOfTheBestUniq = arrayUniq(findBestOfTheBest)
-    return { playerCombinaison: findBestOfTheBestUniq, cost: toRessourceLabels(costId), idAllRessources: idAllRessources.map(item => toRessourceLabels(item)) }
+    return { playerCombinaisons: findBestOfTheBestUniq, cost: toRessourceLabels(costId), idAllRessources: idAllRessources }
 }
 
 export const getPrice = (player, ressourcesId, apply) => {
@@ -100,3 +107,45 @@ export const getPrice = (player, ressourcesId, apply) => {
 
 }
 
+export const getPlayersCombinations = (me, right, left, cost) => {
+    const costId = cost.map(ressource => ressource.id)
+
+    const meC = getRessourcesCombinaisons(me, costId, false)
+
+    console.log('ME', meC.playerCombinaisons.map(item => item.differenceVisu), meC)
+
+    meC.playerCombinaisons.forEach(item => {
+        const combi = getRessourcesCombinaisons(right, item.difference, true)
+        console.log('RIGHT', combi.playerCombinaisons.map(item => item.intersectVisu))
+    })
+    meC.playerCombinaisons.forEach(item => {
+        const combi = getRessourcesCombinaisons(left, item.difference, true)
+        console.log('LEFT', combi.playerCombinaisons.map(item => item.intersectVisu))
+    })
+
+
+
+}
+
+if (Meteor.isClient) {
+    window.getPrice = getPrice
+    window.getPlayersCombinations = getPlayersCombinations
+    window.getRessourcesCombinaisons = getRessourcesCombinaisons
+
+    window.setEnv = () => {
+        boardObj.addPlayer({ id: 1, pseudo: 'Matou' })
+        boardObj.setBoardCards(cards.filter(item => ['1_3', '5_4', '45_7', '42_3'].includes(item.uniqId)), 1)
+        boardObj.setWonder(wonders.filter(wonder => wonder.id === 3)[0], 1)
+        boardObj.setChoiceCards(cards.filter(item => ['25_3'].includes(item.uniqId)), 1)
+        boardObj.addWonderCard(cards[0], 1, 1)
+
+        boardObj.addPlayer({ id: 2, pseudo: 'Gregou' })
+        boardObj.setBoardCards(cards.filter(item => ['6_3', '45_6'].includes(item.uniqId)), 2)
+        boardObj.setWonder(wonders.filter(wonder => wonder.id === 10)[0], 2)
+        boardObj.addWonderCard(cards[0], 1, 2)
+
+        boardObj.addPlayer({ id: 3, pseudo: 'Flouflou' })
+        boardObj.setBoardCards(cards.filter(item => ['16_6'].includes(item.uniqId)), 3)
+        boardObj.setWonder(wonders.filter(wonder => wonder.id === 7)[0], 3)
+    }
+}
