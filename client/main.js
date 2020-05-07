@@ -16,6 +16,9 @@ import '../templates/html/accueil.html'
 import '../templates/html/player.html'
 import '../templates/html/card.html'
 
+import '../templates/html/cardActions.html'
+import '../templates/helpers/cardActions.js'
+
 import '../templates/html/step.html'
 import '../templates/html/ressource.html'
 import '../templates/html/scientific.html'
@@ -45,15 +48,7 @@ window.getRessourcesToBuy = getRessourcesToBuy
 window.cards = allCards.map(card => new Card(card))
 window.wonders = getListWonders().map(wonder => new Wonder(wonder))
 
-const allPlayers = [
-    { id: 1, pseudo: 'Matou' },
-    { id: 2, pseudo: 'Gregou' },
-    { id: 3, pseudo: 'flouflou' },
-    { id: 4, pseudo: 'Manou' },
-    { id: 5, pseudo: 'Morgou' },
-    { id: 6, pseudo: 'Mandou' },
-    { id: 7, pseudo: 'Lorou' },
-]
+
 
 Meteor.startup(() => {
     window.setTimeout(() => {
@@ -76,23 +71,32 @@ Template.accueil_template.helpers({
     }
 });
 
-Template.board_template.events({
-    'click .nextAge'() {
-        window.boardObj.nextAge()
-    },
-    'click .addPlayer'() {
-        const nbPlayer = window.boardObj.players.length
-        window.boardObj.addPlayer(allPlayers[nbPlayer % allPlayers.length])
-    },
-    'click .delPlayer'() {
-        const indexLastPlayer = window.boardObj.players.length - 1
-        if (indexLastPlayer >= 0) {
-            window.boardObj.delPlayer(indexLastPlayer)
-        }
+
+
+
+if (Meteor.isClient) {
+
+
+
+    window.setEnv = () => {
+        //boardObj.addPlayer({ id: 1, pseudo: 'Matou' })
+        //boardObj.setBoardCards(cards.filter(item => ['5_4', '45_7', '42_3', '22_3'].includes(item.uniqId)), 1)
+        boardObj.setWonder(wonders.filter(wonder => wonder.id === 3)[0], 1)
+        //boardObj.setChoiceCards(cards.filter(item => ['25_3', '23_3'].includes(item.uniqId)), 1)
+        //boardObj.addWonderCard(cards[0], 1, 1)
+        //boardObj.addWonderCard(cards[0], 2, 1)
+
+
+        // boardObj.addPlayer({ id: 2, pseudo: 'Gregou' })
+        // boardObj.setBoardCards(cards.filter(item => ['6_3', '45_6'].includes(item.uniqId)), 2)
+        boardObj.setWonder(wonders.filter(wonder => wonder.id === 10)[0], 2)
+        // boardObj.addWonderCard(cards[0], 1, 2)
+
+        // boardObj.addPlayer({ id: 3, pseudo: 'Flouflou' })
+        // boardObj.setBoardCards(cards.filter(item => ['16_6'].includes(item.uniqId)), 3)
+        boardObj.setWonder(wonders.filter(wonder => wonder.id === 7)[0], 3)
     }
-});
-
-
+}
 
 
 

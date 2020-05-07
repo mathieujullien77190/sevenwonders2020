@@ -1,0 +1,19 @@
+<template name="cardActions_template">
+    <div class="cardAction_container">
+        {{#if free}}
+        <div class="canAdd">{{> ok_template color="green"}}</div>
+        {{/if}}
+        {{#if impossible}}
+        <div class="cantAdd">{{> ko_template}}</div>
+        {{/if}}
+        {{#if buy}}
+        <div class="canBuy">{{> ok_template color="orange" value=buy}}</div>
+        {{/if}}
+        <div class="over">
+            <button type="button" class="btn btn-dark playCard">Jouer carte</button>
+            <button type="button" class="btn btn-dark playStep">Construire Merveille</button>
+            <button type="button" class="btn btn-dark discard">Défausser</button>
+        </div>
+        {{> card_template card=card}}
+    </div>
+</template>

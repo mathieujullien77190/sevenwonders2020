@@ -1,7 +1,6 @@
 
-import { shuffle } from './helpers'
 import { Player } from './Player'
-import { getRessourcesCombinaisons, getPrice } from './helpers/actions'
+import { calcAgeCards, splitCardsChoice, switchCardsChoice, rightPlayer, leftPlayer, buyCard } from './helpers/actions'
 
 export class Board {
 
@@ -76,10 +75,14 @@ export class Board {
         }
     }
 
-
     getPlayer(id) {
         const index = this.players.map(player => player.id).indexOf(id)
         return index !== -1 ? this.players[index] : null
+    }
+
+    getCard(uniqId) {
+        const cards = this.allCards.filter(card => card.uniqId === uniqId)
+        return cards.length === 1 ? cards[0] : null
     }
 
     getStep(idPlayer, idStep) {
@@ -93,28 +96,35 @@ export class Board {
 
     nextAge() {
         this.age = this.age < 4 ? this.age + 1 : 0
-        this.ageCards = this.calcAgeCards(this.age, this.players.length)
+        this.ageCards = calcAgeCards(this.age, this.players.length, this.allCards)
+
+        const split = splitCardsChoice(this.players.length, this.ageCards)
+
+        this.players.forEach((player, index) => {
+            player.choiceCards = split[index]
+        })
         this.update(this.toJson())
     }
 
-    calcAgeCards(age, nbsPlayers) {
-        const baseCards = this.allCards.filter(card => {
-            return age >= 1 && age <= 3 && card.age.includes(age) && card.color !== 'purple' && card.nbsPlayer <= nbsPlayers
-        })
+    nextRound() {
+        if (this.players.length >= 3 && (this.age === 1 || this.age === 2 || this.age === 3)) {
+            const split = switchCardsChoice(this.players.map(player => player.choiceCards), this.age === 2 ? 'right' : 'left')
 
-        const purpleCards = shuffle(this.allCards.filter(card => {
-            return card.color === 'purple' && age === 3
-        })).filter((card, index) => index < nbsPlayers + 2)
+            this.players.forEach((player, index) => {
+                player.choiceCards = split[index]
+            })
 
-        return shuffle([...baseCards, ...purpleCards])
+            this.update(this.toJson())
+        }
     }
 
-    test(player, cost, isNeighbour) {
-        return getRessourcesCombinaisons(player, cost, isNeighbour)
-    }
+    canAddCard(idPlayer, uniqIdCard) {
+        const card = this.getCard(uniqIdCard)
+        const me = this.getPlayer(idPlayer)
+        const right = rightPlayer(idPlayer, this.players)
+        const left = leftPlayer(idPlayer, this.players)
 
-    testPrice(player, ressourcesId, apply) {
-        return getPrice(player, ressourcesId, apply)
+        return buyCard(me, right, left, card)
     }
 
     get age() {

@@ -1,0 +1,38 @@
+.cardAction_container {
+    float: left;
+    position: relative;
+    margin: 10px;
+
+    .canAdd, .cantAdd, .canBuy {
+        position: absolute;
+        top: -12px;
+        right: -12px;
+        z-index: 2;
+    }
+
+    &.show .over {
+        display: flex
+    }
+
+    .over {
+        position: absolute;
+        background-color: rgba($color: white, $alpha: 0.5);
+        z-index: 1;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+        display: none;
+
+        button {
+            font-size: 12px;
+            padding: 3px 5px;
+            margin: 10px 0;
+            font-weight: bold;
+       }
+    }
+}
+

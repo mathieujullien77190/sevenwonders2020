@@ -1,9 +1,36 @@
 import { cartesian } from './cartesian'
 import { arrayMax } from './arrayMax'
-import { Meteor } from 'meteor/meteor';
+import { arrayMin } from './arrayMin'
 import { arrayUniq } from './arrayUniq'
+import { shuffle } from './shuffle'
 
-const getIndexPlayer = (playerId, players) => {
+export const splitCardsChoice = (nbPlayers, cards) => {
+    let working = []
+    cards.forEach((card, index) => {
+        if (!working[index % nbPlayers]) {
+            working[index % nbPlayers] = []
+        }
+        working[index % nbPlayers].push(card)
+    })
+    return working
+}
+
+export const switchCardsChoice = (choiceCardsPlayers, direction) => {
+    const idLastPlayer = choiceCardsPlayers.length - 1
+    const working = []
+    choiceCardsPlayers.forEach((choice, index) => {
+        if (index === 0) {
+            working[index] = direction === 'right' ? choiceCardsPlayers[index + 1] : choiceCardsPlayers[idLastPlayer]
+        } else if (index === idLastPlayer) {
+            working[index] = direction === 'right' ? choiceCardsPlayers[0] : choiceCardsPlayers[index - 1]
+        } else {
+            working[index] = direction === 'right' ? choiceCardsPlayers[index + 1] : choiceCardsPlayers[index - 1]
+        }
+    })
+    return working
+}
+
+export const getIndexPlayer = (playerId, players) => {
     const ids = players.map(player => player.id)
     return ids.indexOf(playerId)
 }
@@ -109,7 +136,7 @@ export const getRessourcesCombinaisons = (ressourcesPosibilities, cost, own) => 
             nbs: result.take.length,
             id: getRessourcesId(result.take).join('')
         }
-    }).filter(item => item.take.length > 0)
+    })
     const deleteSame = !own ? findBest : arrayUniq(findBest)
     const maxR = deleteSame.length > 0 ? arrayMax(deleteSame.map(item => item.nbs)) : 0
     const findBestOfTheBest = deleteSame.filter(item => item.nbs === maxR).filter(item => item.newCost.length === 0 && !own || own)
@@ -180,30 +207,20 @@ export const buyCard = (me, right, left, card) => {
     return {//acheter chez les voisins
         free: false,
         canHave: playersCWithGlobalPrice.length === 0 ? false : true,
-        combinations: playersCWithGlobalPrice
+        combinations: playersCWithGlobalPrice,
+        priceMini: playersCWithGlobalPrice.length > 0 ? arrayMin(playersCWithGlobalPrice.map(item => item.price)) : undefined
     }
 }
 
-if (Meteor.isClient) {
-    window.buyCard = buyCard
-    window.haveLink = haveLink
+export const calcAgeCards = (age, nbsPlayers, allCards) => {
+    const baseCards = allCards.filter(card => {
+        return age >= 1 && age <= 3 && card.age.includes(age) && card.color !== 'purple' && card.nbsPlayer <= nbsPlayers
+    })
 
-    window.setEnv = () => {
-        boardObj.addPlayer({ id: 1, pseudo: 'Matou' })
-        boardObj.setBoardCards(cards.filter(item => ['5_4', '45_7', '42_3', '22_3'].includes(item.uniqId)), 1)
-        boardObj.setWonder(wonders.filter(wonder => wonder.id === 3)[0], 1)
-        boardObj.setChoiceCards(cards.filter(item => ['25_3', '23_3'].includes(item.uniqId)), 1)
-        boardObj.addWonderCard(cards[0], 1, 1)
-        //boardObj.addWonderCard(cards[0], 2, 1)
+    const purpleCards = shuffle(allCards.filter(card => {
+        return card.color === 'purple' && age === 3
+    })).filter((card, index) => index < nbsPlayers + 2)
 
-
-        boardObj.addPlayer({ id: 2, pseudo: 'Gregou' })
-        boardObj.setBoardCards(cards.filter(item => ['6_3', '45_6'].includes(item.uniqId)), 2)
-        boardObj.setWonder(wonders.filter(wonder => wonder.id === 10)[0], 2)
-        boardObj.addWonderCard(cards[0], 1, 2)
-
-        boardObj.addPlayer({ id: 3, pseudo: 'Flouflou' })
-        boardObj.setBoardCards(cards.filter(item => ['16_6'].includes(item.uniqId)), 3)
-        boardObj.setWonder(wonders.filter(wonder => wonder.id === 7)[0], 3)
-    }
+    return shuffle([...baseCards, ...purpleCards])
 }
+
