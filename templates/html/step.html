@@ -1,5 +1,8 @@
 <template name="step_template">
     <div class="step_container">
+        {{#if step.hasCard}}
+        <div class="step_card"></div>
+        {{/if}}
         <div class="step_effect">
             {{#each effect in step.effects}}
             {{> effect_template effect=effect size="big"}}

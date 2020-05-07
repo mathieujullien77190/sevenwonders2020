@@ -11,26 +11,10 @@ export class Player {
             coins: config.coins ? config.coins : 3,
             wonder: config.wonder ? config.wonder : null,
             choiceCards: config.choiceCards ? config.choiceCards : [],
-            myCards: config.myCards ? config.myCards : [],
+            boardCards: config.boardCards ? config.boardCards : [],
             wonderCards: config.wonderCards ? config.wonderCards : []
         }
 
-    }
-
-    setWonder(wonder) {
-        this._wonder = new Wonder(wonder)
-    }
-
-    setChoiceCards(cards) {
-        this._choiceCards = [...cards]
-    }
-
-    addCard(card) {
-        this._myCards = [...this.myCards, card]
-    }
-
-    addWonderCard(card) {
-        this._wonderCards = [...this.wonderCards, card]
     }
 
     get pseudo() {
@@ -49,8 +33,8 @@ export class Player {
         return this.data.choiceCards
     }
 
-    get myCards() {
-        return this.data.myCards
+    get boardCards() {
+        return this.data.boardCards
     }
 
     get wonderCards() {
@@ -73,8 +57,8 @@ export class Player {
         this.data.choiceCards = choiceCards
     }
 
-    set myCards(myCards) {
-        this.data.myCards = myCards
+    set boardCards(boardCards) {
+        this.data.boardCards = boardCards
     }
 
     set wonderCards(wonderCards) {

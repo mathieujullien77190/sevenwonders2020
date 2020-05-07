@@ -8,7 +8,8 @@
     height: 50px;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-    border-bottom: none
+    border-bottom: none;
+    position: relative;
 }
 
 .step_effect {
@@ -16,4 +17,14 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
+}
+
+.step_card {
+    background-color: blue;
+    height: 20px;
+    width: 100%;
+    position: absolute;
+    bottom: -23px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
 }

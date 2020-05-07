@@ -1,17 +1,17 @@
 const scientifics = [
     {
         id: 1,
-        name: 'Compass',
+        name: 'Compas',
         image: '',
     },
     {
         id: 2,
-        name: 'wheel',
+        name: 'Roue',
         image: '',
     },
     {
         id: 3,
-        name: 'tablet',
+        name: 'Tablette',
         image: '',
     }
 

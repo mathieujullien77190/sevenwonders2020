@@ -1,6 +1,7 @@
 
 import { shuffle } from './helpers'
 import { Player } from './Player'
+import { getRessourcesCombinaisons, getPrice } from './helpers/actions'
 
 export class Board {
 
@@ -32,17 +33,62 @@ export class Board {
         }
     }
 
-    delPlayer(playerToDel) {
+    delPlayer(idPlayer) {
         if (this.age === 0) {
-            this.players = this.players.filter(player => player.id !== playerToDel.id)
+            this.players = this.players.filter(player => player.id !== idPlayer)
+            this.update(this.toJson())
+        }
+    }
+
+    setWonder(wonder, idPlayer) {
+        const realPlayer = this.getPlayer(idPlayer)
+        if (realPlayer) {
+            realPlayer.wonder = wonder
+            this.update(this.toJson())
+        }
+    }
+
+    setChoiceCards(cards, idPlayer) {
+        const realPlayer = this.getPlayer(idPlayer)
+        if (realPlayer) {
+            realPlayer.choiceCards = cards
+            this.update(this.toJson())
+        }
+    }
+
+    addWonderCard(card, idStep, idPlayer) {
+        const realPlayer = this.getPlayer(idPlayer)
+        if (realPlayer) {
+            const realStep = this.getStep(idPlayer, idStep)
+            if (realStep) {
+                realPlayer.wonderCards = [...realPlayer.wonderCards, card]
+                realStep.hasCard = true
+                this.update(this.toJson())
+            }
+        }
+    }
+
+    setBoardCards(cards, idPlayer) {
+        const realPlayer = this.getPlayer(idPlayer)
+        if (realPlayer) {
+            realPlayer.boardCards = cards
             this.update(this.toJson())
         }
     }
 
 
     getPlayer(id) {
-        const players = this.players.filter(player => player.id === id)
-        return players.length === 1 ? players[0] : null
+        const index = this.players.map(player => player.id).indexOf(id)
+        return index !== -1 ? this.players[index] : null
+    }
+
+    getStep(idPlayer, idStep) {
+        const realPlayer = this.getPlayer(idPlayer)
+        if (realPlayer && realPlayer.wonder) {
+            const index = realPlayer.wonder.steps.map(step => step.id).indexOf(idStep)
+            return index !== -1 ? realPlayer.wonder.steps[index] : null
+        }
+        return null
     }
 
     nextAge() {
@@ -61,6 +107,14 @@ export class Board {
         })).filter((card, index) => index < nbsPlayers + 2)
 
         return shuffle([...baseCards, ...purpleCards])
+    }
+
+    test(player, cost, isNeighbour) {
+        return getRessourcesCombinaisons(player, cost, isNeighbour)
+    }
+
+    testPrice(player, ressourcesId, apply) {
+        return getPrice(player, ressourcesId, apply)
     }
 
     get age() {

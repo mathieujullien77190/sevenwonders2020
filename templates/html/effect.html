@@ -6,7 +6,7 @@
     <div class="effect_container effect_ressources">
         {{#each ressource in effect.ressources}}
         {{> ressource_template ressource=ressource size=effect.ressources.length}}
-        {{#if effect.hasOperatorOr}}
+        {{#if hasOperatorOr}}
         <span class="separator">/</span>
         {{/if}}
         {{/each}}
@@ -79,7 +79,7 @@
 
 <template name="effectCopyCardColor_template">
     <div class="effect_container effect_copyCardColor">
-        <div class="effect_card bg_{{effect.color}}">            
+        <div class="effect_card bg_{{effect.color}}">
         </div>
     </div>
 </template>

@@ -4,21 +4,23 @@ const wonders = [
         name: 'Rhodes',
         face: 'A',
         images: '',
-        advantageRessource: 2,
-        advantageCoins: 0,
+        mainEffects: [{ type: 'ressources', apply: ['own'], ressources: [2], operator: 'and' }],
         order: true,
         steps: [
             {
+                id: 1,
                 ressourcesCost: [4, 4],
                 coinsCost: 0,
                 effects: [{ type: 'victoryPoints', apply: ['own'], value: 3 }]
             },
             {
+                id: 2,
                 ressourcesCost: [1, 1, 1],
                 coinsCost: 0,
                 effects: [{ type: 'war', apply: ['own'], value: 2 }]
             },
             {
+                id: 3,
                 ressourcesCost: [2, 2],
                 coinsCost: 0,
                 effects: [{ type: 'victoryPoints', apply: ['own'], value: 7 }]
@@ -30,11 +32,11 @@ const wonders = [
         name: 'Rhodes',
         face: 'B',
         images: '',
-        advantageRessource: 2,
-        advantageCoins: 0,
+        mainEffects: [{ type: 'ressources', apply: ['own'], ressources: [2], operator: 'and' }],
         order: true,
         steps: [
             {
+                id: 1,
                 ressourcesCost: [3, 3, 3],
                 coinsCost: 0,
                 effects: [
@@ -44,6 +46,7 @@ const wonders = [
                 ]
             },
             {
+                id: 2,
                 ressourcesCost: [2, 2, 2, 2],
                 coinsCost: 0,
                 effects: [
@@ -59,21 +62,23 @@ const wonders = [
         name: 'Alexandrie',
         face: 'A',
         images: '',
-        advantageRessource: 5,
-        advantageCoins: 0,
+        mainEffects: [{ type: 'ressources', apply: ['own'], ressources: [5], operator: 'and' }],
         order: true,
         steps: [
             {
+                id: 1,
                 ressourcesCost: [3, 3],
                 coinsCost: 0,
                 effects: [{ type: 'victoryPoints', apply: ['own'], value: 3 }]
             },
             {
+                id: 2,
                 ressourcesCost: [2, 2],
                 coinsCost: 0,
                 effects: [{ type: 'ressources', apply: ['own'], ressources: [1, 2, 3, 4], operator: 'or' }]
             },
             {
+                id: 3,
                 ressourcesCost: [5, 5],
                 coinsCost: 0,
                 effects: [{ type: 'victoryPoints', apply: ['own'], value: 7 }]
@@ -85,21 +90,23 @@ const wonders = [
         name: 'Alexandrie',
         face: 'B',
         images: '',
-        advantageRessource: 5,
-        advantageCoins: 0,
+        mainEffects: [{ type: 'ressources', apply: ['own'], ressources: [5], operator: 'and' }],
         order: true,
         steps: [
             {
+                id: 1,
                 ressourcesCost: [1, 1],
                 coinsCost: 0,
                 effects: [{ type: 'ressources', apply: ['own'], ressources: [1, 2, 3, 4], operator: 'or' }]
             },
             {
+                id: 2,
                 ressourcesCost: [4, 4],
                 coinsCost: 0,
                 effects: [{ type: 'ressources', apply: ['own'], ressources: [5, 6, 7], operator: 'or' }]
             },
             {
+                id: 3,
                 ressourcesCost: [3, 3, 3],
                 coinsCost: 0,
                 effects: [{ type: 'victoryPoints', apply: ['own'], value: 7 }]
@@ -111,21 +118,23 @@ const wonders = [
         name: 'Éphèse',
         face: 'A',
         images: '',
-        advantageRessource: 7,
-        advantageCoins: 0,
+        mainEffects: [{ type: 'ressources', apply: ['own'], ressources: [7], operator: 'and' }],
         order: true,
         steps: [
             {
+                id: 1,
                 ressourcesCost: [3, 3],
                 coinsCost: 0,
                 effects: [{ type: 'victoryPoints', apply: ['own'], value: 3 }]
             },
             {
+                id: 2,
                 ressourcesCost: [4, 4],
                 coinsCost: 0,
                 effects: [{ type: 'money', apply: ['own'], value: 9 }]
             },
             {
+                id: 3,
                 ressourcesCost: [7, 7],
                 coinsCost: 0,
                 effects: [{ type: 'victoryPoints', apply: ['own'], value: 7 }]
@@ -137,11 +146,11 @@ const wonders = [
         name: 'Éphèse',
         face: 'B',
         images: '',
-        advantageRessource: 7,
-        advantageCoins: 0,
+        mainEffects: [{ type: 'ressources', apply: ['own'], ressources: [7], operator: 'and' }],
         order: true,
         steps: [
             {
+                id: 1,
                 ressourcesCost: [3, 3],
                 coinsCost: 0,
                 effects: [
@@ -150,6 +159,7 @@ const wonders = [
                 ]
             },
             {
+                id: 2,
                 ressourcesCost: [4, 4],
                 coinsCost: 0,
                 effects: [
@@ -158,9 +168,9 @@ const wonders = [
                 ]
             },
             {
+                id: 3,
                 ressourcesCost: [7, 6, 5],
                 coinsCost: 0,
-                
                 effects: [
                     { type: 'victoryPoints', apply: ['own'], value: 5 },
                     { type: 'money', apply: ['own'], value: 4 }
@@ -173,23 +183,25 @@ const wonders = [
         name: 'Babylone',
         face: 'A',
         images: '',
-        advantageRessource: 1,
-        advantageCoins: 0,
+        mainEffects: [{ type: 'ressources', apply: ['own'], ressources: [1], operator: 'and' }],
         order: true,
         steps: [
             {
+                id: 1,
                 ressourcesCost: [1, 1],
                 coinsCost: 0,
                 effects: [{ type: 'victoryPoints', apply: ['own'], value: 3 }]
             },
             {
+                id: 2,
                 ressourcesCost: [4, 4, 4],
                 coinsCost: 0,
                 effects: [{ type: 'scientific', apply: ['own'], symbols: [1, 2, 3] }]
             },
             {
+                id: 3,
                 ressourcesCost: [1, 1, 1, 1],
-                coinsCost: 0,                
+                coinsCost: 0,
                 effects: [{ type: 'victoryPoints', apply: ['own'], value: 7 }]
             }
         ]
@@ -199,23 +211,25 @@ const wonders = [
         name: 'Babylone',
         face: 'B',
         images: '',
-        advantageRessource: 1,
-        advantageCoins: 0,
+        mainEffects: [{ type: 'ressources', apply: ['own'], ressources: [1], operator: 'and' }],
         order: true,
         steps: [
             {
+                id: 1,
                 ressourcesCost: [6, 1],
                 coinsCost: 0,
                 effects: [{ type: 'victoryPoints', apply: ['own'], value: 3 }]
             },
             {
+                id: 2,
                 ressourcesCost: [5, 4, 4],
                 coinsCost: 0,
                 effects: [{ type: 'dualPlay', apply: ['own'] }]
             },
             {
+                id: 3,
                 ressourcesCost: [1, 1, 1, 7],
-                coinsCost: 0,                
+                coinsCost: 0,
                 effects: [{ type: 'scientific', apply: ['own'], symbols: [1, 2, 3] }]
             }
         ]
@@ -225,23 +239,25 @@ const wonders = [
         name: 'Olympia',
         face: 'A',
         images: '',
-        advantageRessource: 4,
-        advantageCoins: 0,
+        mainEffects: [{ type: 'ressources', apply: ['own'], ressources: [4], operator: 'and' }],
         order: true,
         steps: [
             {
+                id: 1,
                 ressourcesCost: [4, 4],
                 coinsCost: 0,
                 effects: [{ type: 'victoryPoints', apply: ['own'], value: 3 }]
             },
             {
+                id: 2,
                 ressourcesCost: [3, 3],
                 coinsCost: 0,
                 effects: [{ type: 'freeLastCard', apply: ['own'] }]
             },
             {
+                id: 3,
                 ressourcesCost: [2, 2],
-                coinsCost: 0,                
+                coinsCost: 0,
                 effects: [{ type: 'victoryPoints', apply: ['own'], value: 7 }]
             }
         ]
@@ -251,23 +267,25 @@ const wonders = [
         name: 'Olympia',
         face: 'B',
         images: '',
-        advantageRessource: 4,
-        advantageCoins: 0,
+        mainEffects: [{ type: 'ressources', apply: ['own'], ressources: [4], operator: 'and' }],
         order: true,
         steps: [
             {
+                id: 1,
                 ressourcesCost: [4, 4],
-                coinsCost: 0,                
+                coinsCost: 0,
                 effects: [{ type: 'reduction', apply: ['left', 'right'], ressources: [1, 3, 4, 2], value: 1 }]
             },
             {
+                id: 2,
                 ressourcesCost: [3, 3],
                 coinsCost: 0,
                 effects: [{ type: 'victoryPoints', apply: ['own'], value: 5 }]
             },
             {
+                id: 3,
                 ressourcesCost: [2, 2],
-                coinsCost: 0,                
+                coinsCost: 0,
                 effects: [{ type: 'copyCardColor', apply: ['left', 'right'], color: 'purple' }]
             }
         ]
@@ -277,23 +295,25 @@ const wonders = [
         name: 'Halicarnasse',
         face: 'A',
         images: '',
-        advantageRessource: 6,
-        advantageCoins: 0,
+        mainEffects: [{ type: 'ressources', apply: ['own'], ressources: [6], operator: 'and' }],
         order: true,
         steps: [
             {
+                id: 1,
                 ressourcesCost: [1, 1],
-                coinsCost: 0,                
+                coinsCost: 0,
                 effects: [{ type: 'victoryPoints', apply: ['own'], value: 3 }]
             },
             {
+                id: 2,
                 ressourcesCost: [2, 2, 2],
                 coinsCost: 0,
                 effects: [{ type: 'pickCard', apply: ['own'] }]
             },
             {
+                id: 3,
                 ressourcesCost: [6, 6],
-                coinsCost: 0,                
+                coinsCost: 0,
                 effects: [{ type: 'victoryPoints', apply: ['own'], value: 7 }]
             }
         ]
@@ -303,43 +323,45 @@ const wonders = [
         name: 'Halicarnasse',
         face: 'B',
         images: '',
-        advantageRessource: 6,
-        advantageCoins: 0,
+        mainEffects: [{ type: 'ressources', apply: ['own'], ressources: [6], operator: 'and' }],
         order: true,
         steps: [
             {
+                id: 1,
                 ressourcesCost: [2, 2],
-                coinsCost: 0,                
+                coinsCost: 0,
                 effects: [
                     { type: 'victoryPoints', apply: ['own'], value: 2 },
                     { type: 'pickCard', apply: ['own'] }
                 ]
             },
             {
+                id: 2,
                 ressourcesCost: [1, 1, 1],
-                coinsCost: 0,                
+                coinsCost: 0,
                 effects: [
                     { type: 'victoryPoints', apply: ['own'], value: 1 },
                     { type: 'pickCard', apply: ['own'] }
                 ]
             },
             {
+                id: 3,
                 ressourcesCost: [5, 7, 6],
                 coinsCost: 0,
                 effects: [{ type: 'pickCard', apply: ['own'], value: 5 }]
             }
         ]
-    }, 
+    },
     {
         id: 13,
         name: 'Gizeh',
         face: 'B',
         images: '',
-        advantageRessource: 3,
-        advantageCoins: 0,
+        mainEffects: [{ type: 'ressources', apply: ['own'], ressources: [3], operator: 'and' }],
         order: true,
         steps: [
             {
+                id: 1,
                 ressourcesCost: [2, 2],
                 coinsCost: 0,
                 effects: [
@@ -347,6 +369,7 @@ const wonders = [
                 ]
             },
             {
+                id: 2,
                 ressourcesCost: [4, 4, 4],
                 coinsCost: 0,
                 effects: [
@@ -354,6 +377,7 @@ const wonders = [
                 ],
             },
             {
+                id: 3,
                 ressourcesCost: [3, 3, 3, 3],
                 coinsCost: 0,
                 effects: [
@@ -367,11 +391,11 @@ const wonders = [
         name: 'Gizeh',
         face: 'B',
         images: '',
-        advantageRessource: 3,
-        advantageCoins: 0,
+        mainEffects: [{ type: 'ressources', apply: ['own'], ressources: [3], operator: 'and' }],
         order: true,
         steps: [
             {
+                id: 1,
                 ressourcesCost: [4, 4],
                 coinsCost: 0,
                 effects: [
@@ -379,6 +403,7 @@ const wonders = [
                 ]
             },
             {
+                id: 2,
                 ressourcesCost: [3, 3, 3],
                 coinsCost: 0,
                 effects: [
@@ -386,6 +411,7 @@ const wonders = [
                 ],
             },
             {
+                id: 3,
                 ressourcesCost: [1, 1, 1],
                 coinsCost: 0,
                 effects: [
@@ -393,6 +419,7 @@ const wonders = [
                 ],
             },
             {
+                id: 4,
                 ressourcesCost: [3, 3, 3, 3, 7],
                 coinsCost: 0,
                 effects: [
@@ -401,17 +428,18 @@ const wonders = [
             }
         ]
     },
-    
+
     // Extensions
     {
         id: 15,
         name: 'Manneken Pis',
         face: 'B',
         images: '',
-        advantageCoins: 4,
+        mainEffects: [{ type: 'money', apply: ['own'], value: 4 }],
         order: true,
         steps: [
             {
+                id: 1,
                 ressourcesCost: [1, 2, 3, 4, 5, 6, 7],
                 coinsCost: 0,
                 effects: [
@@ -422,7 +450,7 @@ const wonders = [
             }
         ]
     },
-   
+
 
 ]
 

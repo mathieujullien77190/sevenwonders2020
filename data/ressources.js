@@ -1,37 +1,37 @@
 const ressources = [
     {
         id: 1,
-        name: 'Clay',
+        name: 'Argile',
         image: '',
         color: 'brown'
     },
     {
         id: 2,
-        name: 'Ore',
+        name: 'Minerai',
         image: '',
         color: 'brown'
     },
     {
         id: 3,
-        name: 'stone',
+        name: 'Pierre',
         image: '',
         color: 'brown'
     },
     {
         id: 4,
-        name: 'Wood',
+        name: 'Bois',
         image: '',
         color: 'brown'
     },
     {
         id: 5,
-        name: 'Glass',
+        name: 'Verre',
         image: '',
         color: 'gray'
     },
     {
         id: 6,
-        name: 'Loom',
+        name: 'Tissu',
         image: '',
         color: 'gray'
     },
@@ -51,4 +51,11 @@ export const getListRessources = () => {
 export const getRessource = (id) => {
     const result = ressources.filter(ressource => ressource.id === id)
     return result.length === 1 ? result[0] : null;
+}
+
+export const toRessourceLabels = (idRessources) => {
+    return idRessources.map(id => {
+        const res = getRessource(id)
+        return res ? res.name : null
+    })
 }

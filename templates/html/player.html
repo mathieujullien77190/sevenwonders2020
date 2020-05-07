@@ -21,14 +21,8 @@
                 {{/each}}
             </li>
             <li class="list-group-item">
-                <h5>Cartes merveille</h5>
-                {{#each card in player.wondersCards}}
-                {{> card_template card=card}}
-                {{/each}}
-            </li>
-            <li class="list-group-item">
                 <h5>Cartes posées</h5>
-                {{#each card in player.myCards}}
+                {{#each card in player.boardCards}}
                 {{> card_template card=card}}
                 {{/each}}
             </li>

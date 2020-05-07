@@ -6,19 +6,20 @@ import { Card } from '../model/Card'
 import { allCards } from '../data/cards'
 import { Wonder } from '../model/Wonder'
 import { getListWonders } from '../data/wonders'
-import { random } from '../both/randomHelper'
+
 
 import { getBoardObj, getBoardMongo, getBoardsMongo } from '../both/board'
 
+import { getRessourcesToBuy } from '../model/helpers/actions'
 
 import '../templates/html/accueil.html'
 import '../templates/html/player.html'
 import '../templates/html/card.html'
-import '../templates/html/wonder.html'
+
 import '../templates/html/step.html'
 import '../templates/html/ressource.html'
 import '../templates/html/scientific.html'
-import '../templates/html/effect.html'
+
 import '../templates/html/link.html'
 import '../templates/html/atoms.html'
 import './main.html'
@@ -32,9 +33,15 @@ import '../templates/helpers/panelWonders.js'
 import '../templates/html/board.html'
 import '../templates/helpers/board.js'
 
+import '../templates/html/wonder.html'
+import '../templates/helpers/wonder.js'
+
+import '../templates/html/effect.html'
+import '../templates/helpers/effect.js'
+
 let READY = new ReactiveVar(false)
 
-
+window.getRessourcesToBuy = getRessourcesToBuy
 window.cards = allCards.map(card => new Card(card))
 window.wonders = getListWonders().map(wonder => new Wonder(wonder))
 
@@ -80,39 +87,13 @@ Template.board_template.events({
     'click .delPlayer'() {
         const indexLastPlayer = window.boardObj.players.length - 1
         if (indexLastPlayer >= 0) {
-            window.boardObj.delPlayer(window.boardObj.players[indexLastPlayer])
+            window.boardObj.delPlayer(indexLastPlayer)
         }
     }
 });
 
 
-Template.wonder_template.helpers({
-    getAdvantageColor() {
-        return this.wonder.hasAdvantageCoins() ? 'yellow' : this.wonder.advantageRessource.color
-    }
-})
 
-Template.effect_template.helpers({
-    getTemplate() {
-        const name = this.effect.type.charAt(0).toUpperCase() + this.effect.type.slice(1)
-        return `effect${name}_template`
-    },
 
-    getData(size) {
-        return { ...this, size: size ? size : 'normal' }
-    }
-});
-
-Template.effectWar_template.helpers({
-    getWarSymbols() {
-        return [...Array(this.effect.value).keys()].map(i => 'W')
-    }
-});
-
-Template.effectCardColor_template.helpers({
-    getSizePoint() {
-        return this.size === 'big' ? 'normal' : 'small'
-    }
-})
 
 

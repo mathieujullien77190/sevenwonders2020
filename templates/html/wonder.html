@@ -1,12 +1,9 @@
 <template name="wonder_template">
     <div class="wonder_container">
-        <div class="wonder_advantage bg_{{getAdvantageColor}}">
-            {{#if wonder.hasAdvantageCoins}}
-            {{ > coin_template coins=wonder.advantageCoins size="big"}}
-            {{/if}}
-            {{#if wonder.hasAdvantageRessource}}
-            {{> ressource_template ressource=wonder.advantageRessource size="big"}}
-            {{/if}}
+        <div class="wonder_mainEffect bg_{{getAdvantageColor}}">
+            {{#each effect in wonder.mainEffects}}
+            {{> effect_template effect=effect size="big"}}
+            {{/each}}
         </div>
 
         <div class="wonder_name">
