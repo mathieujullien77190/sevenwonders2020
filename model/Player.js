@@ -33,6 +33,10 @@ export class Player {
         return this.data.choiceCards
     }
 
+    get coins() {
+        return this.data.coins
+    }
+
     get boardCards() {
         return this.data.boardCards
     }
@@ -47,6 +51,10 @@ export class Player {
 
     set points(points) {
         this.data.points = points
+    }
+
+    set coins(coins) {
+        this.data.coins = coins
     }
 
     set wonder(wonder) {
