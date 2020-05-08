@@ -13,7 +13,10 @@ import { getBoardObj, getBoardMongo, getBoardsMongo } from '../both/board'
 
 import '../templates/html/accueil.html'
 import '../templates/html/player.html'
+
+
 import '../templates/html/card.html'
+import '../templates/helpers/card.js'
 
 import '../templates/html/cardActions.html'
 import '../templates/helpers/cardActions.js'

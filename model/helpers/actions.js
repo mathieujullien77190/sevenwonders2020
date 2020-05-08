@@ -166,6 +166,10 @@ export const buyCard = (me, right, left, card) => {
 
     const cost = card.ressourcesCost
 
+    if (card.coinsCost > me.coins) {//carte cout monnaie et pas la tune
+        return { canHave: false }
+    }
+
     if (haveSameCard(me, card)) {//carte que l on a deja
         return { canHave: false, duplicata: true }
     }
@@ -177,6 +181,7 @@ export const buyCard = (me, right, left, card) => {
     if (cost.length === 0) {//pas de cout
         return { free: true, canHave: true }
     }
+
 
     const playerPosition = {
         [right.id]: 'right',
