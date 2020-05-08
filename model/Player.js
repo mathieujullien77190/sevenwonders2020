@@ -1,80 +1,41 @@
 
+import { Wonder } from './Wonder'
+import { Card } from './Card'
+
 export class Player {
 
     constructor(config) {
 
         this.id = config.id
-
-        this.data = {
-            pseudo: config.pseudo ? config.pseudo : 'inconnu',
-            points: config.points ? config.points : 0,
-            coins: config.coins ? config.coins : 3,
-            wonder: config.wonder ? config.wonder : null,
-            choiceCards: config.choiceCards ? config.choiceCards : [],
-            boardCards: config.boardCards ? config.boardCards : [],
-            wonderCards: config.wonderCards ? config.wonderCards : []
-        }
+        this.pseudo = config.pseudo ? config.pseudo : 'inconnu'
+        this.points = config.points ? config.points : 0
+        this.coins = config.coins ? config.coins : 3
+        this.wonder = config.wonder ? new Wonder(config.wonder) : null
+        this.choiceCards = config.choiceCards ? config.choiceCards.map(card => {
+            return new Card(card)
+        }) : []
+        this.boardCards = config.boardCards ? config.boardCards.map(card => new Card(card)) : []
+        this.wonderCards = config.wonderCards ? config.wonderCards.map(card => new Card(card)) : []
 
     }
 
-    get pseudo() {
-        return this.data.pseudo
-    }
-
-    get points() {
-        return this.data.points
-    }
-
-    get wonder() {
-        return this.data.wonder
-    }
-
-    get choiceCards() {
-        return this.data.choiceCards
-    }
-
-    get coins() {
-        return this.data.coins
-    }
-
-    get boardCards() {
-        return this.data.boardCards
-    }
-
-    get wonderCards() {
-        return this.data.wonderCards
-    }
-
-    set pseudo(pseudo) {
-        this.data.pseudo = pseudo
-    }
-
-    set points(points) {
-        this.data.points = points
-    }
-
-    set coins(coins) {
-        this.data.coins = coins
-    }
-
-    set wonder(wonder) {
-        this.data.wonder = wonder
-    }
-
-    set choiceCards(choiceCards) {
-        this.data.choiceCards = choiceCards
-    }
-
-    set boardCards(boardCards) {
-        this.data.boardCards = boardCards
-    }
-
-    set wonderCards(wonderCards) {
-        this.data.wonderCards = wonderCards
+    getChoiceCard(id) {
+        const cards = this.choiceCards.filter(card => card.id === id)
+        return cards.length === 1 ? cards[0] : null
     }
 
     toJson() {
-        return JSON.parse(JSON.stringify({ ...this.data, id: this.id }))
+
+        return {
+            id: this.id,
+            pseudo: this.pseudo,
+            points: this.points,
+            coins: this.coins,
+            wonder: this.wonder ? this.wonder.toJson() : null,
+            choiceCards: this.choiceCards.map(card => card.toJson()),
+            boardCards: this.boardCards.map(card => card.toJson()),
+            wonderCards: this.wonderCards.map(card => card.toJson())
+        }
     }
 
 

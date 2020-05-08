@@ -5,7 +5,7 @@ import { allCards } from '../data/cards'
 import { addObject, updateObject, getObject } from './mongoHelpers'
 
 
-const ID = 17
+const ID = 40
 const boardsMongo = new Mongo.Collection('boards')
 
 

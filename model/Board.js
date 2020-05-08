@@ -2,6 +2,7 @@
 import { Player } from './Player'
 import { calcAgeCards, splitCardsChoice, switchCardsChoice, rightPlayer, leftPlayer, buyCard } from './helpers/actions'
 
+
 export class Board {
 
     constructor(config, actions) {
@@ -98,24 +99,46 @@ export class Board {
         this.age = this.age < 4 ? this.age + 1 : 0
         this.ageCards = calcAgeCards(this.age, this.players.length, this.allCards)
 
-        const split = splitCardsChoice(this.players.length, this.ageCards)
+        if (this.canPlay()) {
+            const split = splitCardsChoice(this.players.length, this.ageCards)
 
-        this.players.forEach((player, index) => {
-            player.choiceCards = split[index]
-        })
+            this.players.forEach((player, index) => {
+                player.choiceCards = split[index]
+            })
+
+            this.calcBuyInfo()
+        } else {
+            this.players.forEach((player, index) => {
+                player.choiceCards = []
+            })
+        }
+
         this.update(this.toJson())
     }
 
     nextRound() {
-        if (this.players.length >= 3 && (this.age === 1 || this.age === 2 || this.age === 3)) {
+        if (this.canPlay()) {
             const split = switchCardsChoice(this.players.map(player => player.choiceCards), this.age === 2 ? 'right' : 'left')
 
             this.players.forEach((player, index) => {
                 player.choiceCards = split[index]
             })
 
+            this.calcBuyInfo()
+
             this.update(this.toJson())
+
         }
+    }
+
+    canPlay() {
+        return (this.age === 1 || this.age === 2 || this.age === 3) && this.players.length >= 3
+    }
+
+    calcBuyInfo() {
+        this.players.forEach((player) => {
+            player.choiceCards.map(card => card.setBuyInfo(this.canAddCard(player.id, card.uniqId)))
+        })
     }
 
     canAddCard(idPlayer, uniqIdCard) {

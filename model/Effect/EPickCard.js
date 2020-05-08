@@ -9,4 +9,10 @@ export class EPickCard extends Effect {
     constructor(config) {
         super(config);
     }
+
+    toJson() {
+        return {
+            ...super.toJson()
+        }
+    }
 }

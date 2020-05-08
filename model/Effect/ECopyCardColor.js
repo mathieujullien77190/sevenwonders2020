@@ -10,4 +10,11 @@ export class ECopyCardColor extends Effect {
         super(config)
         this.color = config.color
     }
+
+    toJson() {
+        return {
+            ...super.toJson(),
+            color: this.color
+        }
+    }
 }

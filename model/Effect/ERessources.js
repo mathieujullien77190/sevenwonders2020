@@ -11,7 +11,8 @@ export class ERessources extends Effect {
 
     constructor(config) {
         super(config);
-        this.ressources = config.ressources.map(id => new Ressource(getRessource(id)));
+
+        this.ressources = config.ressources.map(ressource => new Ressource(ressource));
         this.operator = config.operator;
     }
 
@@ -21,6 +22,14 @@ export class ERessources extends Effect {
 
     hasOperatorAnd() {
         return this.operator === 'and';
+    }
+
+    toJson() {
+        return {
+            ...super.toJson(),
+            ressources: this.ressources.map(ressource => ressource.toJson()),
+            operator: this.operator
+        }
     }
 }
 

@@ -13,5 +13,17 @@ export class Wonder {
         this.steps = config.steps.map(step => new Step(step))
     }
 
+    toJson() {
+        return {
+            id: this.id,
+            name: this.name,
+            face: this.face,
+            image: this.image,
+            mainEffects: this.mainEffects.map(effect => effect.toJson()),
+            order: this.order,
+            steps: this.steps.map(step => step.toJson())
+        }
+    }
+
 }
 

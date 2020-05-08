@@ -10,7 +10,6 @@ import { getListWonders } from '../data/wonders'
 
 import { getBoardObj, getBoardMongo, getBoardsMongo } from '../both/board'
 
-import { getRessourcesToBuy } from '../model/helpers/actions'
 
 import '../templates/html/accueil.html'
 import '../templates/html/player.html'
@@ -44,10 +43,10 @@ import '../templates/helpers/effect.js'
 
 let READY = new ReactiveVar(false)
 
-window.getRessourcesToBuy = getRessourcesToBuy
+
+
 window.cards = allCards.map(card => new Card(card))
 window.wonders = getListWonders().map(wonder => new Wonder(wonder))
-
 
 
 Meteor.startup(() => {

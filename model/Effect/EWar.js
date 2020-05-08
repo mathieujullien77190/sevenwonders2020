@@ -11,5 +11,12 @@ export class EWar extends Effect {
         this.value = config.value;
     }
 
+    toJson() {
+        return {
+            ...super.toJson(),
+            value: this.value
+        }
+    }
+
 }
 

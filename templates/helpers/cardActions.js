@@ -1,5 +1,3 @@
-import { getBoardObj } from "../../both/board";
-
 Template.cardActions_template.events({
     'mouseenter .cardAction_container'(event) {
         event.target.classList.add('show')
@@ -11,13 +9,12 @@ Template.cardActions_template.events({
 
 Template.cardActions_template.helpers({
     free() {
-        return window.boardObj.canAddCard(this.player.id, this.card.uniqId).free
+        return this.card.buyInfo && this.card.buyInfo.free
     },
     impossible() {
-        return !window.boardObj.canAddCard(this.player.id, this.card.uniqId).canHave
+        return this.card.buyInfo && !this.card.buyInfo.canHave
     },
     buy() {
-        const result = window.boardObj.canAddCard(this.player.id, this.card.uniqId)
-        return result.canHave && !result.free ? result.priceMini : null
+        return this.card.buyInfo && this.card.buyInfo.canHave && !this.card.buyInfo.free ? this.card.buyInfo.priceMini : null
     }
 });

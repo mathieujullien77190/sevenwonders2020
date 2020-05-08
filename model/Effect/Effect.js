@@ -18,5 +18,12 @@ export class Effect {
         return this.apply.includes('own')
     }
 
+    toJson() {
+        return {
+            type: this.type,
+            apply: this.apply
+        }
+    }
+
 }
 

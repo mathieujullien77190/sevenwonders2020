@@ -11,4 +11,12 @@ export class EStep extends Effect {
         this.coins = config.coins
         this.victoryPoint = config.victoryPoint
     }
+
+    toJson() {
+        return {
+            ...super.toJson(),
+            coins: this.coins,
+            victoryPoint: this.victoryPoint
+        }
+    }
 }

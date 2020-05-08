@@ -1,6 +1,4 @@
 import { Scientific } from '../Scientific'
-import { getScientific } from '../../data/scientifics'
-
 import { Effect } from './Effect'
 
 export class EScientific extends Effect {
@@ -11,7 +9,14 @@ export class EScientific extends Effect {
 
     constructor(config) {
         super(config);
-        this.symbols = config.symbols.map(id => new Scientific(getScientific(id)));
+        this.symbols = config.symbols.map(symbol => new Scientific(symbol));
+    }
+
+    toJson() {
+        return {
+            ...super.toJson(),
+            symbols: this.symbols.map(Symbol => Symbol.toJson())
+        }
     }
 
 }
