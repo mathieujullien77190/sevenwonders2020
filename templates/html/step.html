@@ -3,6 +3,15 @@
         {{#if step.hasCard}}
         <div class="step_card"></div>
         {{/if}}
+        <div class="step_cost step_cost_size_{{costSize}}">
+            {{#if hasCoinsCost}}
+            <span class="coin">{{step.coinsCost}}</span>
+            {{/if}}
+
+            {{#each ressource in step.ressourcesCost}}
+            {{> ressource_template ressource=ressource }}
+            {{/each}}
+        </div>
         <div class="step_effect">
             {{#each effect in step.effects}}
             {{> effect_template effect=effect size="big"}}

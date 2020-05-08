@@ -1,40 +1,14 @@
 .ressource_container {
     border-radius: 50%;
     border: solid 1px transparent;
-}
-
-.ressource_size_mini {
-    width: 15px;
-    height: 15px;
-}
-
-.ressource_size_1, .ressource_size_big {
-    width: 30px;
-    height: 30px;
-}
-
-.ressource_size_2 {
-    width: 30px;
-    height: 30px;
-}
-
-.ressource_size_3 {
-    width: 17px;
-    height: 17px;
-}
-
-.ressource_size_4 {
-    width: 13px;
-    height: 13px;
-}
-
-
-
-*[class^="ressource"]{
+    width: 18px;
+    height: 18px;
     background-position: center;
     background-size: 100% 100%;
     background-repeat:  no-repeat;
 }
+
+
 .ressource_id_1 {
     background-image: url("/images/resources/clay.png");
 }

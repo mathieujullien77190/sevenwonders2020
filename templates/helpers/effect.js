@@ -28,3 +28,18 @@ Template.effectRessources_template.helpers({
         return this.effect.operator === 'or'
     }
 })
+
+Template.registerHelper('isApplyLeft', () => {
+    const effect = Template.instance().data.effect
+    return effect && effect.type === 'reduction' && effect.apply.includes('left') ? true : false
+});
+
+Template.registerHelper('isApplyRight', () => {
+    const effect = Template.instance().data.effect
+    return effect && effect.type === 'reduction' && effect.apply.includes('right') ? true : false
+});
+
+Template.registerHelper('isApplyOwn', () => {
+    const effect = Template.instance().data.effect
+    return effect && effect.type === 'reduction' && effect.apply.includes('own') ? true : false
+});

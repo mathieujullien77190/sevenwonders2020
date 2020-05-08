@@ -3,7 +3,7 @@
     border: solid 3px #000000;
     border-radius: 2px;
     position: relative;
-    width: 450px;
+    width: 470px;
     height: 200px;
     background-color: lightgray;
 }
@@ -16,6 +16,9 @@
     text-align: right;
     padding: 5px;
     width: auto;
+    line-height: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
 }
 
 .wonder_mainEffect {
@@ -25,8 +28,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100px;
-    height: 50px;
+    width: 110px;
+    height: 40px;
+
+    .ressource_container {
+        height: 30px;
+        width: 30px;
+    }
 }
 
 .wonder_steps {

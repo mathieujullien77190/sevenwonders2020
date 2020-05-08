@@ -2,15 +2,13 @@
     border: solid 3px #000000;
     border-radius: 10px;
     position: relative;
-}
-
-.card_big {
+    font-family: monospace;
     width: 130px;
     height: 200px;
 }
 
 .card_name {
-    font-size: 11px;
+    font-size: 12px;
     writing-mode: vertical-rl;
     text-orientation: mixed;
     text-transform: uppercase;
@@ -22,7 +20,12 @@
     background-color: white;
     border-left: solid 1px  gray;
     border-right: solid 1px  gray;
-    padding: 5px 0px 10px 0px;
+    padding: 5px 0px 5px 0px;
+    letter-spacing: -0.5px;
+
+    .bg_purple & {
+        font-size: 8px;
+    }
 }
 
 .card_image {
@@ -38,12 +41,17 @@
 .card_effect {
     position: absolute;
     top: 0;
-    left: 30px;
+    left: 25px;
     right: 0;
     height: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
+
+    .ressource_container {
+        height: 30px;
+        width: 30px;
+    }
 }
 
 .card_links {
@@ -62,12 +70,13 @@
     top: 0;
     left: 10px;
     position: absolute;
+
+    .ressource_container {
+        margin: 0px -6px;
+    }
+
+    .coin {
+        margin: 5px -7px;
+    }
 }
 
-.card_cost .ressource_container {
-    margin: 0px -7px;
-}
-
-.card_cost .coin {
-    margin: 5px -7px;
-}

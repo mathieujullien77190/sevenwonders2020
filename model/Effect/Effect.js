@@ -6,17 +6,6 @@ export class Effect {
         this.apply = [...config.apply];
     }
 
-    isApplyLeft() {
-        return this.apply.includes('left')
-    }
-
-    isApplyRight() {
-        return this.apply.includes('right')
-    }
-
-    isApplyOwn() {
-        return this.apply.includes('own')
-    }
 
     toJson() {
         return {

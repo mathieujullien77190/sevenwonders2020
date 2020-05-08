@@ -6,7 +6,7 @@
     padding: 2px 0px 10px 0px;
     display: inline-flex;
     align-items: center;
-    margin-bottom: -3px;
+    margin-bottom: -5px;
 }
 
 .link_container .victoryPoint {
@@ -22,9 +22,16 @@
     width: 10px;
 }
 
-.link_container .effect_container .ressource_size_4 {
-    width: 7px;
-    height:7px;
+.link_container .effect_container {
+    &.ressource_size_4 .ressource_container {
+        width: 10px;
+        height: 10px;
+    }
+
+    &.ressource_size_3 .ressource_container {
+        width: 12px;
+        height: 12px;
+    }
 }
 
 .link_name {

@@ -22,6 +22,9 @@ import '../templates/html/cardActions.html'
 import '../templates/helpers/cardActions.js'
 
 import '../templates/html/step.html'
+import '../templates/helpers/step.js'
+
+
 import '../templates/html/ressource.html'
 import '../templates/html/scientific.html'
 

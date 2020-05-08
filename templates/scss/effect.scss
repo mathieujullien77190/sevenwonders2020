@@ -3,11 +3,19 @@
     align-content: center;
     align-items: center;
     flex-direction: row;
+
+    &.ressource_size_4 .ressource_container {
+        width: 18px;
+        height: 18px;
+    }
+
+    &.ressource_size_3 .ressource_container {
+        width: 22px;
+        height: 22px;
+    }
 }
 
-.effect_container .ressource_container {
-    margin: 2px;
-}
+
 
 .effect_ressources span:last-child,
 .effect_scientific span:last-child {
@@ -27,7 +35,7 @@
     display: inline-flex;
     background-color: white;
     border: solid 1px black;
-    border-radius: 5px;
+    border-radius: 15px;
     align-items: center;
     justify-content: center;
     margin: 2px;
@@ -35,8 +43,8 @@
 
 .effect_cardColor .effect_card {
     border: solid 1px white;
-    height: 20px;
-    width: 15px;
+    height: 25px;
+    width: 20px;
     border-radius: 2px;
     position: relative;
 }
@@ -88,4 +96,28 @@
 }
 .war_victory_point {
     background-image: url("/images/global/war_victory_point.png");
+}
+
+.effect_pickCard {
+    background-image: url("/images/global/pick_card.png");
+    background-position: center;
+    background-size: 100% 100%;
+    height: 45px;
+    width: 50px;
+}
+
+.effect_dualPlay {
+    background-image: url("/images/global/dual_play.png");
+    background-position: center;
+    background-size: 100% 100%;
+    height: 55px;
+    width: 60px;
+}
+
+.effect_freeLastCard {
+    background-image: url("/images/global/free_last_card.png");
+    background-position: center;
+    background-size: 100% 100%;
+    height: 40px;
+    width: 45px;
 }

@@ -1,5 +1,5 @@
 <template name="wonder_template">
-    <div class="wonder_container">
+    <div class="wonder_container wonder_id_{{wonder.id}}">
         <div class="wonder_mainEffect bg_{{getAdvantageColor}}">
             {{#each effect in wonder.mainEffects}}
             {{> effect_template effect=effect size="big"}}

@@ -14,6 +14,9 @@ Template.cardActions_template.helpers({
     impossible() {
         return this.card.buyInfo && !this.card.buyInfo.canHave
     },
+    possible() {
+        return this.card.buyInfo && this.card.buyInfo.canHave
+    },
     buy() {
         return this.card.buyInfo && this.card.buyInfo.canHave && !this.card.buyInfo.free ? this.card.buyInfo.priceMini : null
     }
