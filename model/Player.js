@@ -24,6 +24,26 @@ export class Player {
         return cards.length === 1 ? cards[0] : null
     }
 
+    playCardOnBoard(uniqIdCard) {
+        const selectCards = this.choiceCards.filter(card => card.uniqId === uniqIdCard)
+
+        if (selectCards.length === 1) {
+            selectCards[0].last = true
+            this.choiceCards = this.choiceCards.filter(card => card.uniqId !== uniqIdCard)
+            this.boardCards = [...this.boardCards, selectCards[0]]
+        }
+    }
+
+    cancelCardOnBoard(uniqIdCard) {
+        const selectCards = this.boardCards.filter(card => card.uniqId === uniqIdCard && card.last === true)
+
+        if (selectCards.length === 1) {
+            selectCards[0].last = false
+            this.boardCards = this.boardCards.filter(card => card.uniqId !== uniqIdCard)
+            this.choiceCards = [...this.choiceCards, selectCards[0]]
+        }
+    }
+
     toJson() {
 
         return {

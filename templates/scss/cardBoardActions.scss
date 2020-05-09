@@ -1,0 +1,27 @@
+.cardBoardActions_container {
+    float: left;
+    position: relative;
+    margin: 10px;
+
+    .over {
+        display: flex;
+        position: absolute;
+        background-color: rgba($color: white, $alpha: 0.5);
+        z-index: 1;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+
+        button {
+            font-size: 12px;
+            padding: 3px 5px;
+            margin: 10px 0;
+            font-weight: bold;
+       }
+    }
+}
+

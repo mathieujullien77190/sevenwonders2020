@@ -1,15 +1,23 @@
-import { getStepCanBuild } from '../../model/helpers/actions'
+import { getStepCanBuild, haveLastCard } from '../../model/helpers/actions'
 
-Template.cardActions_template.events({
-    'mouseenter .cardAction_container'(event) {
+Template.cardChoiceActions_template.events({
+    'mouseenter .cardChoiceActions_container'(event) {
         event.target.classList.add('show')
     },
-    'mouseleave .cardAction_container'(event) {
+    'mouseleave .cardChoiceActions_container'(event) {
         event.target.classList.remove('show')
+    },
+    'click .playCard'() {
+        if (this.card.buyInfo && this.card.buyInfo.free) {
+            boardObj.playCardOnBoard(this.card.uniqId, this.player.id)
+        }
     }
 })
 
-Template.cardActions_template.helpers({
+Template.cardChoiceActions_template.helpers({
+    canPlayAction() {
+        return !haveLastCard(this.player)
+    },
     free() {
         return this.card.buyInfo && this.card.buyInfo.free
     },

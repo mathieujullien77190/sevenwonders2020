@@ -1,5 +1,6 @@
 import './card.js'
-import './cardActions.js'
+import './cardChoiceActions.js'
+import './cardBoardActions.js'
 import './step.js'
 import './panelCards.js'
 import './panelWonders.js'

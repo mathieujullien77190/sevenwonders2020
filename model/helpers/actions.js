@@ -30,6 +30,14 @@ export const switchCardsChoice = (choiceCardsPlayers, direction) => {
     return working
 }
 
+export const haveLastCard = (player) => {
+    if (player && player.boardCards) {
+        const cards = player.boardCards.filter(card => card.last)
+        return cards.length >= 1 ? true : false
+    }
+    return false
+}
+
 export const getStepCanBuild = (player) => {
     if (player) {
         const steps = player.wonder.steps.filter(step => !step.hasCard)

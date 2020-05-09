@@ -1,0 +1,10 @@
+<template name="cardBoardActions_template">
+    <div class="cardBoardActions_container">
+        {{#if canCancel}}
+        <div class="over">
+            <button type="button" class="btn btn-dark cancel">Annuler</button>
+        </div>
+        {{/if}}
+        {{> card_template card=card}}
+    </div>
+</template>

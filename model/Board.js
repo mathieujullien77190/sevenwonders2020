@@ -68,10 +68,18 @@ export class Board {
         }
     }
 
-    setBoardCards(cards, idPlayer) {
+    playCardOnBoard(uniqIdCard, idPlayer) {
         const realPlayer = this.getPlayer(idPlayer)
         if (realPlayer) {
-            realPlayer.boardCards = cards
+            realPlayer.playCardOnBoard(uniqIdCard)
+            this.update(this.toJson())
+        }
+    }
+
+    cancelCardOnBoard(uniqIdCard, idPlayer) {
+        const realPlayer = this.getPlayer(idPlayer)
+        if (realPlayer) {
+            realPlayer.cancelCardOnBoard(uniqIdCard)
             this.update(this.toJson())
         }
     }
