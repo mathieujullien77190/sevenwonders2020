@@ -1,3 +1,5 @@
+import { getStepCanBuild } from '../../model/helpers/actions'
+
 Template.cardActions_template.events({
     'mouseenter .cardAction_container'(event) {
         event.target.classList.add('show')
@@ -14,8 +16,12 @@ Template.cardActions_template.helpers({
     impossible() {
         return this.card.buyInfo && !this.card.buyInfo.canHave
     },
-    possible() {
+    canPlayCard() {
         return this.card.buyInfo && this.card.buyInfo.canHave
+    },
+    canBuildStep() {
+        const nextStep = getStepCanBuild(this.player)
+        return nextStep && nextStep.buyInfo && nextStep.buyInfo.canHave
     },
     buy() {
         return this.card.buyInfo && this.card.buyInfo.canHave && !this.card.buyInfo.free ? this.card.buyInfo.priceMini : null

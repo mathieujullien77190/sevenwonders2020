@@ -30,6 +30,15 @@ export const switchCardsChoice = (choiceCardsPlayers, direction) => {
     return working
 }
 
+export const getStepCanBuild = (player) => {
+    if (player) {
+        const steps = player.wonder.steps.filter(step => !step.hasCard)
+        return steps.length >= 1 ? steps[0] : null
+    }
+    return null
+}
+
+
 export const getIndexPlayer = (playerId, players) => {
     const ids = players.map(player => player.id)
     return ids.indexOf(playerId)
@@ -162,6 +171,48 @@ export const getPrice = (player, apply, ressource) => {
 
 }
 
+export const buildStep = (me, right, left, step) => {
+    const cost = step.ressourcesCost
+
+    if (step.coinsCost > me.coins) {
+        return { canHave: false }
+    }
+
+    const playerPosition = {
+        [right.id]: 'right',
+        [left.id]: 'left'
+    }
+
+    const RP = getRessourcesPossibilities(me, false)
+    const meC = getRessourcesCombinaisons(RP, cost, true)
+
+    if (meC.length >= 1 && meC[0].newCost.length === 0) {//un cout mais on dispose de toute les ressources
+        return { free: true, canHave: true }
+    }
+
+    const RPRight = getRessourcesPossibilities(right, true)
+    const RPLeft = getRessourcesPossibilities(left, true)
+
+    const RPCommon = [...RPRight, ...RPLeft]
+
+    const playersC = meC.map(item => getRessourcesCombinaisons(RPCommon, item.newCost, false)).filter(item => item.length > 0).flat(1)
+    const playersCWithPrice = playersC.map(combinaison => combinaison.take.map(ressource => ({ ...ressource, price: getPrice(me, playerPosition[ressource.tag], ressource) })))
+
+    const playersCWithGlobalPrice = playersCWithPrice.map(combinaison => {
+        const price = combinaison.reduce((acc, curr) => acc + curr.price, 0)
+        return { combinaison, price }
+    }).filter(item => me.coins >= item.price)
+
+
+    return {//acheter chez les voisins
+        free: false,
+        canHave: playersCWithGlobalPrice.length === 0 ? false : true,
+        combinations: playersCWithGlobalPrice,
+        priceMini: playersCWithGlobalPrice.length > 0 ? arrayMin(playersCWithGlobalPrice.map(item => item.price)) : undefined
+    }
+
+}
+
 export const buyCard = (me, right, left, card) => {
 
     const cost = card.ressourcesCost
@@ -181,7 +232,6 @@ export const buyCard = (me, right, left, card) => {
     if (cost.length === 0) {//pas de cout
         return { free: true, canHave: true }
     }
-
 
     const playerPosition = {
         [right.id]: 'right',

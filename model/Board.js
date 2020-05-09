@@ -1,6 +1,6 @@
 
 import { Player } from './Player'
-import { calcAgeCards, splitCardsChoice, switchCardsChoice, rightPlayer, leftPlayer, buyCard } from './helpers/actions'
+import { calcAgeCards, splitCardsChoice, switchCardsChoice, rightPlayer, leftPlayer, buyCard, buildStep } from './helpers/actions'
 
 
 export class Board {
@@ -138,7 +138,16 @@ export class Board {
     calcBuyInfo() {
         this.players.forEach((player) => {
             player.choiceCards.map(card => card.setBuyInfo(this.canAddCard(player.id, card.uniqId)))
+            player.wonder.steps.map(step => step.setBuyInfo(this.canBuildStep(player.id, step)))
         })
+    }
+
+    canBuildStep(idPlayer, step) {
+        const me = this.getPlayer(idPlayer)
+        const right = rightPlayer(idPlayer, this.players)
+        const left = leftPlayer(idPlayer, this.players)
+
+        return buildStep(me, right, left, step)
     }
 
     canAddCard(idPlayer, uniqIdCard) {

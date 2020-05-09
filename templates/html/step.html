@@ -1,5 +1,14 @@
 <template name="step_template">
     <div class="step_container">
+        {{#if free}}
+        <div class="canAdd">{{> ok_template color="green"}}</div>
+        {{/if}}
+        {{#if impossible}}
+        <div class="cantAdd">{{> ko_template}}</div>
+        {{/if}}
+        {{#if buy}}
+        <div class="canBuy">{{> ok_template color="orange" value=buy}}</div>
+        {{/if}}
         {{#if step.hasCard}}
         <div class="step_card"></div>
         {{/if}}

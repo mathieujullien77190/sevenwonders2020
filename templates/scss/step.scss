@@ -25,6 +25,12 @@
         height: 85px;
     }
 
+    .canAdd, .cantAdd, .canBuy {
+        position: absolute;
+        top: -6px;
+        right: -6px;
+        z-index: 20;
+    }
 
 
 }

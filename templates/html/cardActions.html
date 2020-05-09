@@ -10,10 +10,12 @@
         <div class="canBuy">{{> ok_template color="orange" value=buy}}</div>
         {{/if}}
         <div class="over">
-            {{#if possible}}
+            {{#if canPlayCard}}
             <button type="button" class="btn btn-dark playCard">Jouer carte</button>
             {{/if}}
+            {{#if canBuildStep}}
             <button type="button" class="btn btn-dark playStep">Construire Merveille</button>
+            {{/if}}
             <button type="button" class="btn btn-dark discard">Défausser</button>
         </div>
         {{> card_template card=card}}

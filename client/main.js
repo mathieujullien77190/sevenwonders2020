@@ -10,46 +10,11 @@ import { getListWonders } from '../data/wonders'
 
 import { getBoardObj, getBoardMongo, getBoardsMongo } from '../both/board'
 
-
-import '../templates/html/accueil.html'
-import '../templates/html/player.html'
-
-
-import '../templates/html/card.html'
-import '../templates/helpers/card.js'
-
-import '../templates/html/cardActions.html'
-import '../templates/helpers/cardActions.js'
-
-import '../templates/html/step.html'
-import '../templates/helpers/step.js'
-
-
-import '../templates/html/ressource.html'
-import '../templates/html/scientific.html'
-
-import '../templates/html/link.html'
-import '../templates/html/atoms.html'
+import '../templates/html/'
+import '../templates/helpers/'
 import './main.html'
 
-import '../templates/html/panelCards.html'
-import '../templates/helpers/panelCards.js'
-
-import '../templates/html/panelWonders.html'
-import '../templates/helpers/panelWonders.js'
-
-import '../templates/html/board.html'
-import '../templates/helpers/board.js'
-
-import '../templates/html/wonder.html'
-import '../templates/helpers/wonder.js'
-
-import '../templates/html/effect.html'
-import '../templates/helpers/effect.js'
-
 let READY = new ReactiveVar(false)
-
-
 
 window.cards = allCards.map(card => new Card(card))
 window.wonders = getListWonders().map(wonder => new Wonder(wonder))
