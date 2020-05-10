@@ -1,8 +1,30 @@
 <template name="wonder_template">
+    <div class="stack_cards stack_cards1">
+        {{#each card in getCardStack1}}
+        {{> card_template card=card mini=true}}
+        {{/each}}
+    </div>
     <div class="wonder_container wonder_id_{{wonder.id}} wonder_steps_size_{{wonder.steps.length}}">
+
+        <div class="stack_cards stack_cards2">
+            {{#each card in getCardStack2}}
+            {{> card_template card=card mini=true}}
+            {{/each}}
+        </div>
+        <div class="stack_cards stack_cards3">
+            {{#each card in getCardStack3}}
+            {{> card_template card=card mini=true}}
+            {{/each}}
+        </div>
+        <div class="stack_cards stack_cards4">
+            {{#each card in getCardStack4}}
+            {{> card_template card=card mini=true}}
+            {{/each}}
+        </div>
+
         <div class="wonder_mainEffect bg_{{getAdvantageColor}}">
             {{#each effect in wonder.mainEffects}}
-            {{> effect_template effect=effect size="big"}}
+            {{> effect_template effect=effect}}
             {{/each}}
         </div>
 

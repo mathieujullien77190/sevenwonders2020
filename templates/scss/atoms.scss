@@ -3,8 +3,6 @@
     font-family: 'Poppins', sans-serif;
     justify-content: center;
     vertical-align: middle;
-
-    font-size: 12px;
     font-weight: 500;
     color: black;
     text-shadow: 0px 0px 2px white;
@@ -13,25 +11,34 @@
     background-size: 100% 100%;
     background-repeat:  no-repeat;
     background-image: url("/images/global/coin.png");
-
-    &.size_big {
-        height: 25px;
-        line-height: 25px;
-        width: 25px;
-        font-size: 19px;
+    
+    .effect_reduction & {
+        height: 16px;
+        width: 16px;
+        font-size: 14px;
+        margin-top: -20px;
+        position: absolute;
+    }
+    
+    .card_effect &, .step_effect &, .wonder_mainEffect & {
+        height: 24px;
+        width: 24px;
+        font-size: 16px;
     }
 
-    &.size_normal {
+    .link_effect & {
+        height: 14px;
+        width: 14px;
+        font-size: 10px;
+    }
+
+    .step_cost & {
         height: 15px;
         width: 15px;
-        font-size: 12px;
+        font-size: 10px;
     }
-
-    &.size_small {
-        height: 10px;
-        width: 10px;
-        font-size: 8px;
-    }
+    
+   
 }
 
 .victoryPoint {
@@ -47,24 +54,19 @@
     background-size: 100% 100%;
     background-repeat:  no-repeat;
     background-image: url("/images/global/victory_point.png");
-    
-    &.size_big {
-        height: 35px;
-        line-height: 35px;
-        width: 35px;
+
+    .card_effect &, .step_effect & {
+        height: 34px;
+        width: 34px;
+        line-height: 34px;
         font-size: 19px;
     }
 
-    &.size_normal {
-        height: 15px;
-        width: 15px;
-        font-size: 12px;
-    }
-
-    &.size_small {
-        height: 10px;
-        width: 10px;
-        font-size: 8px;
+    .link_effect & {
+        height: 14px;
+        width: 14px;
+        line-height: 14px;
+        font-size: 10px;
     }
 }
 
@@ -76,20 +78,20 @@
     background-size: 100% 100%;
     background-repeat:  no-repeat;
     background-image: url("/images/global/war.png");
-
-    &.size_big {
-        height: 28px;
-        width: 28px;
+    
+    .card_effect & {
+        height: 34px;
+        width: 34px;
+    }
+    
+    .step_effect & {
+        height: 24px;
+        width: 24px;
     }
 
-    &.size_normal {
-        height: 15px;
-        width: 15px;
-    }
-
-    &.size_small {
-        height: 10px;
-        width: 10px;
+    .link_effect & {
+        height: 14px;
+        width: 14px;
     }
 }
 

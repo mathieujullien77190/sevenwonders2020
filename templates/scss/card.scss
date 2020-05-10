@@ -1,10 +1,26 @@
 .card_container {
-    border: solid 3px #000000;
-    border-radius: 10px;
+    border: solid 2px #000000;
     position: relative;
     font-family: monospace;
-    width: 130px;
-    height: 200px;
+    overflow: hidden;
+    
+    &.full {
+        border-radius: 10px;
+        width: 130px;
+        height: 200px;
+
+        .card_effect {
+            position: absolute;
+            top: 0;
+            left: 25px;
+            right: 0;
+            height: 45px;
+        }
+    }
+
+    &.mini {
+        border-radius: 3px;
+    }
 }
 
 .card_name {
@@ -22,6 +38,7 @@
     border-right: solid 1px  gray;
     padding: 5px 0px 5px 0px;
     letter-spacing: -0.5px;
+    line-height: 14px;
 
     .bg_purple & {
         font-size: 8px;
@@ -32,18 +49,12 @@
     background-color: lightgray;
     bottom: 0;
     right: 0;
-    height: 150px;
-    width: 100px;
+    height: 149px;
+    width: 99px;
     position: absolute;
-    border-bottom-right-radius: 5px;
 }
 
 .card_effect {
-    position: absolute;
-    top: 0;
-    left: 25px;
-    right: 0;
-    height: 50px;
     display: flex;
     align-items: center;
     justify-content: center;

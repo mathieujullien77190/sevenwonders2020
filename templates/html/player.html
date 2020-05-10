@@ -9,7 +9,6 @@
         </div>
         <ul class="list-group list-group-flush">
             <li class="list-group-item">
-                <h5>Merveille</h5>
                 {{#if player.wonder}}
                 {{> wonder_template wonder=player.wonder player=player}}
                 {{/if}}
@@ -25,12 +24,6 @@
                 {{#if player.selectionCard}}
                 {{> cardSelectionActions_template card=player.selectionCard player=player board=board}}
                 {{/if}}
-            </li>
-            <li class="list-group-item player_boardCards">
-                <h5>Cartes posées</h5>
-                {{#each card in player.boardCards}}
-                {{> card_template card=card player=player board=board}}
-                {{/each}}
             </li>
         </ul>
     </div>

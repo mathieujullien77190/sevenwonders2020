@@ -11,6 +11,7 @@
         {{/if}}
 
         <div class="over">
+            <p class="info">{{info}}</p>
             {{#if canPlayAction}}
             {{#if canPlayCard}}
             <button type="button" class="btn btn-dark playCard">Jouer carte</button>
@@ -19,6 +20,7 @@
             <button type="button" class="btn btn-dark playStep">Construire Merveille</button>
             {{/if}}
             <button type="button" class="btn btn-dark discardCard">Défausser</button>
+            <button type="button" class="btn btn-dark infoCard">Info</button>
             {{else}}
             <div class="alert alert-dark" role="alert">
                 Annuler votre sélection pour choisir une autre carte

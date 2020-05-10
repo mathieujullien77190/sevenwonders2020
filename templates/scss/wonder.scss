@@ -1,6 +1,6 @@
 .wonder_container {
-    margin: 10px;
-    border: solid 3px #000000;
+    margin: 0 10px 20px;
+    border: solid 2px #000000;
     border-radius: 2px;
     position: relative;
     width: 470px;
@@ -15,7 +15,7 @@
     font-family: 'Poppins', sans-serif;
     font-size: 20px;
     text-align: right;
-    padding: 5px;
+    padding: 2px;
     width: auto;
     line-height: 20px;
     font-weight: 500;
@@ -48,4 +48,81 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
+}
+
+.stack_cards1 {
+    width: 470px;
+    margin: 0px 10px;
+    overflow: hidden;
+
+    .card_container {
+        float: left;
+        margin: 0 2px 2px 0;
+    }
+}
+
+.stack_cards2 {
+    width: 200px;
+    height: 40px;
+    top: 0px;
+    left: 113px;
+    position: absolute;
+
+    .card_container {
+        float: left;
+        margin: 2px 2px 0 0;
+        height: 18px;
+        border: solid 1px black;
+        background-color: transparent;
+        border: none;
+
+        .effect_war {
+            height:18px
+        }
+        .war {
+            height:18px;
+            width:18px;
+        }
+    }
+}
+
+.stack_cards3 {
+    height: 40px;
+    top: 45px;
+    left: 2px;
+    right: 2px;
+    position: absolute;
+
+    .card_container {
+        margin: 0 1px 0 1px;
+
+        &.bg_yellow {
+            float: right;
+        }
+
+        &.bg_blue {
+            float: left;
+        }
+    }
+}
+
+.stack_cards4 {
+    height: 80px;
+    top: 90px;
+    left: 2px;
+    right: 2px;
+    position: absolute;
+    overflow: hidden;
+
+    .card_container {
+        margin: 0 2px 2px 0;
+
+        &.bg_purple {
+            float: right;
+        }
+
+        &.bg_green {
+            float: left;
+        }
+    }
 }

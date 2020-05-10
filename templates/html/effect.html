@@ -3,7 +3,7 @@
 </template>
 
 <template name="effectRessources_template">
-    <div class="effect_container effect_ressources ressource_size_{{effect.ressources.length}}">
+    <div class="effect_container effect_ressources ">
         {{#each ressource in effect.ressources}}
         {{> ressource_template ressource=ressource}}
         {{#if hasOperatorOr}}
@@ -36,17 +36,17 @@
 <template name="effectScientific_template">
     <div class="effect_container effect_scientific">
         {{#each symbol in effect.symbols}}
-        {{> scientific_template scientific=symbol size=effect.symbols.length}}
+        {{> scientific_template scientific=symbol}}
         <span class="separator">/</span>
         {{/each}}
     </div>
 </template>
 
 <template name="effectReduction_template">
-    <div class="effect_container effect_reduction ressource_size_{{effect.ressources.length}}">
+    <div class="effect_container effect_reduction">
 
 
-        {{ > coin_template coins=effect.value size="normal"}}
+        {{ > coin_template coins=effect.value }}
         <div class="effect_reduction_container">
             {{#if isApplyLeft}}
             <span class="effect_arrow arrowLeft">&#9668;</span>

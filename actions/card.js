@@ -258,3 +258,27 @@ export const getPrice = (player, apply, ressource) => {
     }
 
 }
+
+export const stackCards = (player, container) => {
+
+    if (container === 1) {
+        return [
+            ...player.boardCards.filter(card => card.color === 'brown').sort((a, b) => b.effects[0].ressources.length - a.effects[0].ressources.length),
+            ...player.boardCards.filter(card => card.color === 'gray')
+        ]
+    } else if (container === 2) {
+        return player.boardCards.filter(card => card.color === 'red')
+    } else if (container === 4) {
+        return [
+            ...player.boardCards.filter(card => card.color === 'green').sort((a, b) => a.effects[0].symbols[0].id - b.effects[0].symbols[0].id),
+            ...player.boardCards.filter(card => card.color === 'purple')
+        ]
+    } else if (container === 3) {
+        return [
+            ...player.boardCards.filter(card => card.color === 'blue').sort((a, b) => a.effects[0].value - b.effects[0].value),
+            ...player.boardCards.filter(card => card.color === 'yellow')
+        ]
+    }
+
+    return []
+}

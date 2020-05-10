@@ -1,4 +1,4 @@
-
+import { stackCards } from '../../actions/card'
 
 Template.wonder_template.helpers({
     hasAdvantageCoins() {
@@ -18,5 +18,17 @@ Template.wonder_template.helpers({
             return ''
         }
 
+    },
+    getCardStack1() {
+        return stackCards(this.player, 1)
+    },
+    getCardStack2() {
+        return stackCards(this.player, 2)
+    },
+    getCardStack3() {
+        return stackCards(this.player, 3)
+    },
+    getCardStack4() {
+        return stackCards(this.player, 4)
     }
 })

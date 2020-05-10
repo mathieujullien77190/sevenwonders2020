@@ -1,40 +1,27 @@
 .scientific_container {
     border: solid 1px transparent;
     border-radius: 50%;
-}
-
-.scientific_size_mini {
-    width: 15px;
-    height: 15px;
-}
-
-.scientific_size_1 {
-    width: 30px;
-    height: 30px;
-}
-
-.scientific_size_2 {
-    width: 30px;
-    height: 30px;
-}
-
-.scientific_size_3 {
-    width: 20px;
-    height: 20px;
-}
-
-.scientific_size_4 {
-    width: 13px;
-    height: 13px;
-}
-
-
-
-*[class^="scientific"]{
     background-position: center;
     background-size: 100% 100%;
     background-repeat: no-repeat;
+
+    .card_effect & {
+        height: 34px;
+        width: 34px;
+    }
+    
+    .step_effect & {
+        height: 24px;
+        width: 24px;
+    }
+
+    .link_effect & {
+        height: 14px;
+        width: 14px;
+    }
+    
 }
+
 .scientific_id_1 {
     background-image: url("/images/scientifics/compass.png");
 }

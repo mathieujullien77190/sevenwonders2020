@@ -1,6 +1,6 @@
 <template name="card_template">
-    <div class="card_container bg_{{card.color}}">
-
+    {{#if big}}
+    <div class="card_container bg_{{card.color}} full">
         <div class="card_cost">
             {{#if hasCoinsCost}}
             <span class="coin">{{card.coinsCost}}</span>
@@ -9,11 +9,13 @@
             {{> ressource_template ressource=ressource}}
             {{/each}}
         </div>
+
         <div class="card_effect">
             {{#each effect in card.effects}}
             {{> effect_template effect=effect size="big"}}
             {{/each}}
         </div>
+
         <div class="card_name">
             {{card.name}}
         </div>
@@ -24,6 +26,14 @@
                 {{/each}}
             </div>
         </div>
-
     </div>
+    {{else}}
+    <div class="card_container bg_{{card.color}} mini">
+        <div class="card_effect">
+            {{#each effect in card.effects}}
+            {{> effect_template effect=effect size="big"}}
+            {{/each}}
+        </div>
+    </div>
+    {{/if}}
 </template>
