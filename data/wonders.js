@@ -355,7 +355,7 @@ const wonders = [
     {
         id: 13,
         name: 'Gizeh',
-        face: 'B',
+        face: 'A',
         images: '',
         mainEffects: [{ type: 'ressources', apply: ['own'], ressources: [3], operator: 'and' }],
         order: true,
@@ -420,7 +420,7 @@ const wonders = [
             },
             {
                 id: 4,
-                ressourcesCost: [3, 3, 3, 3, 7],
+                ressourcesCost: [7, 3, 3, 3, 3],
                 coinsCost: 0,
                 effects: [
                     { type: 'victoryPoints', apply: ['own'], value: 7 },
@@ -440,7 +440,7 @@ const wonders = [
         steps: [
             {
                 id: 1,
-                ressourcesCost: [1, 2, 3, 4, 5, 6, 7],
+                ressourcesCost: [2, 1, 5, 7, 6, 3, 4],
                 coinsCost: 0,
                 effects: [
                     { type: 'victoryPoints', apply: ['own'], value: 7 },
@@ -450,6 +450,33 @@ const wonders = [
             }
         ]
     },
+    {
+        id: 16,
+        name: 'Pietra',
+        face: 'B',
+        images: '',
+        mainEffects: [{ type: 'ressources', apply: ['own'], ressources: [1], operator: 'and' }],
+        order: true,
+        steps: [
+            {
+                id: 1,
+                ressourcesCost: [1, 2, 1, 2],
+                coinsCost: 0,
+                effects: [
+                    { type: 'victoryPoints', apply: ['own'], value: 3 },
+                    { type: 'moneyLost', apply: ['own'], value: 2 }
+                ]
+            },
+            {
+                id: 2,
+                ressourcesCost: [],
+                coinsCost: 14,
+                effects: [
+                    { type: 'victoryPoints', apply: ['own'], value: 14 }
+                ]
+            }
+        ]
+    }
 
 
 ]

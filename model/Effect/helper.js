@@ -12,6 +12,7 @@ import { EFreeLastCard } from './EFreeLastCard'
 import { EPickCard } from './EPickCard'
 import { EWarVictoryPoints } from './EWarVictoryPoints'
 import { EStep } from './EStep'
+import { EMoneyLost } from './EMoneyLost'
 
 const classEffects = {
     reduction: EReduction,
@@ -27,7 +28,8 @@ const classEffects = {
     freeLastCard: EFreeLastCard,
     pickCard: EPickCard,
     warVictoryPoints: EWarVictoryPoints,
-    step: EStep
+    step: EStep,
+    moneyLost: EMoneyLost
 }
 
 export const constructEffect = (type, config) => {

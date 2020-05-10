@@ -125,3 +125,9 @@
         </div>
     </div>
 </template>
+
+<template name="effectMoneyLost_template">
+    <div class="effect_container effect_money_lost">
+        {{ > coin_template coins=effect.value size=size}}
+    </div>
+</template>
