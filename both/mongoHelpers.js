@@ -1,9 +1,9 @@
-import { Meteor } from 'meteor/meteor';
+import { Meteor } from 'meteor/meteor'
 
 export const addObject = (object, collection) => {
     const find = collection.find({ id: object.id }).fetch();
     if (find.length === 0 && Meteor.isServer) {
-        console.log('CREATE', object)
+        console.log('CREATE')
         collection.insert(object)
     }
 }
@@ -11,7 +11,7 @@ export const addObject = (object, collection) => {
 export const updateObject = (object, collection) => {
     const select = collection.findOne({ id: object.id })
     if (select) {
-        console.log('UPDATE', object)
+        console.log('UPDATE', Meteor.isClient ? object : {})
         collection.update(select._id, object);
     }
 }

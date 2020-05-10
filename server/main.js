@@ -2,10 +2,11 @@ import { initPublication } from './publications.js'
 import { getObject, addObject } from '../both/mongoHelpers'
 import { Boards } from '../both/collections'
 import { Board } from '../model/Board'
+import { initObserver } from './observer'
 
 Meteor.startup(() => {
 
-  const CURRENT_ID_BOARD = 43
+  const CURRENT_ID_BOARD = 50
   const currentBoard = getObject(CURRENT_ID_BOARD, Boards)
 
   if (!currentBoard) {
@@ -14,5 +15,6 @@ Meteor.startup(() => {
   }
 
   initPublication(CURRENT_ID_BOARD)
+  initObserver(CURRENT_ID_BOARD)
 
 });

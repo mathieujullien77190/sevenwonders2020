@@ -8,12 +8,19 @@
             </h3>
         </div>
 
-        <div class="card-body">
-            <button type="button" class="btn btn-primary nextAge">Age suivant</button>
-            <button type="button" class="btn btn-primary switchCard">Echanger cartes</button>
-            <button type="button" class="btn btn-primary addPlayer">Ajouter joueur</button>
-
-        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                <button type="button" class="btn btn-primary nextAge">Age suivant</button>
+                <button type="button" class="btn btn-primary switchCard">Echanger cartes</button>
+                <button type="button" class="btn btn-primary addPlayer">Ajouter joueur</button>
+            </li>
+            <li class="list-group-item">
+                <h5>Défausse</h5>
+                {{#each card in board.discardCards}}
+                {{> card_template card=card}}
+                {{/each}}
+            </li>
+        </ul>
     </div>
 
     <div class="card" style="margin:10px;">

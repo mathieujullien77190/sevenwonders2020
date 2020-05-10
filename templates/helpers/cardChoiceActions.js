@@ -1,5 +1,5 @@
-import { getStepCanBuild, haveLastCard } from '../../actions/player'
-import { playCardOnBoard } from '../../actions/board'
+import { getStepCanBuild } from '../../actions/player'
+import { selectCard } from '../../actions/board'
 
 Template.cardChoiceActions_template.events({
     'mouseenter .cardChoiceActions_container'(event) {
@@ -10,14 +10,14 @@ Template.cardChoiceActions_template.events({
     },
     'click .playCard'() {
         if (this.card.buyInfo && this.card.buyInfo.free) {
-            playCardOnBoard(this.board, this.card.uniqId, this.player.id)
+            selectCard(this.board, this.card.uniqId, this.player.id)
         }
     }
 })
 
 Template.cardChoiceActions_template.helpers({
     canPlayAction() {
-        return !haveLastCard(this.player)
+        return !this.player.selectionCard
     },
     free() {
         return this.card.buyInfo && this.card.buyInfo.free

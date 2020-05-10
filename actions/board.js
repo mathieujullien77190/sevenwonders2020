@@ -3,6 +3,7 @@ import { Boards } from '../both/collections'
 import { calcAgeCards, splitChoiceCards, switchCardsChoice } from './card'
 import { MIN_PLAYERS, MAX_PLAYERS } from './constants'
 import { canAddCard, canBuildStep, getIndexPlayer, getPlayer } from './player'
+import { Player } from '../model/Player'
 
 export const nextAge = (board) => {
     board.age = board.age < 4 ? board.age + 1 : 0
@@ -81,17 +82,16 @@ export const addPlayer = (board, player) => {
     }
 }
 
-export const playCardOnBoard = (board, uniqIdCard, idPlayer) => {
+export const selectCard = (board, uniqIdCard, idPlayer) => {
     const player = getPlayer(board, idPlayer)
     const index = getIndexPlayer(idPlayer, board.players)
     if (player) {
         let selectCards = player.choiceCards.filter(card => card.uniqId === uniqIdCard)
 
         if (selectCards.length === 1) {
-            selectCards[0].last = true
 
             player.choiceCards = player.choiceCards.filter(card => card.uniqId !== uniqIdCard)
-            player.boardCards = [...player.boardCards, selectCards[0]]
+            player.selectionCard = selectCards[0]
 
             board.players[index] = player
             updateObject(board, Boards)
@@ -99,18 +99,17 @@ export const playCardOnBoard = (board, uniqIdCard, idPlayer) => {
     }
 }
 
-export const cancelCardOnBoard = (board, uniqIdCard, idPlayer) => {
+export const cancelCard = (board, idPlayer) => {
     const player = getPlayer(board, idPlayer)
     const index = getIndexPlayer(idPlayer, board.players)
 
     if (player) {
-        let selectCards = player.boardCards.filter(card => card.uniqId === uniqIdCard && card.last === true)
+        let selectCards = { ...player.selectionCard }
 
-        if (selectCards.length === 1) {
+        if (selectCards) {
 
-            selectCards[0].last = false
-            player.boardCards = player.boardCards.filter(card => card.uniqId !== uniqIdCard)
-            player.choiceCards = [...player.choiceCards, selectCards[0]]
+            player.selectionCard = null
+            player.choiceCards = [...player.choiceCards, selectCards]
 
             board.players[index] = player
             updateObject(board, Boards)
@@ -118,3 +117,33 @@ export const cancelCardOnBoard = (board, uniqIdCard, idPlayer) => {
     }
 }
 
+
+export const canValidateSelectCards = (board) => {
+    return board.players.filter(player => player.selectionCard).length === board.players.length
+}
+
+export const validateSelectCards = (board) => {
+
+    board.players = board.players.map(player => {
+        return { ...player, selectionCard: null, boardCards: [...player.boardCards, player.selectionCard] }
+    })
+    updateObject(board, Boards)
+
+}
+
+export const canDiscardCards = (board) => {
+    return board.players.filter(player => player.choiceCards.length === 1).length === board.players.length
+}
+
+
+export const discardCards = (board) => {
+    const discardCards = board.players.map(player => {
+        return player.choiceCards
+    }).flat(1)
+
+    board.players = board.players.map(player => ({ ...player, choiceCards: [] }))
+
+    board.discarCards = [...board.discarCards, ...discardCards]
+
+    updateObject(board, Boards)
+}

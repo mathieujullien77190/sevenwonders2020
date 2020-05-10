@@ -16,6 +16,7 @@ export class Player {
         }) : []
         this.boardCards = config.boardCards ? config.boardCards.map(card => new Card(card)) : []
         this.wonderCards = config.wonderCards ? config.wonderCards.map(card => new Card(card)) : []
+        this.selectionCard = config.selectionCard ? config.selectionCard : null
 
     }
 
@@ -29,7 +30,8 @@ export class Player {
             wonder: this.wonder ? this.wonder.toJson() : null,
             choiceCards: this.choiceCards.map(card => card.toJson()),
             boardCards: this.boardCards.map(card => card.toJson()),
-            wonderCards: this.wonderCards.map(card => card.toJson())
+            wonderCards: this.wonderCards.map(card => card.toJson()),
+            selectionCard: this.selectionCard
         }
     }
 

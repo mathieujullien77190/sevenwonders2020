@@ -20,10 +20,16 @@
                 {{> cardChoiceActions_template card=card player=player board=board}}
                 {{/each}}
             </li>
+            <li class="list-group-item player_selectionCards">
+                <h5>Cartes sélectionnées</h5>
+                {{#if player.selectionCard}}
+                {{> cardSelectionActions_template card=player.selectionCard player=player board=board}}
+                {{/if}}
+            </li>
             <li class="list-group-item player_boardCards">
                 <h5>Cartes posées</h5>
                 {{#each card in player.boardCards}}
-                {{> cardBoardActions_template card=card player=player board=board}}
+                {{> card_template card=card player=player board=board}}
                 {{/each}}
             </li>
         </ul>

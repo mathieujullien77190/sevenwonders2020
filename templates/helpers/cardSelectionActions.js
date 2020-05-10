@@ -1,0 +1,15 @@
+import { cancelCard } from '../../actions/board'
+
+Template.cardSelectionActions_template.events({
+    'click .cancel'() {
+        if (this.card.buyInfo && this.card.buyInfo.free) {
+            cancelCard(this.board, this.player.id)
+        }
+    }
+})
+
+Template.cardSelectionActions_template.helpers({
+    canCancel() {
+        return this.player.selectionCard
+    },
+});

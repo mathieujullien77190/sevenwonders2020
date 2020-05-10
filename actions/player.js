@@ -7,7 +7,7 @@ export const getIndexPlayer = (playerId, players) => {
 
 export const getPlayer = (board, idPlayer) => {
     const players = board.players.filter(player => player.id === idPlayer)
-    return players.length === 1 ? board.players[0] : null
+    return players.length === 1 ? players[0] : null
 }
 
 export const rightPlayer = (playerId, players) => {
@@ -42,13 +42,6 @@ export const canBuildStep = (board, idPlayer, step) => {
     return { priceMini: buyInfo.priceMini, canHave: buyInfo.canHave, free: buyInfo.free }
 }
 
-export const haveLastCard = (player) => {
-    if (player && player.boardCards) {
-        const cards = player.boardCards.filter(card => card.last)
-        return cards.length >= 1 ? true : false
-    }
-    return false
-}
 
 export const getStepCanBuild = (player) => {
     if (player) {
