@@ -3,7 +3,7 @@
     font-family: 'Poppins', sans-serif;
     justify-content: center;
     vertical-align: middle;
-    font-weight: 500;
+    font-weight: 700;
     color: black;
     text-shadow: 0px 0px 2px white;
 
@@ -12,13 +12,6 @@
     background-repeat:  no-repeat;
     background-image: url("/images/global/coin.png");
     
-    .effect_reduction & {
-        height: 16px;
-        width: 16px;
-        font-size: 14px;
-        margin-top: -20px;
-        position: absolute;
-    }
     
     .card_effect &, .step_effect &, .wonder_mainEffect & {
         height: 24px;
@@ -30,6 +23,14 @@
         height: 14px;
         width: 14px;
         font-size: 10px;
+    }
+
+    .effect_reduction & {
+        height: 14px;
+        width: 14px;
+        font-size: 10px;
+        margin-top: -19px;
+        position: absolute;
     }
 
     .step_cost & {

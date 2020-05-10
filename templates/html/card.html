@@ -1,6 +1,6 @@
 <template name="card_template">
     {{#if big}}
-    <div class="card_container bg_{{card.color}} full">
+    <div class="card_container bg_{{card.color}} card_id_{{card.id}} full">
         <div class="card_cost">
             {{#if hasCoinsCost}}
             <span class="coin">{{card.coinsCost}}</span>
@@ -12,7 +12,7 @@
 
         <div class="card_effect">
             {{#each effect in card.effects}}
-            {{> effect_template effect=effect size="big"}}
+            {{> effect_template effect=effect }}
             {{/each}}
         </div>
 
@@ -31,7 +31,7 @@
     <div class="card_container bg_{{card.color}} mini">
         <div class="card_effect">
             {{#each effect in card.effects}}
-            {{> effect_template effect=effect size="big"}}
+            {{> effect_template effect=effect }}
             {{/each}}
         </div>
     </div>

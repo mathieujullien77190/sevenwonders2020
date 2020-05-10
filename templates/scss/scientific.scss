@@ -8,6 +8,11 @@
     .card_effect & {
         height: 34px;
         width: 34px;
+
+        .bg_purple & {
+            height: 24px;
+            width: 24px;
+        }
     }
     
     .step_effect & {
