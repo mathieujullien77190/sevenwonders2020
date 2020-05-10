@@ -1,12 +1,15 @@
-.coin {
-    color: black;
-    border: solid 1px transparent;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+.coin {    
     display: flex;
-    align-items: center;
+    font-family: 'Poppins', sans-serif;
     justify-content: center;
+    vertical-align: middle;
+
     font-size: 12px;
-    font-weight: bold;
-    border-radius: 50%;
+    font-weight: 500;
+    color: black;
+    text-shadow: 0px 0px 2px white;
+
     background-position: center;
     background-size: 100% 100%;
     background-repeat:  no-repeat;
@@ -14,8 +17,9 @@
 
     &.size_big {
         height: 25px;
+        line-height: 25px;
         width: 25px;
-        font-size: 20px;
+        font-size: 19px;
     }
 
     &.size_normal {
@@ -32,34 +36,39 @@
 }
 
 .victoryPoint {
-    font-weight: bold;
     display: flex;
-    align-items: center;
-    justify-content: center;
+
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
     color: white;
+    text-shadow: 0px 0px 2px #000;
+    justify-content: center;
+
     background-position: center;
     background-size: 100% 100%;
     background-repeat:  no-repeat;
     background-image: url("/images/global/victory_point.png");
+    
+    &.size_big {
+        height: 35px;
+        line-height: 35px;
+        width: 35px;
+        font-size: 19px;
+    }
+
+    &.size_normal {
+        height: 15px;
+        width: 15px;
+        font-size: 12px;
+    }
+
+    &.size_small {
+        height: 10px;
+        width: 10px;
+        font-size: 8px;
+    }
 }
 
-.victoryPoint.size_big {
-    font-size: 20px;
-    height: 35px;
-    width: 35px;
-}
-
-.victoryPoint.size_normal {
-    font-size: 12px;
-    height: 15px;
-    width: 15px;
-}
-
-.victoryPoint.size_small {
-    font-size: 8px;
-    height: 10px;
-    width: 10px;
-}
 
 .war {
     display: flex;
@@ -68,21 +77,21 @@
     background-size: 100% 100%;
     background-repeat:  no-repeat;
     background-image: url("/images/global/war.png");
-}
 
-.war.size_big {
-    height: 35px;
-    width: 35px;
-}
+    &.size_big {
+        height: 28px;
+        width: 28px;
+    }
 
-.war.size_normal {
-    height: 15px;
-    width: 15px;
-}
+    &.size_normal {
+        height: 15px;
+        width: 15px;
+    }
 
-.war.size_small {
-    height: 10px;
-    width: 10px;
+    &.size_small {
+        height: 10px;
+        width: 10px;
+    }
 }
 
 .ok {

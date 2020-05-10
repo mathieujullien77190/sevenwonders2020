@@ -3,7 +3,8 @@ const getTotalCost = ((step) => ((step.coinsCost > 0) ? 1 : 0) + step.ressources
 
 Template.step_template.helpers({
     costSize() {
-        return this.step.ressourcesCost.length
+        return getTotalCost(this.step) 
+        //return this.step.ressourcesCost.length
     },
     free() {
         const nextStep = getStepCanBuild(this.player)

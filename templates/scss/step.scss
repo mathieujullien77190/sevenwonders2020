@@ -35,11 +35,69 @@
 
 .step_effect {
     display: flex;
-    flex-direction: row;
+    flex-direction: row;    
     align-items: center;
     justify-content: center;
-    margin: 5px 5px 5px 15px;
+    margin: 5px 0px 5px 15px;
+   
 }
+
+.wonder_steps_size_1 {
+    .step_cost_size_1 + .step_effect,
+    .step_cost_size_2 + .step_effect,
+    .step_cost_size_3 + .step_effect{
+        width: 110px;
+    }
+    .step_cost_size_4 + .step_effect,
+    .step_cost_size_5 + .step_effect{
+        margin-left: 32px;
+        width: 105px;
+    }
+    .step_cost_size_6 + .step_effect,
+    .step_cost_size_7 + .step_effect{
+        margin-left: 14px;
+        width: 103px;
+    }
+}
+.wonder_steps_size_2 {
+    .step_cost_size_1 + .step_effect,
+    .step_cost_size_2 + .step_effect,
+    .step_cost_size_3 + .step_effect{
+        margin-left: 5px;
+        width: 120px;
+    }
+    .step_cost_size_4 + .step_effect,
+    .step_cost_size_5 + .step_effect{
+        margin-left: 32px;
+        width: 105px;
+    }
+}
+.wonder_steps_size_3 {
+    .step_cost_size_1 + .step_effect,
+    .step_cost_size_2 + .step_effect,
+    .step_cost_size_3 + .step_effect{
+        margin-left: 15px;
+        width: 110px;
+    }
+    .step_cost_size_4 + .step_effect,
+    .step_cost_size_5 + .step_effect{
+        margin-left: 35px;
+        width: 95px;
+    }
+}
+.wonder_steps_size_4 {
+    .step_cost_size_1 + .step_effect,
+    .step_cost_size_2 + .step_effect,
+    .step_cost_size_3 + .step_effect{
+        width: 90px;
+    }
+    .step_cost_size_4 + .step_effect,
+    .step_cost_size_5 + .step_effect{
+        margin-left: 32px;
+        width: 70px;
+    }
+}
+
 
 .step_card {
     height: 20px;
@@ -49,8 +107,6 @@
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
 }
-
-
 
 .step_cost {
     position: absolute;
