@@ -1,5 +1,3 @@
-import { initArray } from '../model/helpers'
-
 const brownCards = [
     // Âge 1
     {
@@ -957,7 +955,11 @@ const cards = [
     ...purpleCards
 ]
 
-const getAllCards = () => cards.reduce((acc, curr) => {
+const initArray = (nbValues, value) => {
+    return [...Array(nbValues).keys()].map(i => value)
+}
+
+export const getAllCards = () => cards.reduce((acc, curr) => {
     const nbCard = curr.nbsPlayers.length
     const cards = initArray(nbCard, curr).map((card, index) => {
         return { ...card, uniqId: `${card.id}_${curr.nbsPlayers[index]}`, nbsPlayer: curr.nbsPlayers[index] }
@@ -966,25 +968,7 @@ const getAllCards = () => cards.reduce((acc, curr) => {
 }, [])
 
 
-export const allCards = getAllCards()
-
 export const getCardLink = (id) => {
     const result = cards.filter(card => card.id === id)
     return result.length === 1 ? result[0] : null;
 }
-
-
-
-// example card : 
-// {
-//     id: '1_3',
-//     name: 'Chantier',
-//     color: 'brown',
-//     age: [1],
-//     nbsPlayer: 3,
-//     ressourcesCost: [],
-//     coinsCost: 0,
-//     image: '',
-//     effects: [{ type: 'ressources', apply: ['own'], ressources: [4] }],
-//     links: []
-// }

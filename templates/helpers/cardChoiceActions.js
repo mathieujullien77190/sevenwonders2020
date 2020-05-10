@@ -1,4 +1,5 @@
-import { getStepCanBuild, haveLastCard } from '../../model/helpers/actions'
+import { getStepCanBuild, haveLastCard } from '../../actions/player'
+import { playCardOnBoard } from '../../actions/board'
 
 Template.cardChoiceActions_template.events({
     'mouseenter .cardChoiceActions_container'(event) {
@@ -9,7 +10,7 @@ Template.cardChoiceActions_template.events({
     },
     'click .playCard'() {
         if (this.card.buyInfo && this.card.buyInfo.free) {
-            boardObj.playCardOnBoard(this.card.uniqId, this.player.id)
+            playCardOnBoard(this.board, this.card.uniqId, this.player.id)
         }
     }
 })

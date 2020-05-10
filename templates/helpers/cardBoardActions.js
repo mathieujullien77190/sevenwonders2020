@@ -1,7 +1,9 @@
+import { cancelCardOnBoard } from '../../actions/board'
+
 Template.cardBoardActions_template.events({
     'click .cancel'() {
         if (this.card.buyInfo && this.card.buyInfo.free) {
-            boardObj.cancelCardOnBoard(this.card.uniqId, this.player.id)
+            cancelCardOnBoard(this.board, this.card.uniqId, this.player.id)
         }
     }
 })

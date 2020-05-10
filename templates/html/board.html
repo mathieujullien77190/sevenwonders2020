@@ -3,6 +3,7 @@
         <div class="card-header">
             <h3>
                 Board
+                <span class="badge badge-info">age : {{board.age}}</span>
                 <button type="button" class="btn btn-danger float-right logout">Deconnexion</button>
             </h3>
         </div>
@@ -25,7 +26,7 @@
 
         <div class="card-body">
             {{#each player in board.players}}
-            {{> player_template player=player}}
+            {{> player_template player=player board=board}}
             {{/each}}
         </div>
     </div>

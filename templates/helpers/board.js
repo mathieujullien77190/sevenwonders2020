@@ -1,14 +1,15 @@
 import { getWonder } from '../../data/wonders'
+import { nextAge, nextRound, addPlayer } from '../../actions/board'
 
 Template.board_template.events({
     'click .logout'() {
         Meteor.logout()
     },
     'click .nextAge'() {
-        window.boardObj.nextAge()
+        nextAge(this.board)
     },
     'click .switchCard'() {
-        window.boardObj.nextRound()
+        nextRound(this.board)
     },
     'click .addPlayer'() {
         const allPlayers = [
@@ -21,10 +22,9 @@ Template.board_template.events({
             { id: 7, pseudo: 'Lorou', wonder: getWonder(12) },
         ]
 
-        const nbs = window.boardObj.players.length
+        const nbs = this.board.players.length
         if (nbs < 7) {
-            window.boardObj.addPlayer(allPlayers[nbs])
+            addPlayer(this.board, allPlayers[nbs])
         }
-    },
-
+    }
 });

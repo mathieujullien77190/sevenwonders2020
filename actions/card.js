@@ -1,10 +1,22 @@
-import { cartesian } from './cartesian'
-import { arrayMax } from './arrayMax'
-import { arrayMin } from './arrayMin'
-import { arrayUniq } from './arrayUniq'
-import { shuffle } from './shuffle'
+import { shuffle } from './helpers/shuffle'
+import { cartesian } from './helpers/cartesian'
+import { arrayMax } from './helpers/arrayMax'
+import { arrayMin } from './helpers/arrayMin'
+import { arrayUniq } from './helpers/arrayUniq'
 
-export const splitCardsChoice = (nbPlayers, cards) => {
+export const calcAgeCards = (age, nbsPlayers, allCards) => {
+    const baseCards = allCards.filter(card => {
+        return age >= 1 && age <= 3 && card.age.includes(age) && card.color !== 'purple' && card.nbsPlayer <= nbsPlayers
+    })
+
+    const purpleCards = shuffle(allCards.filter(card => {
+        return card.color === 'purple' && age === 3
+    })).filter((card, index) => index < nbsPlayers + 2)
+
+    return shuffle([...baseCards, ...purpleCards])
+}
+
+export const splitChoiceCards = (nbPlayers, cards) => {
     let working = []
     cards.forEach((card, index) => {
         if (!working[index % nbPlayers]) {
@@ -30,38 +42,106 @@ export const switchCardsChoice = (choiceCardsPlayers, direction) => {
     return working
 }
 
-export const haveLastCard = (player) => {
-    if (player && player.boardCards) {
-        const cards = player.boardCards.filter(card => card.last)
-        return cards.length >= 1 ? true : false
+
+export const getCard = (board, uniqId) => {
+    const cards = board.allCards.filter(card => card.uniqId === uniqId)
+    return cards.length === 1 ? cards[0] : null
+}
+
+export const buyCard = (me, right, left, card) => {
+
+    const cost = card.ressourcesCost
+
+    if (card.coinsCost > me.coins) {//carte cout monnaie et pas la tune
+        return { canHave: false }
     }
-    return false
-}
 
-export const getStepCanBuild = (player) => {
-    if (player) {
-        const steps = player.wonder.steps.filter(step => !step.hasCard)
-        return steps.length >= 1 ? steps[0] : null
+    if (haveSameCard(me, card)) {//carte que l on a deja
+        return { canHave: false, duplicata: true }
     }
-    return null
+
+    if (haveLink(me, card)) {//utilisation lien
+        return { canHave: true, link: true }
+    }
+
+    if (cost.length === 0) {//pas de cout
+        return { free: true, canHave: true }
+    }
+
+    const playerPosition = {
+        [right.id]: 'right',
+        [left.id]: 'left'
+    }
+
+    const RP = getRessourcesPossibilities(me, false)
+    const meC = getRessourcesCombinaisons(RP, cost, true)
+
+    if (meC.length >= 1 && meC[0].newCost.length === 0) {//un cout mais on dispose de toute les ressources
+        return { free: true, canHave: true }
+    }
+
+    const RPRight = getRessourcesPossibilities(right, true)
+    const RPLeft = getRessourcesPossibilities(left, true)
+
+    const RPCommon = [...RPRight, ...RPLeft]
+
+    const playersC = meC.map(item => getRessourcesCombinaisons(RPCommon, item.newCost, false)).filter(item => item.length > 0).flat(1)
+    const playersCWithPrice = playersC.map(combinaison => combinaison.take.map(ressource => ({ ...ressource, price: getPrice(me, playerPosition[ressource.tag], ressource) })))
+
+    const playersCWithGlobalPrice = playersCWithPrice.map(combinaison => {
+        const price = combinaison.reduce((acc, curr) => acc + curr.price, 0)
+        return { combinaison, price }
+    }).filter(item => me.coins >= item.price)
+
+
+    return {//acheter chez les voisins
+        free: false,
+        canHave: playersCWithGlobalPrice.length === 0 ? false : true,
+        combinations: playersCWithGlobalPrice,
+        priceMini: playersCWithGlobalPrice.length > 0 ? arrayMin(playersCWithGlobalPrice.map(item => item.price)) : undefined
+    }
 }
 
+export const buildStep = (me, right, left, step) => {
+    const cost = step.ressourcesCost
 
-export const getIndexPlayer = (playerId, players) => {
-    const ids = players.map(player => player.id)
-    return ids.indexOf(playerId)
-}
+    if (step.coinsCost > me.coins) {
+        return { canHave: false }
+    }
 
-export const rightPlayer = (playerId, players) => {
-    const index = getIndexPlayer(playerId, players)
-    const nextIndex = index + 1 >= players.length ? 0 : index + 1
-    return players[nextIndex]
-}
+    const playerPosition = {
+        [right.id]: 'right',
+        [left.id]: 'left'
+    }
 
-export const leftPlayer = (playerId, players) => {
-    const index = getIndexPlayer(playerId, players)
-    const previousIndex = index - 1 < 0 ? players.length - 1 : index - 1
-    return players[previousIndex]
+    const RP = getRessourcesPossibilities(me, false)
+    const meC = getRessourcesCombinaisons(RP, cost, true)
+
+    if (meC.length >= 1 && meC[0].newCost.length === 0) {//un cout mais on dispose de toute les ressources
+        return { free: true, canHave: true }
+    }
+
+    const RPRight = getRessourcesPossibilities(right, true)
+    const RPLeft = getRessourcesPossibilities(left, true)
+
+    const RPCommon = [...RPRight, ...RPLeft]
+
+    const playersC = meC.map(item => getRessourcesCombinaisons(RPCommon, item.newCost, false)).filter(item => item.length > 0).flat(1)
+    const playersCWithPrice = playersC.map(combinaison => combinaison.take.map(ressource => ({ ...ressource, price: getPrice(me, playerPosition[ressource.tag], ressource) })))
+
+    const playersCWithGlobalPrice = playersCWithPrice.map(combinaison => {
+        const price = combinaison.reduce((acc, curr) => acc + curr.price, 0)
+        return { combinaison, price }
+    }).filter(item => me.coins >= item.price)
+
+
+    return {//acheter chez les voisins
+        free: false,
+        canHave: playersCWithGlobalPrice.length === 0 ? false : true,
+        combinations: playersCWithGlobalPrice,
+        priceMini: playersCWithGlobalPrice.length > 0 ? arrayMin(playersCWithGlobalPrice.map(item => item.price)) : undefined
+    }
+
 }
 
 export const haveSameCard = (player, buyCard) => {
@@ -178,112 +258,3 @@ export const getPrice = (player, apply, ressource) => {
     }
 
 }
-
-export const buildStep = (me, right, left, step) => {
-    const cost = step.ressourcesCost
-
-    if (step.coinsCost > me.coins) {
-        return { canHave: false }
-    }
-
-    const playerPosition = {
-        [right.id]: 'right',
-        [left.id]: 'left'
-    }
-
-    const RP = getRessourcesPossibilities(me, false)
-    const meC = getRessourcesCombinaisons(RP, cost, true)
-
-    if (meC.length >= 1 && meC[0].newCost.length === 0) {//un cout mais on dispose de toute les ressources
-        return { free: true, canHave: true }
-    }
-
-    const RPRight = getRessourcesPossibilities(right, true)
-    const RPLeft = getRessourcesPossibilities(left, true)
-
-    const RPCommon = [...RPRight, ...RPLeft]
-
-    const playersC = meC.map(item => getRessourcesCombinaisons(RPCommon, item.newCost, false)).filter(item => item.length > 0).flat(1)
-    const playersCWithPrice = playersC.map(combinaison => combinaison.take.map(ressource => ({ ...ressource, price: getPrice(me, playerPosition[ressource.tag], ressource) })))
-
-    const playersCWithGlobalPrice = playersCWithPrice.map(combinaison => {
-        const price = combinaison.reduce((acc, curr) => acc + curr.price, 0)
-        return { combinaison, price }
-    }).filter(item => me.coins >= item.price)
-
-
-    return {//acheter chez les voisins
-        free: false,
-        canHave: playersCWithGlobalPrice.length === 0 ? false : true,
-        combinations: playersCWithGlobalPrice,
-        priceMini: playersCWithGlobalPrice.length > 0 ? arrayMin(playersCWithGlobalPrice.map(item => item.price)) : undefined
-    }
-
-}
-
-export const buyCard = (me, right, left, card) => {
-
-    const cost = card.ressourcesCost
-
-    if (card.coinsCost > me.coins) {//carte cout monnaie et pas la tune
-        return { canHave: false }
-    }
-
-    if (haveSameCard(me, card)) {//carte que l on a deja
-        return { canHave: false, duplicata: true }
-    }
-
-    if (haveLink(me, card)) {//utilisation lien
-        return { canHave: true, link: true }
-    }
-
-    if (cost.length === 0) {//pas de cout
-        return { free: true, canHave: true }
-    }
-
-    const playerPosition = {
-        [right.id]: 'right',
-        [left.id]: 'left'
-    }
-
-    const RP = getRessourcesPossibilities(me, false)
-    const meC = getRessourcesCombinaisons(RP, cost, true)
-
-    if (meC.length >= 1 && meC[0].newCost.length === 0) {//un cout mais on dispose de toute les ressources
-        return { free: true, canHave: true }
-    }
-
-    const RPRight = getRessourcesPossibilities(right, true)
-    const RPLeft = getRessourcesPossibilities(left, true)
-
-    const RPCommon = [...RPRight, ...RPLeft]
-
-    const playersC = meC.map(item => getRessourcesCombinaisons(RPCommon, item.newCost, false)).filter(item => item.length > 0).flat(1)
-    const playersCWithPrice = playersC.map(combinaison => combinaison.take.map(ressource => ({ ...ressource, price: getPrice(me, playerPosition[ressource.tag], ressource) })))
-
-    const playersCWithGlobalPrice = playersCWithPrice.map(combinaison => {
-        const price = combinaison.reduce((acc, curr) => acc + curr.price, 0)
-        return { combinaison, price }
-    }).filter(item => me.coins >= item.price)
-
-
-    return {//acheter chez les voisins
-        free: false,
-        canHave: playersCWithGlobalPrice.length === 0 ? false : true,
-        combinations: playersCWithGlobalPrice,
-        priceMini: playersCWithGlobalPrice.length > 0 ? arrayMin(playersCWithGlobalPrice.map(item => item.price)) : undefined
-    }
-}
-
-export const calcAgeCards = (age, nbsPlayers, allCards) => {
-    const baseCards = allCards.filter(card => {
-        return age >= 1 && age <= 3 && card.age.includes(age) && card.color !== 'purple' && card.nbsPlayer <= nbsPlayers
-    })
-
-    const purpleCards = shuffle(allCards.filter(card => {
-        return card.color === 'purple' && age === 3
-    })).filter((card, index) => index < nbsPlayers + 2)
-
-    return shuffle([...baseCards, ...purpleCards])
-}
-

@@ -24,10 +24,6 @@ export class Card {
 
     }
 
-    setBuyInfo(buyInfo) {
-        this.buyInfo = { priceMini: buyInfo.priceMini, canHave: buyInfo.canHave, free: buyInfo.free }
-    }
-
     toJson() {
         return {
             id: this.id,

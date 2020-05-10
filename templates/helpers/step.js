@@ -1,4 +1,4 @@
-import { getStepCanBuild } from '../../model/helpers/actions'
+import { getStepCanBuild } from '../../actions/player'
 
 Template.step_template.helpers({
     costSize() {

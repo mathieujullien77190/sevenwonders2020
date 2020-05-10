@@ -17,13 +17,13 @@
             <li class="list-group-item">
                 <h5>Choix carte tour</h5>
                 {{#each card in player.choiceCards}}
-                {{> cardChoiceActions_template card=card player=player}}
+                {{> cardChoiceActions_template card=card player=player board=board}}
                 {{/each}}
             </li>
             <li class="list-group-item player_boardCards">
                 <h5>Cartes posées</h5>
                 {{#each card in player.boardCards}}
-                {{> cardBoardActions_template card=card player=player}}
+                {{> cardBoardActions_template card=card player=player board=board}}
                 {{/each}}
             </li>
         </ul>

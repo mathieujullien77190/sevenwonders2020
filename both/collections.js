@@ -1,0 +1,1 @@
+export const Boards = new Mongo.Collection('boards')
