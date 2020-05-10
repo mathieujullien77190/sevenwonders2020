@@ -1,29 +1,37 @@
 import { updateObject } from '../both/mongoHelpers'
 import { Boards } from '../both/collections'
 import { calcAgeCards, splitChoiceCards, switchCardsChoice } from './card'
-import { MIN_PLAYERS, MAX_PLAYERS } from './constants'
-import { canAddCard, canBuildStep, getIndexPlayer, getPlayer } from './player'
+import { MIN_PLAYERS, MAX_PLAYERS, ROUND_TO_DISCARD_CARDS } from './constants'
+import { canAddCard, canBuildStep, getIndexPlayer, getPlayer, getStepCanBuild } from './player'
 import { Player } from '../model/Player'
 
 export const nextAge = (board) => {
-    board.age = board.age < 4 ? board.age + 1 : 0
+    if (board.players.length >= MIN_PLAYERS) {
+        board.age = board.age < 4 ? board.age + 1 : 0
 
-    board.ageCards = calcAgeCards(board.age, board.players.length, board.allCards)
+        if (canPlay(board)) {
 
-    if (canPlay(board)) {
-        const split = splitChoiceCards(board.players.length, board.ageCards)
+            board.round = 1
 
-        setChoiceCards(board, split)
-        setBuyInfoOnCards(board)
-        setBuyInfoOnSteps(board)
-    } else {
-        resetChoiceCards(board)
+            board.ageCards = calcAgeCards(board.age, board.players.length, board.allCards)
+
+            const split = splitChoiceCards(board.players.length, board.ageCards)
+
+            setChoiceCards(board, split)
+            setBuyInfoOnCards(board)
+            setBuyInfoOnSteps(board)
+        } else {
+            resetChoiceCards(board)
+        }
     }
 
 }
 
 export const nextRound = (board) => {
     if (canPlay(board)) {
+
+        board.round = board.round + 1
+
         const split = switchCardsChoice(board.players.map(player => player.choiceCards), board.age === 2 ? 'right' : 'left')
 
         setChoiceCards(board, split)
@@ -33,7 +41,7 @@ export const nextRound = (board) => {
 }
 
 const canPlay = (board) => {
-    return board.age >= 1 && board.age <= 3 && board.players.length >= MIN_PLAYERS
+    return board.age >= 1 && board.age <= 3
 }
 
 const setBuyInfoOnCards = (board) => {
@@ -82,7 +90,7 @@ export const addPlayer = (board, player) => {
     }
 }
 
-export const selectCard = (board, uniqIdCard, idPlayer) => {
+export const selectCard = (board, uniqIdCard, idPlayer, nameAction) => {
     const player = getPlayer(board, idPlayer)
     const index = getIndexPlayer(idPlayer, board.players)
     if (player) {
@@ -92,6 +100,7 @@ export const selectCard = (board, uniqIdCard, idPlayer) => {
 
             player.choiceCards = player.choiceCards.filter(card => card.uniqId !== uniqIdCard)
             player.selectionCard = selectCards[0]
+            player.selectionCard.action = nameAction
 
             board.players[index] = player
             updateObject(board, Boards)
@@ -124,15 +133,39 @@ export const canValidateSelectCards = (board) => {
 
 export const validateSelectCards = (board) => {
 
+    const discardCards = board.players.filter(player => player.selectionCard.action === 'discard').map(player => player.selectionCard)
+
     board.players = board.players.map(player => {
-        return { ...player, selectionCard: null, boardCards: [...player.boardCards, player.selectionCard] }
+        const selectCard = player.selectionCard
+
+        if (selectCard.action === 'play') {
+            return { ...player, selectionCard: null, boardCards: [...player.boardCards, player.selectionCard] }
+        } else if (selectCard.action === 'wonder') {
+            const nextStep = getStepCanBuild(player)
+
+            return {
+                ...player,
+                selectionCard: null,
+                wonderCards: [...player.wonderCards, player.selectionCard],
+                wonder: {
+                    ...player.wonder, steps: player.wonder.steps.map(step => {
+                        return nextStep.id === step.id ? { ...step, hasCardAge: player.selectionCard.age } : step
+                    })
+                }
+            }
+        } else if (selectCard.action === 'discard') {
+            return { ...player, selectionCard: null }
+        }
     })
+
+    board.discardCards = [...board.discardCards, ...discardCards]
+
     updateObject(board, Boards)
 
 }
 
 export const canDiscardCards = (board) => {
-    return board.players.filter(player => player.choiceCards.length === 1).length === board.players.length
+    return board.round === ROUND_TO_DISCARD_CARDS
 }
 
 
@@ -143,7 +176,7 @@ export const discardCards = (board) => {
 
     board.players = board.players.map(player => ({ ...player, choiceCards: [] }))
 
-    board.discarCards = [...board.discarCards, ...discardCards]
+    board.discardCards = [...board.discardCards, ...discardCards]
 
     updateObject(board, Boards)
 }

@@ -1,41 +1,43 @@
 <template name="board_template">
-    <div class="card" style="margin:10px;">
-        <div class="card-header">
-            <h3>
-                Board
-                <span class="badge badge-info">age : {{board.age}}</span>
-                <button type="button" class="btn btn-danger float-right logout">Deconnexion</button>
-            </h3>
+    <div class="board_container">
+        <div class="card" style="margin:10px;">
+            <div class="card-header">
+                <h3>
+                    Board
+                    <span class="badge badge-info">age : {{board.age}}</span>
+                    <span class="badge badge-info">round : {{board.round}}</span>
+                    <button type="button" class="btn btn-danger float-right logout">Deconnexion</button>
+                </h3>
+            </div>
+
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <button type="button" class="btn btn-primary nextAge">Age suivant</button>
+                    <button type="button" class="btn btn-primary switchCard">Echanger cartes</button>
+                    <button type="button" class="btn btn-primary addPlayer">Ajouter joueur</button>
+                </li>
+                <li class="list-group-item discardCards">
+                    <h5>Défausse</h5>
+                    {{#each card in board.discardCards}}
+                    {{> card_template card=card}}
+                    {{/each}}
+                </li>
+            </ul>
         </div>
 
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">
-                <button type="button" class="btn btn-primary nextAge">Age suivant</button>
-                <button type="button" class="btn btn-primary switchCard">Echanger cartes</button>
-                <button type="button" class="btn btn-primary addPlayer">Ajouter joueur</button>
-            </li>
-            <li class="list-group-item">
-                <h5>Défausse</h5>
-                {{#each card in board.discardCards}}
-                {{> card_template card=card}}
+        <div class="card" style="margin:10px;">
+            <div class="card-header">
+                <h3>
+                    Joueurs
+                    <span class="badge badge-info float-right">{{board.players.length}}</span>
+                </h3>
+            </div>
+
+            <div class="card-body">
+                {{#each player in board.players}}
+                {{> player_template player=player board=board}}
                 {{/each}}
-            </li>
-        </ul>
-    </div>
-
-    <div class="card" style="margin:10px;">
-        <div class="card-header">
-            <h3>
-                Joueurs
-                <span class="badge badge-info float-right">{{board.players.length}}</span>
-            </h3>
-        </div>
-
-        <div class="card-body">
-            {{#each player in board.players}}
-            {{> player_template player=player board=board}}
-            {{/each}}
+            </div>
         </div>
     </div>
-
 </template>

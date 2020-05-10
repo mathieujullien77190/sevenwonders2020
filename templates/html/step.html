@@ -9,8 +9,8 @@
         {{#if buy}}
         <div class="canBuy">{{> ok_template color="orange" value=buy}}</div>
         {{/if}}
-        {{#if step.hasCard}}
-        <div class="step_card"></div>
+        {{#if step.hasCardAge}}
+        <div class="step_card bg_{{step.hasCardAge}}"></div>
         {{/if}}
         <div class="step_cost step_cost_size_{{costSize}}">
             <div class="column">
@@ -23,18 +23,18 @@
                 {{/each}}
             </div>
             {{#if hasMoreThanThreeCosts}}
-                <div class="column cost_size_{{costSize}}">
-                    {{#each ressource in getMiddleResources}}
-                    {{> ressource_template ressource=ressource }}
-                    {{/each}}
-                </div>
+            <div class="column cost_size_{{costSize}}">
+                {{#each ressource in getMiddleResources}}
+                {{> ressource_template ressource=ressource }}
+                {{/each}}
+            </div>
             {{/if}}
             {{#if hasMoreThanFiveCosts}}
-                <div class="column cost_size_{{costSize}}">
-                    {{#each ressource in getLastResources}}
-                    {{> ressource_template ressource=ressource }}
-                    {{/each}}
-                </div>
+            <div class="column cost_size_{{costSize}}">
+                {{#each ressource in getLastResources}}
+                {{> ressource_template ressource=ressource }}
+                {{/each}}
+            </div>
             {{/if}}
         </div>
         <div class="step_effect">

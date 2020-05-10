@@ -8,7 +8,7 @@ export class Step {
         this.ressourcesCost = config.ressourcesCost.map(ressource => new Ressource(ressource))
         this.coinsCost = config.coinsCost
         this.effects = config.effects.map(effect => constructEffect(effect.type, effect))
-        this.hasCard = config.hasCard ? config.hasCard : false
+        this.hasCardAge = config.hasCardAge ? config.hasCardAge : null
         this.buyInfo = config.buyInfo
     }
 
@@ -22,7 +22,7 @@ export class Step {
             ressourcesCost: this.ressourcesCost.map(ressource => ressource.toJson()),
             coinsCost: this.coinsCost,
             effects: this.effects.map(effect => effect.toJson()),
-            hasCard: this.hasCard,
+            hasCardAge: this.hasCardAge,
             buyInfo: this.buyInfo
         }
     }

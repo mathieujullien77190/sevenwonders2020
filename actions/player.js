@@ -45,7 +45,7 @@ export const canBuildStep = (board, idPlayer, step) => {
 
 export const getStepCanBuild = (player) => {
     if (player) {
-        const steps = player.wonder.steps.filter(step => !step.hasCard)
+        const steps = player.wonder.steps.filter(step => !step.hasCardAge)
         return steps.length >= 1 ? steps[0] : null
     }
     return null

@@ -9,9 +9,13 @@ Template.cardChoiceActions_template.events({
         event.target.classList.remove('show')
     },
     'click .playCard'() {
-        if (this.card.buyInfo && this.card.buyInfo.free) {
-            selectCard(this.board, this.card.uniqId, this.player.id)
-        }
+        selectCard(this.board, this.card.uniqId, this.player.id, "play")
+    },
+    'click .playStep'() {
+        selectCard(this.board, this.card.uniqId, this.player.id, "wonder")
+    },
+    'click .discardCard'() {
+        selectCard(this.board, this.card.uniqId, this.player.id, "discard")
     }
 })
 

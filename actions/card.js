@@ -161,7 +161,7 @@ export const getEffectsReductionCards = (cards, apply) => {
 }
 
 export const getEffectsReductionSteps = (steps, apply) => {
-    return steps.filter(step => step.hasCard && step.effects[0].type === 'reduction' && step.effects[0].apply.includes(apply)).map(step => step.effects[0])
+    return steps.filter(step => step.hasCardAge && step.effects[0].type === 'reduction' && step.effects[0].apply.includes(apply)).map(step => step.effects[0])
 }
 
 export const getEffectsRessourcesCards = (cards, isNeighbour) => {
@@ -169,7 +169,7 @@ export const getEffectsRessourcesCards = (cards, isNeighbour) => {
 }
 
 export const getEffectsRessourcesSteps = (steps) => {
-    return steps.filter(step => step.hasCard && step.effects[0].type === 'ressources').map(step => step.effects[0])
+    return steps.filter(step => step.hasCardAge && step.effects[0].type === 'ressources').map(step => step.effects[0])
 }
 
 export const getEffectsRessourcesWonder = (wonder) => {

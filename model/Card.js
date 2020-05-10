@@ -20,6 +20,7 @@ export class Card {
         this.effects = config.effects.map(effect => constructEffect(effect.type, effect))
         this.links = config.links.map(id => new Card(id))
         this.buyInfo = config.buyInfo
+        this.action = config.action
     }
 
     toJson() {
@@ -36,6 +37,7 @@ export class Card {
             effects: this.effects.map(effect => effect.toJson()),
             links: this.links.map(link => link.toJson()),
             buyInfo: this.buyInfo,
+            action: this.action
         }
 
     }

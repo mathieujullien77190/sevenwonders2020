@@ -9,7 +9,7 @@ const wonders = [
         steps: [
             {
                 id: 1,
-                ressourcesCost: [4, 4],
+                ressourcesCost: [2],
                 coinsCost: 0,
                 effects: [{ type: 'victoryPoints', apply: ['own'], value: 3 }]
             },

@@ -12,4 +12,13 @@ Template.cardSelectionActions_template.helpers({
     canCancel() {
         return this.player.selectionCard
     },
+    actionDescription() {
+        if (this.card.action === 'play') {
+            return 'Vous jouez cette carte'
+        } else if (this.card.action === 'discard') {
+            return 'Vous defaussez cette carte'
+        } else if (this.card.action === 'wonder') {
+            return 'Vous construisez un étage de merveille'
+        }
+    }
 });
