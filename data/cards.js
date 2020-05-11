@@ -599,7 +599,7 @@ const yellowCards = [
         ressourcesCost: [],
         coinsCost: 0,
         image: '',
-        effects: [{ type: 'cardColor', apply: ['own', 'left', 'right'], coins: 1, color: 'brown' }],
+        effects: [{ type: 'cardColor', apply: ['own', 'left', 'right'], victoryPoint: 0, coins: 1, color: 'brown' }],
         links: []
     },
     {
@@ -611,7 +611,7 @@ const yellowCards = [
         ressourcesCost: [],
         coinsCost: 0,
         image: '',
-        effects: [{ type: 'cardColor', apply: ['own', 'left', 'right'], coins: 2, color: 'gray' }],
+        effects: [{ type: 'cardColor', apply: ['own', 'left', 'right'], victoryPoint: 0, coins: 2, color: 'gray' }],
         links: []
     },
 
@@ -828,7 +828,7 @@ const purpleCards = [
         ressourcesCost: [2, 2, 1, 3, 4],
         coinsCost: 0,
         image: '',
-        effects: [{ type: 'cardColor', apply: ['left', 'right'], victoryPoint: 1, color: 'brown' }],
+        effects: [{ type: 'cardColor', apply: ['left', 'right'], coins: 0, victoryPoint: 1, color: 'brown' }],
         links: []
     },
     {
@@ -840,7 +840,7 @@ const purpleCards = [
         ressourcesCost: [2, 2, 3, 3],
         coinsCost: 0,
         image: '',
-        effects: [{ type: 'cardColor', apply: ['left', 'right'], victoryPoint: 2, color: 'grey' }],
+        effects: [{ type: 'cardColor', apply: ['left', 'right'], coins: 0, victoryPoint: 2, color: 'grey' }],
         links: []
     },
     {
@@ -852,7 +852,7 @@ const purpleCards = [
         ressourcesCost: [6, 7, 5],
         coinsCost: 0,
         image: '',
-        effects: [{ type: 'cardColor', apply: ['left', 'right'], victoryPoint: 1, color: 'yellow' }],
+        effects: [{ type: 'cardColor', apply: ['left', 'right'], coins: 0, victoryPoint: 1, color: 'yellow' }],
         links: []
     },
     {
@@ -864,7 +864,7 @@ const purpleCards = [
         ressourcesCost: [1, 1, 1, 6, 7],
         coinsCost: 0,
         image: '',
-        effects: [{ type: 'cardColor', apply: ['left', 'right'], victoryPoint: 1, color: 'green' }],
+        effects: [{ type: 'cardColor', apply: ['left', 'right'], coins: 0, victoryPoint: 1, color: 'green' }],
         links: []
     },
     {
@@ -876,7 +876,7 @@ const purpleCards = [
         ressourcesCost: [1, 1, 1, 5],
         coinsCost: 0,
         image: '',
-        effects: [{ type: 'cardColor', apply: ['left', 'right'], victoryPoint: 1, color: 'red' }],
+        effects: [{ type: 'cardColor', apply: ['left', 'right'], coins: 0, victoryPoint: 1, color: 'red' }],
         links: []
     },
     {
@@ -901,9 +901,9 @@ const purpleCards = [
         coinsCost: 0,
         image: '',
         effects: [
-            { type: 'cardColor', apply: ['own'], victoryPoint: 1, color: 'brown' },
-            { type: 'cardColor', apply: ['own'], victoryPoint: 1, color: 'gray' },
-            { type: 'cardColor', apply: ['own'], victoryPoint: 1, color: 'purple' }
+            { type: 'cardColor', apply: ['own'], coins: 0, victoryPoint: 1, color: 'brown' },
+            { type: 'cardColor', apply: ['own'], coins: 0, victoryPoint: 1, color: 'gray' },
+            { type: 'cardColor', apply: ['own'], coins: 0, victoryPoint: 1, color: 'purple' }
         ],
         links: []
     },
@@ -928,7 +928,7 @@ const purpleCards = [
         ressourcesCost: [4, 4, 4, 3, 6],
         coinsCost: 0,
         image: '',
-        effects: [{ type: 'cardColor', apply: ['left', 'right'], victoryPoint: 1, color: 'blue' }],
+        effects: [{ type: 'cardColor', apply: ['left', 'right'], coins: 0, victoryPoint: 1, color: 'blue' }],
         links: []
     },
     {
@@ -941,6 +941,30 @@ const purpleCards = [
         coinsCost: 0,
         image: '',
         effects: [{ type: 'step', apply: ['own', 'left', 'right'], victoryPoint: 1 }],
+        links: []
+    },
+    {
+        id: 74,
+        name: 'Guilde des joueurs',
+        color: 'purple',
+        age: [3],
+        nbsPlayers: [3],
+        ressourcesCost: [1, 2, 3, 4],
+        coinsCost: 0,
+        image: '',
+        effects: [{ type: 'moneyVictory', apply: ['own'], victoryPoint: 1, coins: 3 }],
+        links: []
+    },
+    {
+        id: 75,
+        name: 'Guilde des pleureuses',
+        color: 'purple',
+        age: [3],
+        nbsPlayers: [3],
+        ressourcesCost: [1, 1, 4, 5, 6],
+        coinsCost: 0,
+        image: '',
+        effects: [{ type: 'warVictoryPoints', apply: ['right', 'left'], value: 1 }],
         links: []
     }
 ];

@@ -12,7 +12,12 @@
     background-repeat:  no-repeat;
     background-image: url("/images/global/coin.png");
     
-    
+    .card_cost & {
+        height: 16px;
+        width: 16px;
+        font-size: 12px;
+    }
+
     .card_effect &, .step_effect &, .wonder_mainEffect & {
         height: 24px;
         width: 24px;

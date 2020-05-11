@@ -10,6 +10,7 @@ export class Player {
         this.pseudo = config.pseudo ? config.pseudo : 'inconnu'
         this.points = config.points ? config.points : 0
         this.coins = config.coins ? config.coins : 3
+        this.warPoints = config.warPoints ? config.warPoints : []
         this.wonder = config.wonder ? new Wonder(config.wonder) : null
         this.choiceCards = config.choiceCards ? config.choiceCards.map(card => {
             return new Card(card)
@@ -27,6 +28,7 @@ export class Player {
             pseudo: this.pseudo,
             points: this.points,
             coins: this.coins,
+            warPoints: this.warPoints,
             wonder: this.wonder ? this.wonder.toJson() : null,
             choiceCards: this.choiceCards.map(card => card.toJson()),
             boardCards: this.boardCards.map(card => card.toJson()),
