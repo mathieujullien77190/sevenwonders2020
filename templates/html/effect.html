@@ -65,15 +65,20 @@
 
 <template name="effectCardColor_template">
     <div class="effect_container effect_cardColor">
-        <div class="effect_card bg_{{effect.color}}">
-            {{#if effect.hasVictoryPoints}}
-            {{ > victoryPoint_template victoryPoint=effect.victoryPoint size=getSizePoint}}
+        {{#if isApplyLeft}}
+        <span class="effect_arrow arrowLeft">&#9668;</span>
+        {{/if}}
+        <div class="effect_card bg_{{effect.color}} {{effectAlone}}">
+            {{#if hasVictoryPoint}}
+            {{ > victoryPoint_template victoryPoint=effect.victoryPoint}}
             {{/if}}
-            {{#if effect.hasCoins}}
-            {{ > coin_template coins=effect.coins size=getSizePoint}}
+            {{#if hasCoin}}
+            {{ > coin_template coins=effect.coins }}
             {{/if}}
         </div>
-
+        {{#if isApplyRight}}
+        <span class="effect_arrow arrowRight">&#9658;</span>
+        {{/if}}
     </div>
 </template>
 
@@ -86,7 +91,7 @@
 
 <template name="effectDefeat_template">
     <div class="effect_container effect_defeat">
-        <div class="effect_symbol defeat size_big">
+        <div class="effect_symbol defeat">
             {{ > victoryPoint_template victoryPoint=effect.victoryPoint size=getSizePoint}}
             {{ > coin_template coins=effect.coins size=getSizePoint}}
         </div>
@@ -119,15 +124,15 @@
 
 <template name="effectStep_template">
     <div class="effect_container effect_step">
-        <div class="effect_symbol step size_big">
-            {{ > victoryPoint_template victoryPoint=effect.victoryPoint size=getSizePoint}}
-            {{ > coin_template coins=effect.coins size=getSizePoint}}
+        <div class="effect_symbol step">
+            {{ > victoryPoint_template victoryPoint=effect.victoryPoint }}
+            {{ > coin_template coins=effect.coins}}
         </div>
     </div>
 </template>
 
 <template name="effectMoneyLost_template">
     <div class="effect_container effect_money_lost">
-        {{ > coin_template coins=effect.value size=size}}
+        {{ > coin_template coins=effect.value }}
     </div>
 </template>

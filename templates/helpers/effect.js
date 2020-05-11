@@ -18,8 +18,14 @@ Template.effectWar_template.helpers({
 });
 
 Template.effectCardColor_template.helpers({
-    getSizePoint() {
-        return this.size === 'big' ? 'normal' : 'small'
+    hasVictoryPoint() {
+        return this.effect.victoryPoint > 0
+    },
+    hasCoin() {
+        return this.effect.coins > 0
+    },
+    effectAlone() {
+        return this.effect.victoryPoint > 0 && this.effect.coins === 0 || this.effect.victoryPoint === 0 && this.effect.coins > 0 ? 'alone' : 'notAlone'
     }
 })
 
@@ -31,15 +37,17 @@ Template.effectRessources_template.helpers({
 
 Template.registerHelper('isApplyLeft', () => {
     const effect = Template.instance().data.effect
-    return effect && effect.type === 'reduction' && effect.apply.includes('left') ? true : false
+    return effect && (effect.type === 'reduction' || effect.type === 'cardColor') && effect.apply.includes('left') ? true : false
 });
 
 Template.registerHelper('isApplyRight', () => {
     const effect = Template.instance().data.effect
-    return effect && effect.type === 'reduction' && effect.apply.includes('right') ? true : false
+    return effect && (effect.type === 'reduction' || effect.type === 'cardColor') && effect.apply.includes('right') ? true : false
 });
 
 Template.registerHelper('isApplyOwn', () => {
     const effect = Template.instance().data.effect
-    return effect && effect.type === 'reduction' && effect.apply.includes('own') ? true : false
+    return effect && (effect.type === 'cardColor') && effect.apply.includes('own') ? true : false
 });
+
+

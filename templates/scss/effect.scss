@@ -1,6 +1,6 @@
 .effect_container {
     display: flex;
-    align-content: center;
+    justify-content: center;
     align-items: center;
     flex-direction: row;
     margin: 0 2px;
@@ -15,8 +15,6 @@
     
 }
 
-
-
 .effect_ressources span:last-child,
 .effect_scientific span:last-child {
     display: none;
@@ -29,6 +27,7 @@
 
 .effect_reduction {
     flex-direction: column-reverse;
+    justify-content: end;
 
     .effect_reduction_container {
         display: inline-flex;
@@ -40,38 +39,66 @@
     }
 }
 
-.effect_cardColor .effect_card {
-    border: solid 1px white;
-    height: 25px;
-    width: 20px;
-    border-radius: 2px;
-    position: relative;
+.effect_cardColor {
+
+    .effect_card {
+        border: solid 1px white;
+        height: 25px;
+        width: 20px;
+        border-radius: 2px;
+        position: relative;
+        display: flex;
+        align-items: center;
+
+
+        &.notAlone {
+
+            .victoryPoint {
+                position: absolute;
+                bottom: -10px;
+                left: -12px;
+               
+            }
+            
+            .coin {
+                position: absolute;
+                bottom: -10px;
+                right: -12px;
+            }
+        }
+
+       
+    }
+
+    .effect_arrow {
+        font-size: 20px;
+
+        &.arrowLeft {
+            margin-right: 10px;
+        }
+
+        &.arrowRight {
+            margin-left: 8px;
+        }
+    }
+
 }
 
-.effect_cardColor .effect_card .victoryPoint {
-    position: absolute;
-    bottom: -10px;
-    left: -10px;
-}
 
-.effect_cardColor .effect_card .coin {
-    position: absolute;
-    bottom: -10px;
-    right: -10px;
-}
 
 .separator {
     font-weight: bold;
+    color: black;
     
-    .card_effect & {
+    .card_container.bg_brown & {
         color: white;
-    }
-    
-    .step_effect & {
-        color: black;
     }
 }
 
+
+.effect_step {
+    width: 50px;
+}
 
 .effect_symbol{
     display: flex;
@@ -81,6 +108,19 @@
     background-repeat:  no-repeat;
     height: 35px;
     width: 35px;
+    position: relative;
+
+    .victoryPoint {
+        top: 15px;
+        right: -9px;
+        position: absolute;
+    }
+
+    .coin {
+        top: 15px;
+        left: -9px;
+        position: absolute;
+    }
 }
 
 .step {

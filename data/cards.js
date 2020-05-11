@@ -661,7 +661,7 @@ const yellowCards = [
         ressourcesCost: [3, 3, 2],
         coinsCost: 0,
         image: '',
-        effects: [{ type: 'step', apply: ['own'], coins: 1, victoryPoint: 1 }],
+        effects: [{ type: 'step', apply: ['own'], coins: 3, victoryPoint: 1 }],
         links: []
     }
 ]
