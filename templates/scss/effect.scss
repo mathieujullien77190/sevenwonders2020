@@ -31,11 +31,30 @@
 
     .effect_reduction_container {
         display: inline-flex;
-        background-color: white;
+        background-color: #cecece;
         border-radius: 15px;
         align-items: center;
         justify-content: center;
         height: 18px;
+    }
+}
+
+.effect_copyCardColor {
+
+    .effect_card {
+        border: solid 1px white;
+        height: 25px;
+        width: 18px;
+        border-radius: 2px;
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+
+    .effect_apply {
+        font-size: 22px;
+        letter-spacing: -2px;
+        margin: 0 0 0 5px;
     }
 }
 
@@ -44,7 +63,7 @@
     .effect_card {
         border: solid 1px white;
         height: 25px;
-        width: 20px;
+        width: 18px;
         border-radius: 2px;
         position: relative;
         display: flex;
@@ -52,17 +71,18 @@
 
 
         &.notAlone {
+            margin: 0 10px;
 
             .victoryPoint {
                 position: absolute;
-                bottom: -10px;
+                bottom: -8px;
                 left: -12px;
                
             }
             
             .coin {
                 position: absolute;
-                bottom: -9px;
+                bottom: -6px;
                 right: -12px;
             }
         }
@@ -106,6 +126,20 @@
     }
 }
 
+.effect_defeat {
+    width: 50px;
+}
+
+.effect_money_victory {
+    position: relative;
+    width: 40px;
+
+    .victoryPoint {
+        position: absolute;
+        left: 21px;
+        top: 14px;
+    }
+}
 
 .effect_step {
     width: 50px;
@@ -122,13 +156,13 @@
     position: relative;
 
     .victoryPoint {
-        top: 15px;
+        top: 17px;
         right: -9px;
         position: absolute;
     }
 
     .coin {
-        top: 15px;
+        top: 20px;
         left: -9px;
         position: absolute;
     }

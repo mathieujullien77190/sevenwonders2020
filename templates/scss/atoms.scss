@@ -45,9 +45,9 @@
     }
 
     .effect_symbol & {
-        height: 18px;
-        width: 18px;
-        font-size: 14px;
+        height: 16px;
+        width: 16px;
+        font-size: 12px;
     }
 
     .effect_cardColor & {
@@ -100,6 +100,13 @@
         line-height: 20px;
         font-size: 14px;
     }
+
+    .effect_money_victory & {
+        height: 20px;
+        width: 20px;
+        line-height: 20px;
+        font-size: 14px;
+    }
 }
 
 
@@ -112,8 +119,8 @@
     background-image: url("/images/global/war.png");
     
     .card_effect & {
-        height: 34px;
-        width: 34px;
+        height: 30px;
+        width: 30px;
     }
     
     .step_effect & {

@@ -888,7 +888,7 @@ const purpleCards = [
         ressourcesCost: [2, 2, 3, 6],
         coinsCost: 0,
         image: '',
-        effects: [{ type: 'defeat', apply: ['left', 'right'], victoryPoint: 1 }],
+        effects: [{ type: 'defeat', apply: ['left', 'right'], victoryPoint: 1, coins: 0 }],
         links: []
     },
     {

@@ -91,6 +91,11 @@
     <div class="effect_container effect_copyCardColor">
         <div class="effect_card bg_{{effect.color}}">
         </div>
+        <div class="effect_apply">
+            <span class="effect_arrow arrowLeft">&#9668;</span>
+            <span class="separator">/</span>
+            <span class="effect_arrow arrowRight">&#9658;</span>
+        </div>
     </div>
 </template>
 
@@ -139,5 +144,12 @@
 <template name="effectMoneyLost_template">
     <div class="effect_container effect_money_lost">
         {{ > coin_template coins=effect.value }}
+    </div>
+</template>
+
+<template name="effectMoneyVictory_template">
+    <div class="effect_container effect_money_victory">
+        {{ > coin_template coins=effect.coins }}
+        {{ > victoryPoint_template victoryPoint=effect.victoryPoint }}
     </div>
 </template>
