@@ -4,5 +4,8 @@ Template.card_template.helpers({
     },
     big() {
         return !this.mini
+    },
+    last() {
+        return this.card.last ? 'last' : ''
     }
 });

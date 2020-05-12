@@ -6,7 +6,7 @@ import { initObserver } from './observer'
 
 Meteor.startup(() => {
 
-  const CURRENT_ID_BOARD = 92
+  const CURRENT_ID_BOARD = 101
   const currentBoard = getObject(CURRENT_ID_BOARD, Boards)
 
   if (!currentBoard) {

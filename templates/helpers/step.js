@@ -18,6 +18,9 @@ Template.step_template.helpers({
         const nextStep = getStepCanBuild(this.player)
         return nextStep && this.step.id === nextStep.id && this.step.buyInfo && this.step.buyInfo.canHave && !this.step.buyInfo.free ? this.step.buyInfo.priceMini : null
     },
+    lastCard() {
+        return this.step.card.last ? 'last' : ''
+    },
     hasCoinsCost() {
         return this.step.coinsCost > 0
     },

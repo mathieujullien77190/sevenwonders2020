@@ -944,7 +944,7 @@ const purpleCards = [
         links: []
     },
     {
-        id: 74,
+        id: 77,
         name: 'Guilde des joueurs',
         color: 'purple',
         age: [3],
@@ -956,7 +956,7 @@ const purpleCards = [
         links: []
     },
     {
-        id: 75,
+        id: 78,
         name: 'Guilde des pleureuses',
         color: 'purple',
         age: [3],

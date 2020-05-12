@@ -3,6 +3,10 @@
     position: relative;
     font-family: monospace;
     overflow: hidden;
+
+    &.last {
+        border: solid 2px red;
+    }
     
     &.full {
         border-radius: 10px;

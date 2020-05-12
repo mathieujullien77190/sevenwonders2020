@@ -61,7 +61,7 @@ export const buyCard = (me, right, left, card) => {
     }
 
     if (haveLink(me, card)) {//utilisation lien
-        return { canHave: true, link: true }
+        return { canHave: true, link: true, free: true }
     }
 
     if (cost.length === 0) {//pas de cout
@@ -156,12 +156,16 @@ export const getColorCards = (player, color) => {
     return player.boardCards.filter(card => card.color === color)
 }
 
+export const getEffect = (card, filter) => {
+    return card.effects.filter(filter)
+}
+
 export const getEffectsReductionCards = (cards, apply) => {
     return cards.filter(card => card.effects[0].type === 'reduction' && card.effects[0].apply.includes(apply)).map(card => card.effects[0])
 }
 
 export const getEffectsReductionSteps = (steps, apply) => {
-    return steps.filter(step => step.hasCardAge && step.effects[0].type === 'reduction' && step.effects[0].apply.includes(apply)).map(step => step.effects[0])
+    return steps.filter(step => step.card && step.effects[0].type === 'reduction' && step.effects[0].apply.includes(apply)).map(step => step.effects[0])
 }
 
 export const getEffectsRessourcesCards = (cards, isNeighbour) => {
@@ -169,7 +173,7 @@ export const getEffectsRessourcesCards = (cards, isNeighbour) => {
 }
 
 export const getEffectsRessourcesSteps = (steps) => {
-    return steps.filter(step => step.hasCardAge && step.effects[0].type === 'ressources').map(step => step.effects[0])
+    return steps.filter(step => step.card && step.effects[0].type === 'ressources').map(step => step.effects[0])
 }
 
 export const getEffectsRessourcesWonder = (wonder) => {

@@ -2,7 +2,7 @@ import { updateObject } from '../both/mongoHelpers'
 import { Boards } from '../both/collections'
 import { calcAgeCards, splitChoiceCards, switchCardsChoice } from './card'
 import { MIN_PLAYERS, MAX_PLAYERS, ROUND_TO_DISCARD_CARDS } from './constants'
-import { canAddCard, canBuildStep, getIndexPlayer, getPlayer, getStepCanBuild } from './player'
+import { getPointsPlayer, getLastCardPlay, getLastStepPlay, canAddCard, canBuildStep, getIndexPlayer, getPlayer, getStepCanBuild, rightPlayer, leftPlayer, getMoneyEffect } from './player'
 import { Player } from '../model/Player'
 
 export const nextAge = (board) => {
@@ -91,6 +91,7 @@ export const addPlayer = (board, player) => {
 }
 
 export const selectCard = (board, uniqIdCard, idPlayer, nameAction) => {
+    console.time('selectCardPlayer')
     const player = getPlayer(board, idPlayer)
     const index = getIndexPlayer(idPlayer, board.players)
     if (player) {
@@ -101,11 +102,13 @@ export const selectCard = (board, uniqIdCard, idPlayer, nameAction) => {
             player.choiceCards = player.choiceCards.filter(card => card.uniqId !== uniqIdCard)
             player.selectionCard = selectCards[0]
             player.selectionCard.action = nameAction
+            player.selectionCard.last = true
 
             board.players[index] = player
             updateObject(board, Boards)
         }
     }
+    console.timeEnd('selectCardPlayer')
 }
 
 export const cancelCard = (board, idPlayer) => {
@@ -132,36 +135,76 @@ export const canValidateSelectCards = (board) => {
 }
 
 export const validateSelectCards = (board) => {
-
+    console.time('validateCardPlayers')
     const discardCards = board.players.filter(player => player.selectionCard.action === 'discard').map(player => player.selectionCard)
 
     board.players = board.players.map(player => {
-        const selectCard = player.selectionCard
+        const selectCard = { ...player.selectionCard }
 
         if (selectCard.action === 'play') {
-            return { ...player, selectionCard: null, boardCards: [...player.boardCards, player.selectionCard] }
-        } else if (selectCard.action === 'wonder') {
-            const nextStep = getStepCanBuild(player)
-
             return {
                 ...player,
                 selectionCard: null,
-                wonderCards: [...player.wonderCards, player.selectionCard],
+                boardCards: [...player.boardCards.map(card => ({ ...card, last: false })), selectCard],
+                wonder: {
+                    ...player.wonder, steps: player.wonder.steps.map(step => ({ ...step, card: step.card ? { ...step.card, last: false } : null }))
+                }
+            }
+        } else if (selectCard.action === 'wonder') {
+            const nextStep = getStepCanBuild(player)
+            return {
+                ...player,
+                selectionCard: null,
+                boardCards: player.boardCards.map(card => ({ ...card, last: false })),
                 wonder: {
                     ...player.wonder, steps: player.wonder.steps.map(step => {
-                        return nextStep.id === step.id ? { ...step, hasCardAge: player.selectionCard.age } : step
+                        return nextStep.id === step.id ? { ...step, card: selectCard } : { ...step, card: step.card ? { ...step.card, last: false } : null }
                     })
                 }
             }
         } else if (selectCard.action === 'discard') {
-            return { ...player, selectionCard: null }
+            return {
+                ...player,
+                selectionCard: null,
+                boardCards: player.boardCards.map(card => ({ ...card, last: false })),
+                coins: player.coins + 3,
+                wonder: {
+                    ...player.wonder, steps: player.wonder.steps.map(step => ({ ...step, card: step.card ? { ...step.card, last: false } : null }))
+                }
+            }
         }
     })
+
+    board.players = calculForPlayers(board)
 
     board.discardCards = [...board.discardCards, ...discardCards]
 
     updateObject(board, Boards)
+    console.timeEnd('validateCardPlayers')
 
+}
+
+export const calculForPlayers = (board) => {
+    return board.players.map(player => {
+        const right = rightPlayer(player.id, board.players)
+        const left = leftPlayer(player.id, board.players)
+        const lastCardPlay = getLastCardPlay(player)
+        const lastStepPlay = getLastStepPlay(player)
+        let coins = 0
+
+        if (lastCardPlay) {
+            coins = lastCardPlay.effects.reduce((acc, curr) => {
+                return acc + getMoneyEffect(player, right, left, curr)
+            }, 0)
+        } else if (lastStepPlay) {
+            coins = lastStepPlay.effects.reduce((acc, curr) => {
+                return acc + getMoneyEffect(player, right, left, curr)
+            }, 0)
+        }
+
+        return { ...player, coins: player.coins + coins, points: getPointsPlayer(player, board) }
+
+    })
 }
 
 export const canDiscardCards = (board) => {
@@ -180,5 +223,4 @@ export const discardCards = (board) => {
 
     updateObject(board, Boards)
 }
-
 

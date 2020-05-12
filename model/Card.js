@@ -21,6 +21,7 @@ export class Card {
         this.links = config.links.map(id => new Card(id))
         this.buyInfo = config.buyInfo
         this.action = config.action
+        this.last = config.last
     }
 
     toJson() {
@@ -37,7 +38,8 @@ export class Card {
             effects: this.effects.map(effect => effect.toJson()),
             links: this.links.map(link => link.toJson()),
             buyInfo: this.buyInfo,
-            action: this.action
+            action: this.action,
+            last: this.last
         }
 
     }

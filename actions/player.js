@@ -3,6 +3,10 @@ import { arrayMin } from './helpers/arrayMin'
 import { cartesian } from './helpers/cartesian'
 import { isOwn, isRight, isLeft } from './effect'
 
+export const getStepBuild = (player) => {//todo
+    return player.wonder.steps.filter(step => step.card)
+}
+
 export const getIndexPlayer = (playerId, players) => {
     const ids = players.map(player => player.id)
     return ids.indexOf(playerId)
@@ -32,7 +36,7 @@ export const canAddCard = (board, idPlayer, card) => {
 
     const buyInfo = buyCard(me, right, left, card)
 
-    return { priceMini: buyInfo.priceMini, canHave: buyInfo.canHave, free: buyInfo.free }
+    return { priceMini: buyInfo.priceMini, canHave: buyInfo.canHave, free: buyInfo.free, link: buyInfo.link }
 }
 
 export const canBuildStep = (board, idPlayer, step) => {
@@ -45,10 +49,20 @@ export const canBuildStep = (board, idPlayer, step) => {
     return { priceMini: buyInfo.priceMini, canHave: buyInfo.canHave, free: buyInfo.free }
 }
 
+export const getLastCardPlay = (player) => {
+    const cards = player.boardCards.filter(card => card.last)
+    return cards.length === 1 ? cards[0] : null
+}
+
+export const getLastStepPlay = (player) => {
+    const steps = player.wonder.steps.filter(step => step.card && step.card.last)
+    return steps.length === 1 ? steps[0] : null
+}
+
 
 export const getStepCanBuild = (player) => {
     if (player) {
-        const steps = player.wonder.steps.filter(step => !step.hasCardAge)
+        const steps = player.wonder.steps.filter(step => !step.card)
         return steps.length >= 1 ? steps[0] : null
     }
     return null
@@ -59,7 +73,7 @@ export const getPointsPlayer = (player, board) => {
     const left = leftPlayer(player.id, board.players)
 
     const allCardsEffects = player.boardCards.map(card => card.effects).flat(1)
-    const allStepsEffects = player.wonder.steps.filter(step => step.hasCardAge).map(step => step.effects).flat(1)
+    const allStepsEffects = player.wonder.steps.filter(step => step.card).map(step => step.effects).flat(1)
 
     const basePoints = [...allCardsEffects, ...allStepsEffects].map(effect => getPoints(effect, player, right, left)).reduce((acc, curr) => acc + curr, 0)
     const scientificPoints = getScientificPoints(player)
@@ -82,9 +96,9 @@ export const getPoints = (effect, player, rightPlayer, leftPlayer) => {
         const left = isLeft(effect) ? leftPlayer.warPoints.filter(point => point < 0).defeatPoints : 0
         return right + left
     } else if (effect.type === 'step') {
-        const own = isOwn(effect) ? player.wonder.steps.filter(step => step.hasCardAge).length : 0
-        const right = isRight(effect) ? rightPlayer.wonder.steps.filter(step => step.hasCardAge).length : 0
-        const left = isLeft(effect) ? leftPlayer.wonder.steps.filter(step => step.hasCardAge).length : 0
+        const own = isOwn(effect) ? player.wonder.steps.filter(step => step.card).length : 0
+        const right = isRight(effect) ? rightPlayer.wonder.steps.filter(step => step.card).length : 0
+        const left = isLeft(effect) ? leftPlayer.wonder.steps.filter(step => step.card).length : 0
         return own + left + right
     } else if (effect.type === 'moneyVictory') {
         return player.coins / effect.coins * effect.victoryPoint
@@ -101,7 +115,7 @@ export const getScientificPoints = (player) => {
     const scientificSymbols = getColorCards(player, 'green').map(card => card.effects[0].symbols[0].id).map(symbol => [symbol])
     const mixedSymbols = [
         ...player.boardCards.filter(card => card.id === 71).map(card => card.effects[0].symbols.map(symbol => symbol.id)),
-        ...player.wonder.steps.filter(step => step.hasCardAge).map(step => step.effects[0]).filter(effect => effect.type === 'scientific').map(effect => effect.symbols.map(symbol => symbol.id))
+        ...player.wonder.steps.filter(step => step.card).map(step => step.effects[0]).filter(effect => effect.type === 'scientific').map(effect => effect.symbols.map(symbol => symbol.id))
     ]
     const allSymbols = [...scientificSymbols, ...mixedSymbols]
 
@@ -173,7 +187,24 @@ export const getMoney = (card, player, playerRight, playerLeft) => {
 }
 
 export const getCoinsPoints = (player) => {
-    return player.coins / 3
+    return Math.floor(player.coins / 3)
+}
+
+export const getMoneyEffect = (player, rightPlayer, leftPlayer, effect) => {
+
+    if (effect.type === 'money') {
+        return effect.value
+    } else if (effect.type === 'cardColor' && effect.coins > 0) {
+        const countCardsOwn = isOwn(effect) ? getColorCards(player, effect.color).length : 0
+        const countCardsRight = isRight(effect) ? getColorCards(rightPlayer, effect.color).length : 0
+        const countCardsLeft = isLeft(effect) ? getColorCards(leftPlayer, effect.color).length : 0
+        return (countCardsOwn + countCardsRight + countCardsLeft) * effect.coins
+    } else if (effect.type === 'step' && effect.coins > 0) {
+        const countStep = isOwn(effect) ? getStepBuild(player).length : 0
+        return countStep * effect.coins
+    }
+
+    return 0
 }
 
 

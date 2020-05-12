@@ -28,7 +28,7 @@
         </div>
     </div>
     {{else}}
-    <div class="card_container bg_{{card.color}} mini">
+    <div class="card_container bg_{{card.color}} {{last}} mini">
         <div class="card_effect">
             {{#each effect in card.effects}}
             {{> effect_template effect=effect }}
