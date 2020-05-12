@@ -1,4 +1,4 @@
-
+import { isRight, isOwn, isLeft } from '../../actions/effect'
 
 Template.effect_template.helpers({
     getTemplate() {
@@ -37,17 +37,17 @@ Template.effectRessources_template.helpers({
 
 Template.registerHelper('isApplyLeft', () => {
     const effect = Template.instance().data.effect
-    return effect && (effect.type === 'reduction' || effect.type === 'cardColor') && effect.apply.includes('left') ? true : false
+    return effect && (effect.type === 'reduction' || effect.type === 'cardColor') && isLeft(effect) ? true : false
 });
 
 Template.registerHelper('isApplyRight', () => {
     const effect = Template.instance().data.effect
-    return effect && (effect.type === 'reduction' || effect.type === 'cardColor') && effect.apply.includes('right') ? true : false
+    return effect && (effect.type === 'reduction' || effect.type === 'cardColor') && isRight(effect) ? true : false
 });
 
 Template.registerHelper('isApplyOwn', () => {
     const effect = Template.instance().data.effect
-    return effect && (effect.type === 'cardColor') && effect.apply.includes('own') ? true : false
+    return effect && effect.type === 'cardColor' && isOwn(effect) && isRight(effect) && isLeft(effect) && effect.apply ? true : false
 });
 
 

@@ -75,10 +75,15 @@
             {{#if hasCoin}}
             {{ > coin_template coins=effect.coins }}
             {{/if}}
+            {{#if isApplyOwn}}
+            <span class="effect_arrow arrowOwn">&#9660;</span>
+            {{/if}}
         </div>
+
         {{#if isApplyRight}}
         <span class="effect_arrow arrowRight">&#9658;</span>
         {{/if}}
+
     </div>
 </template>
 
