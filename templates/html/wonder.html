@@ -1,41 +1,51 @@
 <template name="wonder_template">
-    <div class="stack_cards stack_cards1">
-        {{#each card in getCardStack1}}
-        {{> card_template card=card mini=true}}
-        {{/each}}
-    </div>
-    <div class="wonder_container wonder_id_{{wonder.id}} wonder_steps_size_{{wonder.steps.length}}">
-
-        <div class="stack_cards stack_cards2">
-            {{#each card in getCardStack2}}
+    <div class="wonder_globalContainer">
+        <div class="stack_cards stack_cards1">
+            {{#each card in getCardStack1}}
             {{> card_template card=card mini=true}}
             {{/each}}
         </div>
-        <div class="stack_cards stack_cards3">
-            {{#each card in getCardStack3}}
-            {{> card_template card=card mini=true}}
-            {{/each}}
-        </div>
-        <div class="stack_cards stack_cards4">
-            {{#each card in getCardStack4}}
-            {{> card_template card=card mini=true}}
-            {{/each}}
-        </div>
+        <div class="wonder_container wonder_id_{{wonder.id}} wonder_steps_size_{{wonder.steps.length}}">
 
-        <div class="wonder_mainEffect bg_{{getAdvantageColor}}">
-            {{#each effect in wonder.mainEffects}}
-            {{> effect_template effect=effect}}
-            {{/each}}
-        </div>
+            <div class="stack_cards stack_cards2">
+                {{#each card in getCardStack2}}
+                {{> card_template card=card mini=true}}
+                {{/each}}
+            </div>
+            <div class="stack_cards stack_cards3">
+                {{#each card in getCardStack3}}
+                {{> card_template card=card mini=true}}
+                {{/each}}
+            </div>
+            <div class="stack_cards stack_cards4">
+                {{#each card in getCardStack4}}
+                {{> card_template card=card mini=true}}
+                {{/each}}
+            </div>
+            <div class="stack_cards stack_cards5">
+                {{#each card in getCardStack5}}
+                {{> card_template card=card mini=true}}
+                {{/each}}
+            </div>
 
-        <div class="wonder_name">
-            {{wonder.name}}<br />({{wonder.face}})
-        </div>
 
-        <div class="wonder_steps">
-            {{#each step in wonder.steps}}
-            {{> step_template step=step player=player}}
-            {{/each}}
+            <div class="wonder_mainEffect bg_{{getAdvantageColor}}">
+                {{#each effect in wonder.mainEffects}}
+                {{> effect_template effect=effect}}
+                {{/each}}
+            </div>
+
+
+            <div class="wonder_name">
+                {{wonder.name}}<br />({{wonder.face}})
+            </div>
+
+            <div class="wonder_steps">
+                {{#each step in wonder.steps}}
+                {{> step_template step=step player=player}}
+                {{/each}}
+            </div>
+
         </div>
 
     </div>

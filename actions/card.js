@@ -269,15 +269,14 @@ export const stackCards = (player, container) => {
     } else if (container === 2) {
         return player.boardCards.filter(card => card.color === 'red')
     } else if (container === 4) {
-        return [
-            ...player.boardCards.filter(card => card.color === 'green').sort((a, b) => a.effects[0].symbols[0].id - b.effects[0].symbols[0].id),
-            ...player.boardCards.filter(card => card.color === 'purple')
-        ]
+        return player.boardCards.filter(card => card.color === 'green').sort((a, b) => a.effects[0].symbols[0].id - b.effects[0].symbols[0].id)
     } else if (container === 3) {
         return [
             ...player.boardCards.filter(card => card.color === 'blue').sort((a, b) => a.effects[0].value - b.effects[0].value),
             ...player.boardCards.filter(card => card.color === 'yellow')
         ]
+    } else if (container === 5) {
+        return player.boardCards.filter(card => card.color === 'purple')
     }
 
     return []

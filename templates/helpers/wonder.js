@@ -30,5 +30,8 @@ Template.wonder_template.helpers({
     },
     getCardStack4() {
         return stackCards(this.player, 4)
+    },
+    getCardStack5() {
+        return stackCards(this.player, 5)
     }
 })

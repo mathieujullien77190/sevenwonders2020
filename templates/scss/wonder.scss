@@ -1,5 +1,10 @@
+.wonder_globalContainer {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
 .wonder_container {
-    margin: 0 10px 20px;
     border: solid 2px #000000;
     border-radius: 2px;
     position: relative;
@@ -55,7 +60,6 @@
 
 .stack_cards1 {
     width: 470px;
-    margin: 0px 10px;
     overflow: hidden;
 
     .card_container {
@@ -127,5 +131,19 @@
         &.bg_green {
             float: left;
         }
+    }
+}
+
+.stack_cards5 {
+    position: absolute;
+    top: -2px;
+    right: -74px;
+    bottom: 0;
+    width: 70px;
+    overflow: hidden;
+
+    .card_container {
+        margin: 0 2px 2px 0;
+        float: left;
     }
 }
