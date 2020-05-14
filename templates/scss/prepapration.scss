@@ -1,0 +1,34 @@
+.preparation_container {
+    .me {
+        font-weight: bold;
+    }
+
+    .connected {
+        :first-child {
+            display: block;
+            color: green;
+        }
+        :nth-child(2),:nth-child(3) {
+            display: none;
+        }
+
+    }
+    .disconnected {
+        :first-child,:nth-child(3) {
+            display: none;
+        }
+        :nth-child(2) {
+            display: block;
+            color: red;
+        }
+    }
+    .inactive {
+        :first-child,:nth-child(2) {
+            display: none;
+        }
+        :nth-child(3) {
+            display: block;
+            color: orange;
+        }
+    }
+}

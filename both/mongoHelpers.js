@@ -1,7 +1,8 @@
 import { Meteor } from 'meteor/meteor'
 
-export const addObject = (object, collection) => {
-    const find = collection.find({ id: object.id }).fetch();
+export const addObject = (object, collection, propTest) => {
+    const prop = propTest ? propTest : 'id'
+    const find = collection.find({ [prop]: object[prop] }).fetch();
     if (find.length === 0 && Meteor.isServer) {
         console.log('CREATE')
         collection.insert(object)
@@ -16,8 +17,8 @@ export const updateObject = (object, collection) => {
     }
 }
 
-export const getObject = (id, collection) => {
-    const select = collection.findOne({ id: id })
+export const getObject = (prop, value, collection) => {
+    const select = collection.findOne({ [prop]: value })
     return select ? select : null
 }
 

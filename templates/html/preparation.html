@@ -1,0 +1,63 @@
+<template name="preparation_template">
+    <div class="preparation_container">
+        <div class="card" style="margin:10px;">
+            <div class="card-header">
+                <h1 class="text-center">
+                    7wonders by Matou et FlouFlou
+                </h1>
+            </div>
+            <div class="card-body">
+
+                <div class="alert alert-danger" role="alert">
+                    <p>
+                        Vous êtes sur le point de jouer à 7Wonders, un jeu de société génialissime.<br />
+                        Cette application n'a pas été autorisé par l'éditeur!<br />
+                        La sécurité du serveur a était codé avec les pieds.<br />
+                        Mais toutes les extensions sont disponible et ça c'est fantastique (enfin pour le moment
+                        aucune :D)
+                    </p>
+
+                    <p>-> A vos risques et péril!</p>
+                </div>
+
+                {{#if isConnected}}
+                <h3>Partie</h3>
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Pseudo</th>
+                            <th scope="col">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        {{#each player in players}}
+                        <tr>
+                            <td class="{{me player}}">{{player.pseudo}}</td>
+                            <td class="{{alive player}}"><b>Connecté</b><b>Déconnecté</b><b>Absent</b></td>
+                        </tr>
+                        {{/each}}
+
+                    </tbody>
+                </table>
+
+                {{else}}
+                <form>
+                    <div class="form-group">
+                        <label for="inputPseudo">Pseudo : </label>
+                        <input type="text" class="form-control" id="inputPseudo">
+                        <small id="emailHelp" class="form-text text-muted">Des lettres ou des chiffres, de 3 à 12
+                            caractères</small>
+                    </div>
+                    <button type="button" class="btn btn-primary playerJoin">Jouer</button>
+                </form>
+                {{/if}}
+            </div>
+            <div class="card-footer">
+                <p class="m-0">{{message}}</p>
+            </div>
+
+        </div>
+    </div>
+</template>
