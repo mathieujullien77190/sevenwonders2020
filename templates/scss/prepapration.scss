@@ -1,6 +1,15 @@
 .preparation_container {
+    .custom-select {
+        -moz-appearance: none;
+        -webkit-appearance: none;
+    }
+    
     .me {
         font-weight: bold;
+    }
+
+    .leader {
+        color: red;
     }
 
     .connected {

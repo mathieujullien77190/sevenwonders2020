@@ -21,7 +21,10 @@
                 </div>
 
                 {{#if isConnected}}
-                <h3>Partie</h3>
+                <h3>
+                    Partie : ({{nbsPlayers}} / {{board.nbMaxPlayers}})
+                    <button type="button" class="btn btn-danger float-right logout">Deconnexion</button>
+                </h3>
 
                 <table class="table">
                     <thead>
@@ -34,13 +37,35 @@
 
                         {{#each player in players}}
                         <tr>
-                            <td class="{{me player}}">{{player.pseudo}}</td>
-                            <td class="{{alive player}}"><b>Connecté</b><b>Déconnecté</b><b>Absent</b></td>
+                            <td class="{{me player}} {{leader player}}">{{player.pseudo}}</td>
+                            <td class="{{alive player}}"><b>Connecté</b><b>Déconnecté</b><b>Absent
+                                    {{timeInactive player}}</b>
+                            </td>
                         </tr>
                         {{/each}}
 
                     </tbody>
                 </table>
+                {{#if isLeader}}
+                <form class="form-inline float-right">
+
+                    <select class="custom-select mb-2 mr-sm-2 extensions">
+                        <option selected>Extensions</option>
+                    </select>
+
+                    <select class="custom-select mb-2 mr-sm-2 nbsPlayers">
+                        <option selected>Nombre joueurs</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                    </select>
+
+                    <button type="button" class="btn btn-primary mb-2 mr-sm-2 play"
+                        disabled="{{full players board}}">Jouer</button>
+                </form>
+                {{/if}}
 
                 {{else}}
                 <form>

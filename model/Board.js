@@ -17,6 +17,7 @@ export class Board {
         this.ageCards = []
         this.round = 0
         this.discardCards = []
+        this.nbMaxPlayers = 7
 
     }
 
@@ -29,7 +30,8 @@ export class Board {
             players: this.players,
             ageCards: this.ageCards,
             round: this.round,
-            discardCards: this.discardCards
+            discardCards: this.discardCards,
+            nbMaxPlayers: this.nbMaxPlayers
         }
     }
 

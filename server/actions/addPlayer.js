@@ -1,15 +1,15 @@
-import { Players } from '../../both/collections'
+import { Players, Boards } from '../../both/collections'
 import { Meteor } from 'meteor/meteor'
 
 let PSEUDOS = [
-    'Baleine',
-    'Rateau',
-    'Moineau',
-    'Pulco',
-    'Ciboulette',
-    'RatonLaveur',
-    'LeFou',
-    'Bouboule',
+    '_Baleine',
+    '_Rateau',
+    '_Moineau',
+    '_Pulco',
+    '_Ciboulette',
+    '_RatonLaveur',
+    '_LeFou',
+    '_Bouboule',
 ]
 
 const rand = (min, max) => {
@@ -19,6 +19,11 @@ const rand = (min, max) => {
 export const addPlayer = (pseudo) => {
     let badPseudo = true
     let okPseudo = 'Toto' + new Date().getTime()
+
+    const board = Boards.findOne()
+    const id = `${rand(1000, 1000000)}${new Date().getTime()}`
+    const nbsPlayers = Players.find().fetch().length
+
     if (pseudo.toString().match(/^[a-zA-Z0-9]{3,12}$/g)) {
         okPseudo = pseudo
         badPseudo = false
@@ -30,8 +35,11 @@ export const addPlayer = (pseudo) => {
         throw new Meteor.Error('Ce pseudo existe déjà')
     }
 
-    const id = `${rand(1000, 1000000)}${new Date().getTime()}`//TODO
-    Players.insert({ id: id, pseudo: okPseudo, connected: new Date(), active: 'active' })
+    if (nbsPlayers >= board.nbMaxPlayers) {
+        throw new Meteor.Error('Nombre de joueur maximal atteint vous ne pouvez plus vous connecter')
+    }
+
+    Players.insert({ id: id, pseudo: okPseudo, connected: new Date(), active: 1, leader: nbsPlayers === 0 })
     const player = Players.findOne({ pseudo: okPseudo })
 
     if (!player) {

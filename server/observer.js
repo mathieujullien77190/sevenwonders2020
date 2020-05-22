@@ -4,8 +4,8 @@ import { validateSelectCards, canValidateSelectCards, nextRound, canDiscardCards
 import { removeOldPlayers } from './actions/removeOldPlayers'
 
 
-export const initObserver = (idBoard) => {
-    Boards.find({ id: idBoard }).observe({
+export const initObserver = () => {
+    /*Boards.find({ id: idBoard }).observe({
         changed: function (board) {
             if (canValidateSelectCards(board)) {
                 validateSelectCards(board)
@@ -17,7 +17,7 @@ export const initObserver = (idBoard) => {
                 }
             }
         }
-    })
+    })*/
 
     Meteor.setInterval(() => {
         removeOldPlayers()

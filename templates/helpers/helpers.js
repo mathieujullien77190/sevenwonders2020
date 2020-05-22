@@ -1,3 +1,5 @@
+import { PINGPONG_TIME } from '../../actions/constants'
+
 export const errorActions = (error) => {
     if (error) {
         console.log(error)
@@ -35,11 +37,12 @@ export const pingpong = () => {
     }
 
     if (player) {
-        Meteor.call('pingpong', { id: player.id, active: Session.get('active') > 5 ? false : true }, (error, result) => {
+        Meteor.call('pingpong', { id: player.id, active: Session.get('active') }, (error, result) => {
             if (!errorActions(error)) {
-                if (!result) {
-                    logout()
-                }
+                Session.set('player', result)
+                localStorage.setItem('playerSeven', JSON.stringify(result));
+            } else {
+                logout()
             }
         })
     } else {
@@ -50,11 +53,12 @@ export const pingpong = () => {
 export const login = (data) => {
     Session.set('player', data)
     localStorage.setItem('playerSeven', JSON.stringify(data));
-    window.setInterval(() => { pingpong() }, 2000)
+    window.setInterval(() => { pingpong() }, PINGPONG_TIME)
 }
 
 export const logout = () => {
     Session.set('player', undefined)
+    localStorage.removeItem('playerSeven');
     document.location.reload(true);
 }
 
@@ -63,4 +67,13 @@ export const saveUserActivity = () => {
         const position = event.pageX + '_' + event.pageY
         Session.set('position', position)
     }
+}
+
+export const addPlayersTest = (nbsPlayers) => {
+    window.setTimeout(() => {
+        for (let i = 0; i < nbsPlayers; i++) {
+            Meteor.call('addPlayer', { pseudo: '' }, (error, result) => { })
+        }
+    }, 1000)
+
 }
