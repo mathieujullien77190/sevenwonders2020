@@ -1,7 +1,7 @@
 import { Boards } from '../both/collections';
 import { Meteor } from 'meteor/meteor'
 import { validateSelectCards, canValidateSelectCards, nextRound, canDiscardCards, discardCards, nextAge } from '../actions/board'
-import { removeOldPlayers } from './actions/removeOldPlayers'
+import { removePlayers } from './actions/removePlayers'
 
 
 export const initObserver = () => {
@@ -20,7 +20,7 @@ export const initObserver = () => {
     })*/
 
     Meteor.setInterval(() => {
-        removeOldPlayers()
+        removePlayers()
     }, 5000);
 
 }

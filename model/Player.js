@@ -2,12 +2,16 @@
 import { Wonder } from './Wonder'
 import { Card } from './Card'
 
+
 export class Player {
 
     constructor(config) {
+        this.pseudo = config.pseudo
 
-        this.id = config.id
-        this.pseudo = config.pseudo ? config.pseudo : 'inconnu'
+        this.connected = config.connected ? config.connected : new Date()
+        this.active = config.active ? config.active : 1;
+        this.leader = config.leader ? config.leader : false
+
         this.points = config.points ? config.points : 0
         this.coins = config.coins ? config.coins : 3
         this.warPoints = config.warPoints ? config.warPoints : []
@@ -25,6 +29,9 @@ export class Player {
         return {
             id: this.id,
             pseudo: this.pseudo,
+            connected: this.connected,
+            active: this.active,
+            leader: this.leader,
             points: this.points,
             coins: this.coins,
             warPoints: this.warPoints,

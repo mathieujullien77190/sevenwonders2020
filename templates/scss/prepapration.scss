@@ -1,14 +1,27 @@
 .preparation_container {
+    h3 {
+        button {
+            margin: 0 5px;
+        }
+    }
+    
     .custom-select {
         -moz-appearance: none;
         -webkit-appearance: none;
     }
     
     .me {
-        font-weight: bold;
+        .pseudo{
+            font-weight: bold;
+        }
+        .kik {
+            display: none
+        }
     }
 
-    .leader {
+
+
+    .leader .pseudo{
         color: red;
     }
 

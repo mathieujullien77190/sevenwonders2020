@@ -1,5 +1,4 @@
 import { Boards } from '../../both/collections'
-import { Meteor } from 'meteor/meteor'
 
 export const setMaxPlayers = (nbsMax, idCurrentBoard) => {
     okNbsMax = nbsMax >= 3 && nbsMax <= 7 ? Math.floor(nbsMax) : 3

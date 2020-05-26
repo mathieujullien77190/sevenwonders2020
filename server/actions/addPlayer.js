@@ -1,37 +1,24 @@
-import { Players, Boards } from '../../both/collections'
+import { Boards } from '../../both/collections'
 import { Meteor } from 'meteor/meteor'
-
-let PSEUDOS = [
-    '_Baleine',
-    '_Rateau',
-    '_Moineau',
-    '_Pulco',
-    '_Ciboulette',
-    '_RatonLaveur',
-    '_LeFou',
-    '_Bouboule',
-]
-
-const rand = (min, max) => {
-    return min + Math.floor(Math.random() * (max - min + 1));
-}
+import { searchPlayerPseudo } from './helpers'
+import { Player } from '../../model/Player'
 
 export const addPlayer = (pseudo) => {
     let badPseudo = true
-    let okPseudo = 'Toto' + new Date().getTime()
+    let okPseudo = ''
 
     const board = Boards.findOne()
-    const id = `${rand(1000, 1000000)}${new Date().getTime()}`
-    const nbsPlayers = Players.find().fetch().length
+    const players = board.players;
+    const nbsPlayers = players.length
 
     if (pseudo.toString().match(/^[a-zA-Z0-9]{3,12}$/g)) {
         okPseudo = pseudo
         badPseudo = false
-    } else if (PSEUDOS.length > 0) {
-        okPseudo = PSEUDOS.pop()
+    } else {
+        okPseudo = _pseudos.select()
     }
 
-    if (Players.findOne({ pseudo: okPseudo })) {
+    if (searchPlayerPseudo(players, okPseudo)) {
         throw new Meteor.Error('Ce pseudo existe déjà')
     }
 
@@ -39,12 +26,12 @@ export const addPlayer = (pseudo) => {
         throw new Meteor.Error('Nombre de joueur maximal atteint vous ne pouvez plus vous connecter')
     }
 
-    Players.insert({ id: id, pseudo: okPseudo, connected: new Date(), active: 1, leader: nbsPlayers === 0 })
-    const player = Players.findOne({ pseudo: okPseudo })
+    const id = _playersId.addPlayer(okPseudo)
 
-    if (!player) {
-        throw new Meteor.Error('AddPlayerError')
-    } else {
-        return { data: player, message: badPseudo ? 'Vous n\'avez pas voulu respecter les règles, voici un pseudo qui vous ira bien' : 'Connexion effectué avec succès' }
-    }
+    const newPlayer = new Player({ pseudo: okPseudo, leader: nbsPlayers === 0 })
+    board.players = [...board.players, newPlayer]
+
+    Boards.update({ _id: board._id }, board);
+
+    return { data: { ...newPlayer, id }, message: badPseudo ? 'Vous n\'avez pas voulu respecter les règles, voici un pseudo qui vous ira bien' : 'Connexion effectué avec succès' }
 }

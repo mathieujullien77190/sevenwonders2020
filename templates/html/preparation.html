@@ -20,10 +20,15 @@
                     <p>-> A vos risques et péril!</p>
                 </div>
 
+
                 {{#if isConnected}}
                 <h3>
                     Partie : ({{nbsPlayers}} / {{board.nbMaxPlayers}})
+
                     <button type="button" class="btn btn-danger float-right logout">Deconnexion</button>
+                    <button type="button" class="btn btn-success float-right addPlayerTest">
+                        Ajouter joueur (TEST)
+                    </button>
                 </h3>
 
                 <table class="table">
@@ -31,18 +36,35 @@
                         <tr>
                             <th scope="col">Pseudo</th>
                             <th scope="col">Status</th>
+                            {{#if isLeader}}
+                            <th scope="col"><span class="float-right">Actions</span></th>
+                            {{/if}}
                         </tr>
                     </thead>
                     <tbody>
 
-                        {{#each player in players}}
-                        <tr>
-                            <td class="{{me player}} {{leader player}}">{{player.pseudo}}</td>
-                            <td class="{{alive player}}"><b>Connecté</b><b>Déconnecté</b><b>Absent
-                                    {{timeInactive player}}</b>
+                        {{#if board}}
+
+                        {{#each player in board.players}}
+                        <tr class="{{me player}} {{leader player}}">
+                            <td class="pseudo">{{player.pseudo}}</td>
+                            <td class="{{alive player}}">
+                                <b>Connecté</b>
+                                <b>Déconnecté</b>
+                                <b>Absent {{timeInactive player}}</b>
                             </td>
+                            {{#if isLeader}}
+                            <td>
+                                <button data-pseudo={{player.pseudo}} type="button"
+                                    class="btn btn-danger float-right kik">
+                                    virer
+                                </button>
+                            </td>
+                            {{/if}}
                         </tr>
                         {{/each}}
+
+                        {{/if}}
 
                     </tbody>
                 </table>
@@ -66,6 +88,7 @@
                         disabled="{{full players board}}">Jouer</button>
                 </form>
                 {{/if}}
+
 
                 {{else}}
                 <form>

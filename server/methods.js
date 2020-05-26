@@ -1,9 +1,10 @@
-import { Players, Boards } from '../both/collections'
 import { Meteor } from 'meteor/meteor'
 import { addPlayer } from './actions/addPlayer'
 import { pingpong } from './actions/pingpong'
 import { setMaxPlayers } from './actions/setMaxPlayers'
 import { createBoard } from './actions/createBoard'
+import { logout } from './actions/logout'
+import { kik } from './actions/kik'
 
 export const loadMethods = () => {
     Meteor.methods({
@@ -17,11 +18,13 @@ export const loadMethods = () => {
             return setMaxPlayers(data)
         },
         createBoard: () => {
-            const nbsPlayers = Players.find().fetch().length
-
-            if (nbsPlayers === 0) {
-                createBoard()
-            }
+            return createBoard()
+        },
+        logout: (data) => {
+            return logout(data)
+        },
+        kik: (data) => {
+            return kik(data)
         }
     })
 }

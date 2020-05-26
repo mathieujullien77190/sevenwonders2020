@@ -1,12 +1,11 @@
 import { Session } from 'meteor/session'
 import { Meteor } from 'meteor/meteor'
-import { errorActions, login, message, addPlayersTest, logout } from './helpers'
+import { errorActions, login, message, logout, kik } from './helpers'
 import { INACTIVE_TIME, PINGPONG_TIME, DISCONNECTED_TIME } from '../../actions/constants'
-
 
 Template.preparation_template.helpers({
     nbsPlayers() {
-        return this.players && this.players.length > 0 ? this.players.length : 0
+        return this.board.players && this.board.players.length > 0 ? this.board.players.length : 0
     },
     isConnected() {
         return Session.get('player')
@@ -34,13 +33,13 @@ Template.preparation_template.helpers({
     },
     me(player) {
         const playerSession = Session.get('player')
-        return playerSession && player._id === playerSession._id ? 'me' : ''
+        return playerSession && player.pseudo === playerSession.pseudo ? 'me' : ''
     },
     leader(player) {
         return player && player.leader ? 'leader' : ''
     },
     full() {
-        return this.players && this.board && this.players.length === this.board.nbMaxPlayers ? '' : 'disabled'
+        return this.board.players && this.board && this.board.players.length === this.board.nbMaxPlayers ? '' : 'disabled'
     },
     isLeader() {
         const playerSession = Session.get('player')
@@ -50,15 +49,17 @@ Template.preparation_template.helpers({
 
 const join = (pseudo) => {
     Meteor.call('createBoard', {}, (error, result) => {
-        if (!errorActions(error)) {
-            Meteor.call('addPlayer', { pseudo }, (error, result) => {
-                if (!errorActions(error)) {
-                    login(result.data)
-                    message(result.message)
-                }
-            })
-        }
+        Meteor.call('addPlayer', { pseudo }, (error, result) => {
+            if (!errorActions(error)) {
+                login(result.data)
+                message(result.message)
+            }
+        })
     })
+}
+
+const joinTest = (pseudo) => {
+    Meteor.call('addPlayer', { pseudo }, () => { })
 }
 
 const setNbsPlayer = (nbs) => {
@@ -73,7 +74,9 @@ Template.preparation_template.events({
     'click .playerJoin'() {
         const pseudo = document.getElementById('inputPseudo').value
         join(pseudo)
-        addPlayersTest(5)
+    },
+    'click .addPlayerTest'() {
+        joinTest('')
     },
     'change .nbsPlayers'(event) {
         const value = event.target.value
@@ -81,5 +84,8 @@ Template.preparation_template.events({
     },
     'click .logout'(event) {
         logout()
+    },
+    'click .kik'(event) {
+        kik(event.target.dataset.pseudo)
     }
 })

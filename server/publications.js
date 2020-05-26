@@ -1,4 +1,4 @@
-import { Boards, Players } from '../both/collections';
+import { Boards } from '../both/collections';
 
 export const initPublicationBoard = () => {
     Meteor.publish('board.current', () => {
@@ -6,8 +6,4 @@ export const initPublicationBoard = () => {
     })
 }
 
-export const initPublicationPlayers = () => {
-    Meteor.publish('players', () => {
-        return Players.find({}, { fields: { 'id': false } })
-    })
-}
+//{ fields: { 'id': false } }

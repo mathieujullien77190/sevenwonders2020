@@ -53,13 +53,20 @@ export const pingpong = () => {
 export const login = (data) => {
     Session.set('player', data)
     localStorage.setItem('playerSeven', JSON.stringify(data));
-    window.setInterval(() => { pingpong() }, PINGPONG_TIME)
+    window.timePingPong = window.setInterval(() => { pingpong() }, PINGPONG_TIME)
 }
 
 export const logout = () => {
+    clearTimeout(timePingPong)
+    const player = Session.get('player')
+    Meteor.call('logout', { id: player.id }, () => { })
     Session.set('player', undefined)
     localStorage.removeItem('playerSeven');
-    document.location.reload(true);
+}
+
+export const kik = (pseudo) => {
+    const player = Session.get('player')
+    Meteor.call('kik', { pseudo, idLeader: player.id }, () => { })
 }
 
 export const saveUserActivity = () => {
@@ -67,13 +74,4 @@ export const saveUserActivity = () => {
         const position = event.pageX + '_' + event.pageY
         Session.set('position', position)
     }
-}
-
-export const addPlayersTest = (nbsPlayers) => {
-    window.setTimeout(() => {
-        for (let i = 0; i < nbsPlayers; i++) {
-            Meteor.call('addPlayer', { pseudo: '' }, (error, result) => { })
-        }
-    }, 1000)
-
 }
