@@ -1,10 +1,12 @@
 <template name="accueil_template">
-    <!--{{> table_template board=board}}-->
-
     {{> preparation_template board=board}}
 
+    {{#if playerSup3 board}}
+    {{> table_template board=board}}
+    {{/if}}
 
-    <!--{{#if board}}
+
+    {{#if board}}
     {{> board_template board=board}}
-    {{/if}}-->
+    {{/if}}
 </template>

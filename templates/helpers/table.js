@@ -25,21 +25,21 @@ const getMiddle = (arr) => {
 Template.table_template.helpers({
     displayLast() {
         if (this.board) {
-            return this.board.nbMaxPlayers % 2 === 0 ? true : false
+            return this.board.players.length % 2 === 0 ? true : false
         } else {
             return false
         }
     },
     displaySup4() {
         if (this.board) {
-            return this.board.nbMaxPlayers > 4 ? true : false
+            return this.board.players.length > 4 ? true : false
         } else {
             return false
         }
     },
     displaySup6() {
         if (this.board) {
-            return this.board.nbMaxPlayers > 6 ? true : false
+            return this.board.players.length > 6 ? true : false
         } else {
             return false
         }
@@ -49,27 +49,27 @@ Template.table_template.helpers({
         return me ? me.pseudo : ''
     },
     getLast(index) {
-        if (this.players) {
+        if (this.board.players) {
             const me = Session.get('player')
-            const arrTransform = startArrayOnMe(this.players, me)
+            const arrTransform = startArrayOnMe(this.board.players, me)
             const last = getLast(arrTransform, index)[0]
             return last ? last.pseudo : ''
         }
         return ''
     },
     getNext(index) {
-        if (this.players) {
+        if (this.board.players) {
             const me = Session.get('player')
-            const arrTransform = startArrayOnMe(this.players, me)
+            const arrTransform = startArrayOnMe(this.board.players, me)
             const next = arrTransform[index + 1]
             return next ? next.pseudo : ''
         }
         return ''
     },
     getMiddle() {
-        if (this.players) {
+        if (this.board.players) {
             const me = Session.get('player')
-            const arrTransform = startArrayOnMe(this.players, me)
+            const arrTransform = startArrayOnMe(this.board.players, me)
             const middle = getMiddle(arrTransform)
             return middle ? middle.pseudo : ''
         }

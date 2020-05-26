@@ -3,6 +3,7 @@ import { Meteor } from 'meteor/meteor'
 import { searchPlayerPseudo } from './helpers'
 import { Player } from '../../model/Player'
 
+
 export const addPlayer = (pseudo) => {
     let badPseudo = true
     let okPseudo = ''
@@ -28,7 +29,10 @@ export const addPlayer = (pseudo) => {
 
     const id = _playersId.addPlayer(okPseudo)
 
-    const newPlayer = new Player({ pseudo: okPseudo, leader: nbsPlayers === 0 })
+    const newWonder = _wonders.select()
+
+    const newPlayer = new Player({ pseudo: okPseudo, leader: nbsPlayers === 0, wonder: newWonder })
+
     board.players = [...board.players, newPlayer]
 
     Boards.update({ _id: board._id }, board);

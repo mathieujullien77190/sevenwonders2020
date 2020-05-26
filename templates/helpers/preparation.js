@@ -4,11 +4,11 @@ import { errorActions, login, message, logout, kik } from './helpers'
 import { INACTIVE_TIME, PINGPONG_TIME, DISCONNECTED_TIME } from '../../actions/constants'
 
 Template.preparation_template.helpers({
+    isConnected() {
+        return this.board && this.board.players && Session.get('player')
+    },
     nbsPlayers() {
         return this.board.players && this.board.players.length > 0 ? this.board.players.length : 0
-    },
-    isConnected() {
-        return Session.get('player')
     },
     message() {
         const message = Session.get('message')
@@ -49,25 +49,19 @@ Template.preparation_template.helpers({
 
 const join = (pseudo) => {
     Meteor.call('createBoard', {}, (error, result) => {
-        Meteor.call('addPlayer', { pseudo }, (error, result) => {
-            if (!errorActions(error)) {
-                login(result.data)
-                message(result.message)
-            }
-        })
+        window.setTimeout(() => {
+            Meteor.call('addPlayer', { pseudo }, (error, result) => {
+                if (!errorActions(error)) {
+                    login(result.data)
+                    message(result.message)
+                }
+            })
+        }, 1000)
     })
 }
 
 const joinTest = (pseudo) => {
     Meteor.call('addPlayer', { pseudo }, () => { })
-}
-
-const setNbsPlayer = (nbs) => {
-    Meteor.call('setMaxPlayers', nbs, (error, result) => {
-        if (!errorActions(error)) {
-            message(result.message)
-        }
-    })
 }
 
 Template.preparation_template.events({
@@ -77,10 +71,6 @@ Template.preparation_template.events({
     },
     'click .addPlayerTest'() {
         joinTest('')
-    },
-    'change .nbsPlayers'(event) {
-        const value = event.target.value
-        setNbsPlayer(value)
     },
     'click .logout'(event) {
         logout()

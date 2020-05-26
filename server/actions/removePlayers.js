@@ -8,6 +8,7 @@ export const removePlayers = () => {
         board.players = board.players.filter(player => player.connected > new Date(Date.now() - KIK_TIME) && player.active < KIK_TIME / PINGPONG_TIME)
         _playersId.synchro(board.players)
         _pseudos.synchro(board.players)
+        _wonders.synchro(board.players)
 
         if (board.players.length > 0 && board.players.filter(player => player.leader).length === 0) {
             board.players[0].leader = true
