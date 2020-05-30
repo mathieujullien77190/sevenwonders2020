@@ -1,8 +1,15 @@
-.row {
-    height: 230px;
+.table_globalContainer {
+    transform: scale(0.8);
+}
 
-    div {
-        background-color: red;
-        border: solid 1px #000000;
-    }
+.playerContainer {
+    
+    background-color: beige;
+    border: solid 1px black;
+    padding: 0 !important;
+    overflow-x: auto;
+}
+
+.row {
+    margin: 10px 0;
 }

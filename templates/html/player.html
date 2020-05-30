@@ -1,32 +1,9 @@
 <template name="player_template">
-    <div class="card" style="margin:10px;">
-        <div class="card-header">
-            <h3>
-                {{player.pseudo}}
-                <span class="badge badge-info">points : {{testPoints}}</span>
-                <span class="badge badge-info">Monnaie : {{player.coins}}</span>
 
 
-            </h3>
-        </div>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">
-                {{#if player.wonder}}
-                {{> wonder_template wonder=player.wonder player=player}}
-                {{/if}}
-            </li>
-            <li class="list-group-item">
-                <h5>Choix carte tour</h5>
-                {{#each card in player.choiceCards}}
-                {{> cardChoiceActions_template card=card player=player board=board}}
-                {{/each}}
-            </li>
-            <li class="list-group-item player_selectionCards">
-                <h5>Cartes sélectionnées</h5>
-                {{#if player.selectionCard}}
-                {{> cardSelectionActions_template card=player.selectionCard player=player board=board}}
-                {{/if}}
-            </li>
-        </ul>
-    </div>
+    {{#if player.wonder}}
+    {{> wonder_template wonder=player.wonder player=player}}
+    {{/if}}
+
+
 </template>

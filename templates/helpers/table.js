@@ -9,7 +9,7 @@ const getArrayFromIndex = (array, startIndex) => {
 
 const startArrayOnMe = (arr, me) => {
     const indexMe = arr.reduce((acc, curr, index) => {
-        return acc + (me._id === curr._id ? index : 0)
+        return acc + (me.pseudo === curr.pseudo ? index : 0)
     }, 0)
     return getArrayFromIndex(arr, indexMe)
 }
@@ -20,6 +20,45 @@ const getLast = (arr, index) => {
 
 const getMiddle = (arr) => {
     return arr[Math.floor(arr.length / 2)];
+}
+
+const getMePlayer = (board) => {
+    if (board.players) {
+        const me = Session.get('player')
+        const arrTransform = startArrayOnMe(board.players, me)
+        return arrTransform[0]
+    }
+    return ''
+}
+
+const getLastPlayer = (board, index) => {
+    if (board.players) {
+        const me = Session.get('player')
+        const arrTransform = startArrayOnMe(board.players, me)
+        const last = getLast(arrTransform, -index)[0]
+        return last
+    }
+    return ''
+}
+
+const getNextPlayer = (board, index) => {
+    if (board.players) {
+        const me = Session.get('player')
+        const arrTransform = startArrayOnMe(board.players, me)
+        const next = arrTransform[index + 1]
+        return next
+    }
+    return ''
+}
+
+const getMiddlePlayer = (board) => {
+    if (board.players) {
+        const me = Session.get('player')
+        const arrTransform = startArrayOnMe(board.players, me)
+        const middle = getMiddle(arrTransform)
+        return middle
+    }
+    return ''
 }
 
 Template.table_template.helpers({
@@ -45,35 +84,28 @@ Template.table_template.helpers({
         }
     },
     getMe() {
-        const me = Session.get('player')
-        return me ? me.pseudo : ''
+        return getMePlayer(this.board)
     },
-    getLast(index) {
-        if (this.board.players) {
-            const me = Session.get('player')
-            const arrTransform = startArrayOnMe(this.board.players, me)
-            const last = getLast(arrTransform, index)[0]
-            return last ? last.pseudo : ''
-        }
-        return ''
+    getLast0() {
+        return getLastPlayer(this.board, 0)
     },
-    getNext(index) {
-        if (this.board.players) {
-            const me = Session.get('player')
-            const arrTransform = startArrayOnMe(this.board.players, me)
-            const next = arrTransform[index + 1]
-            return next ? next.pseudo : ''
-        }
-        return ''
+    getNext0() {
+        return getNextPlayer(this.board, 0)
+    },
+    getLast1() {
+        return getLastPlayer(this.board, 1)
+    },
+    getNext1() {
+        return getNextPlayer(this.board, 1)
+    },
+    getLast2() {
+        return getLastPlayer(this.board, 2)
+    },
+    getNext2() {
+        return getNextPlayer(this.board, 2)
     },
     getMiddle() {
-        if (this.board.players) {
-            const me = Session.get('player')
-            const arrTransform = startArrayOnMe(this.board.players, me)
-            const middle = getMiddle(arrTransform)
-            return middle ? middle.pseudo : ''
-        }
-        return ''
+        return getMiddlePlayer(this.board)
     }
 
 });
