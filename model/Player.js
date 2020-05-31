@@ -1,6 +1,7 @@
 
 import { Wonder } from './Wonder'
 import { Card } from './Card'
+import { rand } from './helpers'
 
 
 export class Player {
@@ -8,6 +9,7 @@ export class Player {
     constructor(config) {
         this.pseudo = config.pseudo
 
+        this.id = config.id ? config.id : `${rand(1000, 1000000)}${new Date().getTime()}`
         this.connected = config.connected ? config.connected : new Date()
         this.active = config.active ? config.active : 1;
         this.leader = config.leader ? config.leader : false

@@ -1,5 +1,6 @@
 <template name="wonder_template">
     <div class="wonder_globalContainer">
+        <h4>{{player.pseudo}} {{ > coin_template coins=player.coins }}</h4>
         <div class="stack_cards stack_cards1">
             {{#each card in getCardStack1}}
             {{> card_template card=card mini=true}}

@@ -1,8 +1,8 @@
 <template name="accueil_template">
-    {{> preparation_template board=board}}
+    {{> preparation_template data}}
 
-    {{#if playerSup3 board}}
-    {{> table_template board=board}}
+    {{#if playerSup3 data.players}}
+    {{> table_template data}}
     {{/if}}
 
 </template>

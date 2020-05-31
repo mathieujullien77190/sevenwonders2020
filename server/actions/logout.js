@@ -1,24 +1,6 @@
-import { Boards } from '../../both/collections'
-import { getIndexPlayer } from './helpers'
-import { removePlayers } from './removePlayers'
+import { Players } from '../../both/collections'
 
 export const logout = (data) => {
-
-    const board = Boards.findOne()
-    if (!board) {
-        throw new Meteor.Error('logout : board not exist')
-    }
-
-    const indexPlayer = getIndexPlayer(board.players, { id: data.id })
-    if (indexPlayer === -1) {
-        throw new Meteor.Error('logout : player not exist')
-    }
-
-    const select = { ...board.players[indexPlayer], active: Number.MAX_VALUE }
-    board.players[indexPlayer] = select
-    Boards.update({ _id: board._id }, board)
-
-    removePlayers()
-
+    Players.remove({ id: data.id })
     return true
 }

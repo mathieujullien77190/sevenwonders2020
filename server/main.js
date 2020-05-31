@@ -1,18 +1,17 @@
 import { loadMethods } from './methods'
 import { initObserver } from './observer'
 import { initPublicationBoard } from './publications'
-import { PlayersId } from './PlayersId'
 import { Pseudos } from './Pseudos'
 import { Wonders } from './Wonders'
-import { Boards } from '../both/collections'
+import { Boards, Players } from '../both/collections'
 
-_playersId = new PlayersId()
 _pseudos = new Pseudos()
 _wonders = new Wonders()
 
 Meteor.startup(() => {
-  console.log('go 4')
-  Boards.remove({})
+  console.log('go 5')
+  //Boards.remove({})
+  //Players.remove({})
 
   initPublicationBoard()
   initObserver()

@@ -1,24 +1,28 @@
-import { Boards } from '../../both/collections'
+import { Boards, Players } from '../../both/collections'
 import { KIK_TIME, PINGPONG_TIME } from '../../actions/constants'
 
 export const removePlayers = () => {
-    const board = Boards.findOne()
 
-    if (board) {
-        board.players = board.players.filter(player => player.connected > new Date(Date.now() - KIK_TIME) && player.active < KIK_TIME / PINGPONG_TIME)
-        _playersId.synchro(board.players)
-        _pseudos.synchro(board.players)
-        _wonders.synchro(board.players)
+    Players.remove({
+        connected: { "$lt": new Date(Date.now() - KIK_TIME) }
+    })
+    Players.remove({
+        active: { "$gt": KIK_TIME / PINGPONG_TIME }
+    })
 
-        if (board.players.length > 0 && board.players.filter(player => player.leader).length === 0) {
-            board.players[0].leader = true
-        }
+    const players = Players.find().fetch()
 
-        Boards.update({ _id: board._id }, board);
+    _pseudos.synchro(players)
+    _wonders.synchro(players)
 
-        if (board.players.length === 0) {
-            Boards.remove({})
-        }
+    if (players.length > 0 && players.filter(player => player.leader).length === 0) {
+        players[0].leader = true
+        Players.update({ _id: players[0]._id }, players);
     }
+
+    if (players.length === 0) {
+        Boards.remove({})
+    }
+
 
 }

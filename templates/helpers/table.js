@@ -22,29 +22,29 @@ const getMiddle = (arr) => {
     return arr[Math.floor(arr.length / 2)];
 }
 
-const getMePlayer = (board) => {
-    if (board.players) {
+const getMePlayer = (players) => {
+    if (players) {
         const me = Session.get('player')
-        const arrTransform = startArrayOnMe(board.players, me)
+        const arrTransform = startArrayOnMe(players, me)
         return arrTransform[0]
     }
     return ''
 }
 
-const getLastPlayer = (board, index) => {
-    if (board.players) {
+const getLastPlayer = (players, index) => {
+    if (players) {
         const me = Session.get('player')
-        const arrTransform = startArrayOnMe(board.players, me)
+        const arrTransform = startArrayOnMe(players, me)
         const last = getLast(arrTransform, -index)[0]
         return last
     }
     return ''
 }
 
-const getNextPlayer = (board, index) => {
-    if (board.players) {
+const getNextPlayer = (players, index) => {
+    if (players) {
         const me = Session.get('player')
-        const arrTransform = startArrayOnMe(board.players, me)
+        const arrTransform = startArrayOnMe(players, me)
         const next = arrTransform[index + 1]
         return next
     }
@@ -64,48 +64,48 @@ const getMiddlePlayer = (board) => {
 Template.table_template.helpers({
     displayLast() {
         if (this.board) {
-            return this.board.players.length % 2 === 0 ? true : false
+            return this.players.length % 2 === 0 ? true : false
         } else {
             return false
         }
     },
     displaySup4() {
         if (this.board) {
-            return this.board.players.length > 4 ? true : false
+            return this.players.length > 4 ? true : false
         } else {
             return false
         }
     },
     displaySup6() {
         if (this.board) {
-            return this.board.players.length > 6 ? true : false
+            return this.players.length > 6 ? true : false
         } else {
             return false
         }
     },
     getMe() {
-        return getMePlayer(this.board)
+        return getMePlayer(this.players)
     },
     getLast0() {
-        return getLastPlayer(this.board, 0)
+        return getLastPlayer(this.players, 0)
     },
     getNext0() {
-        return getNextPlayer(this.board, 0)
+        return getNextPlayer(this.players, 0)
     },
     getLast1() {
-        return getLastPlayer(this.board, 1)
+        return getLastPlayer(this.players, 1)
     },
     getNext1() {
-        return getNextPlayer(this.board, 1)
+        return getNextPlayer(this.players, 1)
     },
     getLast2() {
-        return getLastPlayer(this.board, 2)
+        return getLastPlayer(this.players, 2)
     },
     getNext2() {
-        return getNextPlayer(this.board, 2)
+        return getNextPlayer(this.players, 2)
     },
     getMiddle() {
-        return getMiddlePlayer(this.board)
+        return getMiddlePlayer(this.players)
     }
 
 });

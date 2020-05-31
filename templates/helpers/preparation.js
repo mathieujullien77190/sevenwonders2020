@@ -5,10 +5,10 @@ import { INACTIVE_TIME, PINGPONG_TIME, DISCONNECTED_TIME } from '../../actions/c
 
 Template.preparation_template.helpers({
     isConnected() {
-        return this.board && this.board.players && Session.get('player')
+        return this.board && this.players && Session.get('player')
     },
     nbsPlayers() {
-        return this.board.players && this.board.players.length > 0 ? this.board.players.length : 0
+        return this.players && this.players.length > 0 ? this.players.length : 0
     },
     message() {
         const message = Session.get('message')
@@ -39,7 +39,7 @@ Template.preparation_template.helpers({
         return player && player.leader ? 'leader' : ''
     },
     full() {
-        return this.board.players && this.board && this.board.players.length === this.board.nbMaxPlayers ? '' : 'disabled'
+        return this.players && this.board && this.players.length === this.nbMaxPlayers ? '' : 'disabled'
     },
     isLeader() {
         const playerSession = Session.get('player')

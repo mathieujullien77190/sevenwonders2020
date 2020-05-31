@@ -20,7 +20,7 @@ export const initObserver = () => {
     })*/
 
     Meteor.setInterval(() => {
-        removePlayers()
+        //removePlayers()
     }, 5000);
 
 }

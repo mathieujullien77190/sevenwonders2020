@@ -2,7 +2,7 @@ import 'bootstrap'
 import { Template } from 'meteor/templating'
 import { Meteor } from 'meteor/meteor'
 
-import { Boards } from '../both/collections'
+import { Boards, Players } from '../both/collections'
 import { login, saveUserActivity } from '../templates/helpers/helpers'
 
 import '../templates/html/'
@@ -11,6 +11,7 @@ import './main.html'
 
 if (Meteor.isDevelopment) {
     window.Boards = Boards
+    window.Players = Players
 }
 
 Meteor.startup(() => {
@@ -22,12 +23,3 @@ Meteor.startup(() => {
     }
 });
 
-Template.accueil_template.onCreated(function () {
-    this.subscribe('board.current')
-});
-
-Template.accueil_template.helpers({
-    board() {
-        return Boards.find().fetch()[0]
-    }
-});

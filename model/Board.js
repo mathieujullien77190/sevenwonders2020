@@ -13,7 +13,6 @@ export class Board {
         this.allWonders = getListWonders().map(wonder => new Wonder(wonder))
         this.id = config.id
         this.age = 0
-        this.players = []
         this.ageCards = []
         this.round = 0
         this.discardCards = []
@@ -27,7 +26,6 @@ export class Board {
             allWonders: this.allWonders,
             id: this.id,
             age: this.age,
-            players: this.players,
             ageCards: this.ageCards,
             round: this.round,
             discardCards: this.discardCards,

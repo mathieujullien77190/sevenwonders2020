@@ -1,23 +1,16 @@
-import { Boards } from '../../both/collections'
-import { getIndexPlayer } from './helpers'
+import { Players } from '../../both/collections'
 
 export const pingpong = (data) => {
-
-    const board = Boards.findOne()
-    if (!board) {
-        throw new Meteor.Error('pingpongError : board not exist')
-    }
-
-    const indexPlayer = getIndexPlayer(board.players, { id: data.id })
-    if (indexPlayer === -1) {
+    const player = Players.findOne({ id: data.id })
+    if (!player) {
         throw new Meteor.Error('pingpongError : player not exist')
     }
 
-    const select = { ...board.players[indexPlayer], connected: new Date(), active: data.active }
-    board.players[indexPlayer] = select
-    Boards.update({ _id: board._id }, board);
+    const select = { ...player, connected: new Date(), active: data.active }
+
+    Players.update({ _id: player._id }, select);
     return {
-        id: data.id,
+        id: select.id,
         connected: select.connected,
         active: select.active,
         pseudo: select.pseudo,

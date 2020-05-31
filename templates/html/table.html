@@ -7,37 +7,37 @@
         </div>
         <div class="row">
             <div class="col-12 playerContainer d-flex justify-content-center">
-                {{> player_template player=getMe board=board}}</div>
+                {{> player_template player=getMe}}</div>
         </div>
         <div class="row">
             <div class="col-6 playerContainer d-flex justify-content-start">
-                {{> player_template player=getLast0 board=board}}</div>
+                {{> player_template player=getLast0}}</div>
             <div class="col-6 playerContainer d-flex justify-content-end">
-                {{> player_template player=getNext0 board=board}}
+                {{> player_template player=getNext0}}
             </div>
         </div>
         {{#if displaySup4}}
         <div class="row">
             <div class="col-6 playerContainer d-flex justify-content-start">
-                {{> player_template player=getLast1 board=board}}</div>
+                {{> player_template player=getLast1}}</div>
             <div class="col-6 playerContainer d-flex justify-content-end">
-                {{> player_template player=getNext1 board=board}}
+                {{> player_template player=getNext1}}
             </div>
         </div>
         {{/if}}
         {{#if displaySup6}}
         <div class="row">
             <div class="col-6 playerContainer d-flex justify-content-start">
-                {{> player_template player=getLast2 board=board}}</div>
+                {{> player_template player=getLast2}}</div>
             <div class="col-6 playerContainer d-flex justify-content-end">
-                {{> player_template player=getNext2 board=board}}
+                {{> player_template player=getNext2}}
             </div>
         </div>
         {{/if}}
         {{#if displayLast}}
         <div class="row justify-content-md-center last">
             <div class="col-12 playerContainer d-flex justify-content-center">
-                {{> player_template player=getMiddle board=board}}</div>
+                {{> player_template player=getMiddle}}</div>
         </div>
         {{/if}}
     </div>
