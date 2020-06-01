@@ -1,42 +1,45 @@
-import { updateObject } from '../both/mongoHelpers'
 import { Boards } from '../both/collections'
 import { calcAgeCards, splitChoiceCards, switchCardsChoice } from './card'
 import { MIN_PLAYERS, MAX_PLAYERS, ROUND_TO_DISCARD_CARDS } from './constants'
-import { getPointsPlayer, getLastCardPlay, getLastStepPlay, canAddCard, canBuildStep, getIndexPlayer, getPlayer, getStepCanBuild, rightPlayer, leftPlayer, getMoneyEffect } from './player'
-import { Player } from '../model/Player'
+import { updatePlayers, getPointsPlayer, getLastCardPlay, getLastStepPlay, canAddCard, canBuildStep, getPlayer, getStepCanBuild, rightPlayer, leftPlayer, getMoneyEffect } from './player'
 
-export const nextAge = (board) => {
-    if (board.players.length >= MIN_PLAYERS) {
+
+export const updateBoard = (board) => {
+    Boards.update({ _id: board._id }, board);
+}
+
+export const nextAge = (board, players) => {
+    if (players.length >= MIN_PLAYERS) {
         board.age = board.age < 4 ? board.age + 1 : 0
 
         if (canPlay(board)) {
 
             board.round = 1
 
-            board.ageCards = calcAgeCards(board.age, board.players.length, board.allCards)
+            board.ageCards = calcAgeCards(board.age, players.length, board.allCards)
 
-            const split = splitChoiceCards(board.players.length, board.ageCards)
+            const split = splitChoiceCards(players.length, board.ageCards)
 
-            setChoiceCards(board, split)
-            setBuyInfoOnCards(board)
-            setBuyInfoOnSteps(board)
+            setChoiceCards(players, split)
+            setBuyInfoOnCards(players)
+            setBuyInfoOnSteps(players)
         } else {
-            resetChoiceCards(board)
+            resetChoiceCards(players)
         }
     }
 
 }
 
-export const nextRound = (board) => {
+export const nextRound = (board, players) => {
     if (canPlay(board)) {
 
         board.round = board.round + 1
 
-        const split = switchCardsChoice(board.players.map(player => player.choiceCards), board.age === 2 ? 'right' : 'left')
+        const split = switchCardsChoice(players.map(player => player.choiceCards), board.age === 2 ? 'right' : 'left')
 
-        setChoiceCards(board, split)
-        setBuyInfoOnCards(board)
-        setBuyInfoOnSteps(board)
+        setChoiceCards(players, split)
+        setBuyInfoOnCards(players)
+        setBuyInfoOnSteps(players)
     }
 }
 
@@ -44,19 +47,19 @@ const canPlay = (board) => {
     return board.age >= 1 && board.age <= 3
 }
 
-const setBuyInfoOnCards = (board) => {
-    board.players = board.players.map(player => {
+const setBuyInfoOnCards = (players) => {
+    players = players.map(player => {
         return {
             ...player, choiceCards: player.choiceCards.map(card => {
-                return { ...card, buyInfo: canAddCard(board, player.id, card) }
+                return { ...card, buyInfo: canAddCard(players, player.id, card) }
             })
         }
     })
-    updateObject(board, Boards)
+    updatePlayers(players)
 }
 
-const setBuyInfoOnSteps = (board) => {
-    board.players = board.players.map(player => {
+const setBuyInfoOnSteps = (players) => {
+    players = players.map(player => {
         return {
             ...player,
             wonder: {
@@ -66,34 +69,26 @@ const setBuyInfoOnSteps = (board) => {
             }
         }
     })
-    updateObject(board, Boards)
+    updatePlayers(players)
 }
 
-const setChoiceCards = (board, splitCards) => {
-    board.players = board.players.map((player, index) => {
+const setChoiceCards = (players, splitCards) => {
+    players = players.map((player, index) => {
         return { ...player, choiceCards: splitCards[index] }
     })
-    updateObject(board, Boards)
+    updatePlayers(players)
 }
 
-const resetChoiceCards = (board) => {
-    board.players = board.players.map((player, index) => {
+const resetChoiceCards = (players) => {
+    players = players.map((player) => {
         return { ...player, choiceCards: [] }
     })
-    updateObject(board, Boards)
+    updatePlayers(players)
 }
 
-export const addPlayer = (board, player) => {
-    if (board.age === 0 && !getPlayer(board, player.id) && board.players.length <= MAX_PLAYERS) {
-        board.players = [...board.players, new Player(player)]
-        updateObject(board, Boards)
-    }
-}
 
-export const selectCard = (board, uniqIdCard, idPlayer, nameAction) => {
-    console.time('selectCardPlayer')
-    const player = getPlayer(board, idPlayer)
-    const index = getIndexPlayer(idPlayer, board.players)
+export const selectCard = (uniqIdCard, idPlayer, nameAction) => {
+    const player = getPlayer(idPlayer)
     if (player) {
         let selectCards = player.choiceCards.filter(card => card.uniqId === uniqIdCard)
 
@@ -104,16 +99,13 @@ export const selectCard = (board, uniqIdCard, idPlayer, nameAction) => {
             player.selectionCard.action = nameAction
             player.selectionCard.last = true
 
-            board.players[index] = player
-            updateObject(board, Boards)
+            updatePlayers([player])
         }
     }
-    console.timeEnd('selectCardPlayer')
 }
 
-export const cancelCard = (board, idPlayer) => {
-    const player = getPlayer(board, idPlayer)
-    const index = getIndexPlayer(idPlayer, board.players)
+export const cancelCard = (idPlayer) => {
+    const player = getPlayer(idPlayer)
 
     if (player) {
         let selectCards = { ...player.selectionCard }
@@ -123,22 +115,21 @@ export const cancelCard = (board, idPlayer) => {
             player.selectionCard = null
             player.choiceCards = [...player.choiceCards, selectCards]
 
-            board.players[index] = player
-            updateObject(board, Boards)
+            updatePlayers([player])
         }
     }
 }
 
 
-export const canValidateSelectCards = (board) => {
-    return board.players.filter(player => player.selectionCard).length === board.players.length
+export const canValidateSelectCards = (players) => {
+    return players.filter(player => player.selectionCard).length === players.length
 }
 
-export const validateSelectCards = (board) => {
-    console.time('validateCardPlayers')
-    const discardCards = board.players.filter(player => player.selectionCard.action === 'discard').map(player => player.selectionCard)
+export const validateSelectCards = (board, players) => {
 
-    board.players = board.players.map(player => {
+    const discardCards = players.filter(player => player.selectionCard.action === 'discard').map(player => player.selectionCard)
+
+    let _players = players.map(player => {
         const selectCard = { ...player.selectionCard }
 
         if (selectCard.action === 'play') {
@@ -175,19 +166,19 @@ export const validateSelectCards = (board) => {
         }
     })
 
-    board.players = calculForPlayers(board)
+    _players = calculForPlayers(players)
 
     board.discardCards = [...board.discardCards, ...discardCards]
 
-    updateObject(board, Boards)
-    console.timeEnd('validateCardPlayers')
+    updatePlayers(_players)
+    updateBoard(board)
 
 }
 
-export const calculForPlayers = (board) => {
-    return board.players.map(player => {
-        const right = rightPlayer(player.id, board.players)
-        const left = leftPlayer(player.id, board.players)
+export const calculForPlayers = (players) => {
+    return players.map(player => {
+        const right = rightPlayer(player.id, players)
+        const left = leftPlayer(player.id, players)
         const lastCardPlay = getLastCardPlay(player)
         const lastStepPlay = getLastStepPlay(player)
         let coins = 0
@@ -202,7 +193,7 @@ export const calculForPlayers = (board) => {
             }, 0)
         }
 
-        return { ...player, coins: player.coins + coins, points: getPointsPlayer(player, board) }
+        return { ...player, coins: player.coins + coins, points: getPointsPlayer(player, players) }
 
     })
 }
@@ -211,16 +202,17 @@ export const canDiscardCards = (board) => {
     return board.round === ROUND_TO_DISCARD_CARDS
 }
 
-
-export const discardCards = (board) => {
-    const discardCards = board.players.map(player => {
+export const discardCards = (board, players) => {
+    const discardCards = players.map(player => {
         return player.choiceCards
     }).flat(1)
 
-    board.players = board.players.map(player => ({ ...player, choiceCards: [] }))
+    let _players = players.map(player => ({ ...player, choiceCards: [] }))
 
     board.discardCards = [...board.discardCards, ...discardCards]
 
-    updateObject(board, Boards)
+    updateBoard(board)
+    updatePlayers(players)
+
 }
 

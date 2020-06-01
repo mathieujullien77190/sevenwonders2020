@@ -38,10 +38,10 @@ export const addPlayer = (pseudo) => {
     return {
         data: {
             pseudo: newPlayer.pseudo,
-            id: players.id,
-            leader: players.leader,
-            active: players.active,
-            connected: players.connected
+            id: newPlayer.id,
+            leader: newPlayer.leader,
+            active: newPlayer.active,
+            connected: newPlayer.connected
         }, message: badPseudo ? 'Vous n\'avez pas voulu respecter les règles, voici un pseudo qui vous ira bien' : 'Connexion effectué avec succès'
     }
 }

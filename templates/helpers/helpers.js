@@ -1,5 +1,9 @@
 import { PINGPONG_TIME } from '../../actions/constants'
 
+export const rand = (min, max) => {
+    return min + Math.floor(Math.random() * (max - min + 1));
+}
+
 export const errorActions = (error) => {
     if (error) {
         console.log(error)

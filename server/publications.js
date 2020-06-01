@@ -7,4 +7,7 @@ export const initPublicationBoard = () => {
     Meteor.publish('players.list', () => {
         return Players.find({}, { fields: { 'id': false, 'choiceCards': false, 'selectionCard': false } })
     })
+    Meteor.publish(`player.me`, (id) => {
+        return Players.find({ id: id })
+    })
 }

@@ -12,12 +12,12 @@
     background-repeat:  no-repeat;
     background-image: url("/images/global/coin.png");
     
-    .wonder_globalContainer & {
-        height: 30px;
-        width: 30px;
+    .wonder_globalContainer>h4 & {
+        height: 25px;
+        width: 25px;
         display: inline-flex;
-        float: right;
-        margin-right: 72px;
+        font-size: 22px;
+        margin: 0 5px;
     }
 
     .card_cost & {

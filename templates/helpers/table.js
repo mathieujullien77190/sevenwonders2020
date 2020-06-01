@@ -51,10 +51,10 @@ const getNextPlayer = (players, index) => {
     return ''
 }
 
-const getMiddlePlayer = (board) => {
-    if (board.players) {
+const getMiddlePlayer = (players) => {
+    if (players) {
         const me = Session.get('player')
-        const arrTransform = startArrayOnMe(board.players, me)
+        const arrTransform = startArrayOnMe(players, me)
         const middle = getMiddle(arrTransform)
         return middle
     }
@@ -106,6 +106,10 @@ Template.table_template.helpers({
     },
     getMiddle() {
         return getMiddlePlayer(this.players)
+    },
+    getChoiceCards() {
+        const me = getMePlayer(this.players)
+        return me.choiceCards
     }
 
 });

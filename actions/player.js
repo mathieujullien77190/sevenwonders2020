@@ -2,6 +2,13 @@ import { buyCard, buildStep, getColorCards } from './card'
 import { arrayMin } from './helpers/arrayMin'
 import { cartesian } from './helpers/cartesian'
 import { isOwn, isRight, isLeft } from './effect'
+import { Players } from '../both/collections'
+
+export const updatePlayers = (players) => {
+    players.forEach(player => {
+        Players.update({ _id: players._id }, player);
+    })
+}
 
 export const getStepBuild = (player) => {//todo
     return player.wonder.steps.filter(step => step.card)
@@ -12,9 +19,9 @@ export const getIndexPlayer = (playerId, players) => {
     return ids.indexOf(playerId)
 }
 
-export const getPlayer = (board, idPlayer) => {
-    const players = board.players.filter(player => player.id === idPlayer)
-    return players.length === 1 ? players[0] : null
+export const getPlayer = (players, idPlayer) => {
+    const _players = players.filter(player => player.id === idPlayer)
+    return _players.length === 1 ? players[0] : null
 }
 
 export const rightPlayer = (playerId, players) => {
@@ -29,20 +36,20 @@ export const leftPlayer = (playerId, players) => {
     return players[previousIndex]
 }
 
-export const canAddCard = (board, idPlayer, card) => {
-    const me = getPlayer(board, idPlayer)
-    const right = rightPlayer(idPlayer, board.players)
-    const left = leftPlayer(idPlayer, board.players)
+export const canAddCard = (players, idPlayer, card) => {
+    const me = getPlayer(players, idPlayer)
+    const right = rightPlayer(idPlayer, players)
+    const left = leftPlayer(idPlayer, players)
 
     const buyInfo = buyCard(me, right, left, card)
 
     return { priceMini: buyInfo.priceMini, canHave: buyInfo.canHave, free: buyInfo.free, link: buyInfo.link }
 }
 
-export const canBuildStep = (board, idPlayer, step) => {
-    const me = getPlayer(board, idPlayer)
-    const right = rightPlayer(idPlayer, board.players)
-    const left = leftPlayer(idPlayer, board.players)
+export const canBuildStep = (players, idPlayer, step) => {
+    const me = getPlayer(players, idPlayer)
+    const right = rightPlayer(idPlayer, players)
+    const left = leftPlayer(idPlayer, players)
 
     const buyInfo = buildStep(me, right, left, step)
 
@@ -68,9 +75,9 @@ export const getStepCanBuild = (player) => {
     return null
 }
 
-export const getPointsPlayer = (player, board) => {
-    const right = rightPlayer(player.id, board.players)
-    const left = leftPlayer(player.id, board.players)
+export const getPointsPlayer = (player, players) => {
+    const right = rightPlayer(player.id, players)
+    const left = leftPlayer(player.id, players)
 
     const allCardsEffects = player.boardCards.map(card => card.effects).flat(1)
     const allStepsEffects = player.wonder.steps.filter(step => step.card).map(step => step.effects).flat(1)

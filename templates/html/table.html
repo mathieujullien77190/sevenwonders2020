@@ -3,7 +3,11 @@
     <div class="container-fluid">
 
         <div class="row">
-            <div class="col-12">col</div>
+            <div class="col-12">
+                {{#each card in getChoiceCards}}
+                {{> cardChoiceActions_template card=card player=getMe board=board}}
+                {{/each}}
+            </div>
         </div>
         <div class="row">
             <div class="col-12 playerContainer d-flex justify-content-center">
