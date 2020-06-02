@@ -1,4 +1,4 @@
-import { isRight, isOwn, isLeft } from '../../actions/effect'
+import { isRight, isOwn, isLeft } from '../../both/game/effect'
 
 Template.effect_template.helpers({
     getTemplate() {

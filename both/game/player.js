@@ -2,11 +2,11 @@ import { buyCard, buildStep, getColorCards } from './card'
 import { arrayMin } from './helpers/arrayMin'
 import { cartesian } from './helpers/cartesian'
 import { isOwn, isRight, isLeft } from './effect'
-import { Players } from '../both/collections'
+import { Players } from '../collections'
 
 export const updatePlayers = (players) => {
     players.forEach(player => {
-        Players.update({ _id: players._id }, player);
+        Players.update({ _id: player._id }, player);
     })
 }
 

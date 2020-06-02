@@ -1,4 +1,4 @@
-import { getStepCanBuild } from '../../actions/player'
+import { getStepCanBuild } from '../../both/game/player'
 const getTotalCost = ((step) => ((step.coinsCost > 0) ? 1 : 0) + step.ressourcesCost.length)
 
 Template.step_template.helpers({

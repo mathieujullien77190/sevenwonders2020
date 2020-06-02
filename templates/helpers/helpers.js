@@ -1,4 +1,4 @@
-import { PINGPONG_TIME } from '../../actions/constants'
+import { PINGPONG_TIME } from '../../both/constants'
 
 export const rand = (min, max) => {
     return min + Math.floor(Math.random() * (max - min + 1));

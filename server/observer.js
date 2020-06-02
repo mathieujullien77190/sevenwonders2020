@@ -1,7 +1,7 @@
-import { Boards } from '../both/collections';
-import { Meteor } from 'meteor/meteor'
-import { validateSelectCards, canValidateSelectCards, nextRound, canDiscardCards, discardCards, nextAge } from '../actions/board'
-import { removePlayers } from './actions/removePlayers'
+// import { Boards } from '../both/collections';
+// import { Meteor } from 'meteor/meteor'
+// import { validateSelectCards, canValidateSelectCards, nextRound, canDiscardCards, discardCards, nextAge } from '../actions/board'
+// import { removePlayers } from './actions/removePlayers'
 
 
 export const initObserver = () => {

@@ -1,4 +1,4 @@
-import { stackCards } from '../../actions/card'
+import { stackCards } from '../../both/game/card'
 
 Template.wonder_template.helpers({
     hasAdvantageCoins() {

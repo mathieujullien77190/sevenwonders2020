@@ -1,7 +1,7 @@
 import { Session } from 'meteor/session'
 import { Meteor } from 'meteor/meteor'
 import { errorActions, login, message, logout, kik } from './helpers'
-import { INACTIVE_TIME, PINGPONG_TIME, DISCONNECTED_TIME } from '../../actions/constants'
+import { INACTIVE_TIME, PINGPONG_TIME, DISCONNECTED_TIME } from '../../both/constants'
 
 Template.preparation_template.helpers({
     isConnected() {
@@ -64,6 +64,10 @@ const joinTest = (pseudo) => {
     Meteor.call('addPlayer', { pseudo }, () => { })
 }
 
+const nextAge = (id) => {
+    Meteor.call('nextAge', { id }, () => { })
+}
+
 Template.preparation_template.events({
     'click .playerJoin'() {
         const pseudo = document.getElementById('inputPseudo').value
@@ -77,5 +81,9 @@ Template.preparation_template.events({
     },
     'click .kik'(event) {
         kik(event.target.dataset.pseudo)
+    },
+    'click .nextAge'(event) {
+        const player = Session.get('player')
+        nextAge(player.id)
     }
 })

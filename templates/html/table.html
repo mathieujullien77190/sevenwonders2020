@@ -3,15 +3,16 @@
     <div class="container-fluid">
 
         <div class="row">
-            <div class="col-12">
+            <div class="col-12 d-flex justify-content-center">
                 {{#each card in getChoiceCards}}
                 {{> cardChoiceActions_template card=card player=getMe board=board}}
                 {{/each}}
             </div>
         </div>
-        <div class="row">
+        <div class=" row">
             <div class="col-12 playerContainer d-flex justify-content-center">
-                {{> player_template player=getMe}}</div>
+                {{> player_template player=getMe}}
+            </div>
         </div>
         <div class="row">
             <div class="col-6 playerContainer d-flex justify-content-start">

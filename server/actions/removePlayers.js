@@ -1,5 +1,5 @@
 import { Boards, Players } from '../../both/collections'
-import { KIK_TIME, PINGPONG_TIME } from '../../actions/constants'
+import { KIK_TIME, PINGPONG_TIME } from '../../both/constants'
 
 export const removePlayers = () => {
 

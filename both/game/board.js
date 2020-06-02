@@ -1,6 +1,6 @@
-import { Boards } from '../both/collections'
+import { Boards } from '../collections'
 import { calcAgeCards, splitChoiceCards, switchCardsChoice } from './card'
-import { MIN_PLAYERS, MAX_PLAYERS, ROUND_TO_DISCARD_CARDS } from './constants'
+import { MIN_PLAYERS, MAX_PLAYERS, ROUND_TO_DISCARD_CARDS } from '../constants'
 import { updatePlayers, getPointsPlayer, getLastCardPlay, getLastStepPlay, canAddCard, canBuildStep, getPlayer, getStepCanBuild, rightPlayer, leftPlayer, getMoneyEffect } from './player'
 
 
@@ -9,24 +9,30 @@ export const updateBoard = (board) => {
 }
 
 export const nextAge = (board, players) => {
-    if (players.length >= MIN_PLAYERS) {
+    let _players = players
+
+    if (_players.length >= MIN_PLAYERS) {
         board.age = board.age < 4 ? board.age + 1 : 0
 
         if (canPlay(board)) {
 
             board.round = 1
+            board.ageCards = calcAgeCards(board.age, _players.length, board.allCards)
 
-            board.ageCards = calcAgeCards(board.age, players.length, board.allCards)
+            const split = splitChoiceCards(_players.length, board.ageCards)
 
-            const split = splitChoiceCards(players.length, board.ageCards)
-
-            setChoiceCards(players, split)
-            setBuyInfoOnCards(players)
-            setBuyInfoOnSteps(players)
+            _players = setChoiceCards(_players, split)
+            _players = setBuyInfoOnCards(_players)
+            _players = setBuyInfoOnSteps(_players)
         } else {
-            resetChoiceCards(players)
+            _players = resetChoiceCards(_players)
         }
+
+        updateBoard(board)
+        updatePlayers(_players)
     }
+
+
 
 }
 
@@ -48,42 +54,39 @@ const canPlay = (board) => {
 }
 
 const setBuyInfoOnCards = (players) => {
-    players = players.map(player => {
+    return players.map(player => {
         return {
             ...player, choiceCards: player.choiceCards.map(card => {
                 return { ...card, buyInfo: canAddCard(players, player.id, card) }
             })
         }
     })
-    updatePlayers(players)
 }
 
 const setBuyInfoOnSteps = (players) => {
-    players = players.map(player => {
+    return players.map(player => {
         return {
             ...player,
             wonder: {
                 ...player.wonder, steps: player.wonder.steps.map(step => {
-                    return { ...step, buyInfo: canBuildStep(board, player.id, step) }
+                    return { ...step, buyInfo: canBuildStep(players, player.id, step) }
                 })
             }
         }
     })
-    updatePlayers(players)
 }
 
 const setChoiceCards = (players, splitCards) => {
-    players = players.map((player, index) => {
+
+    return players.map((player, index) => {
         return { ...player, choiceCards: splitCards[index] }
     })
-    updatePlayers(players)
 }
 
 const resetChoiceCards = (players) => {
-    players = players.map((player) => {
+    return players.map((player) => {
         return { ...player, choiceCards: [] }
     })
-    updatePlayers(players)
 }
 
 

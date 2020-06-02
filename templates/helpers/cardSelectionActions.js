@@ -1,4 +1,4 @@
-import { cancelCard } from '../../actions/board'
+import { cancelCard } from '../../both/game/board'
 
 Template.cardSelectionActions_template.events({
     'click .cancel'() {

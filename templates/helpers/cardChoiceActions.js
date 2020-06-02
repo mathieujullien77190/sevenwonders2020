@@ -1,5 +1,5 @@
-import { getStepCanBuild } from '../../actions/player'
-import { selectCard } from '../../actions/board'
+import { getStepCanBuild } from '../../both/game/player'
+import { selectCard } from '../../both/game/board'
 
 Template.cardChoiceActions_template.events({
     'mouseenter .cardChoiceActions_container'(event) {
