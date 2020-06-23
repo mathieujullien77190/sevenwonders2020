@@ -110,6 +110,10 @@ Template.table_template.helpers({
     getChoiceCards() {
         const me = getMePlayer(this.players)
         return me.choiceCards
+    },
+    getSelectCard() {
+        const me = getMePlayer(this.players)
+        return me.selectionCard
     }
 
 });

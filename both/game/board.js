@@ -90,26 +90,20 @@ const resetChoiceCards = (players) => {
 }
 
 
-export const selectCard = (uniqIdCard, idPlayer, nameAction) => {
-    const player = getPlayer(idPlayer)
+export const selectCard = (uniqIdCard, player, nameAction) => {
     if (player) {
         let selectCards = player.choiceCards.filter(card => card.uniqId === uniqIdCard)
-
         if (selectCards.length === 1) {
-
             player.choiceCards = player.choiceCards.filter(card => card.uniqId !== uniqIdCard)
             player.selectionCard = selectCards[0]
             player.selectionCard.action = nameAction
             player.selectionCard.last = true
-
             updatePlayers([player])
         }
     }
 }
 
-export const cancelCard = (idPlayer) => {
-    const player = getPlayer(idPlayer)
-
+export const cancelCard = (player) => {
     if (player) {
         let selectCards = { ...player.selectionCard }
 

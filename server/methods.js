@@ -5,6 +5,8 @@ import { createBoard } from './actions/createBoard'
 import { logout } from './actions/logout'
 import { kik } from './actions/kik'
 import { actionNextAge } from './actions/actionNextAge'
+import { playCard } from './actions/playCard'
+import { cancelCardAction } from './actions/cancelCard'
 
 export const loadMethods = () => {
     Meteor.methods({
@@ -25,6 +27,12 @@ export const loadMethods = () => {
         },
         nextAge: (data) => {
             return actionNextAge(data)
+        },
+        playCard: (data) => {
+            return playCard(data)
+        },
+        cancelCard: (data) => {
+            return cancelCardAction(data)
         }
     })
 }

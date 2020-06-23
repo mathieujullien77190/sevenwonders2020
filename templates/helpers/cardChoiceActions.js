@@ -1,5 +1,5 @@
 import { getStepCanBuild } from '../../both/game/player'
-import { selectCard } from '../../both/game/board'
+import { errorActions } from './helpers'
 
 Template.cardChoiceActions_template.events({
     'mouseenter .cardChoiceActions_container'(event) {
@@ -12,13 +12,28 @@ Template.cardChoiceActions_template.events({
         }
     },
     'click .playCard'() {
-        selectCard(this.board, this.card.uniqId, this.player.id, "play")
+        const me = Session.get('player')
+        Meteor.call('playCard', { id: me.id, nameAction: 'play', uniqIdCard: this.card.uniqId }, error => {
+            if (errorActions(error)) {
+                console.log('erreur', error)
+            }
+        })
     },
     'click .playStep'() {
-        selectCard(this.board, this.card.uniqId, this.player.id, "wonder")
+        const me = Session.get('player')
+        Meteor.call('playCard', { id: me.id, nameAction: 'wonder', uniqIdCard: this.card.uniqId }, error => {
+            if (errorActions(error)) {
+                console.log('erreur', error)
+            }
+        })
     },
     'click .discardCard'() {
-        selectCard(this.board, this.card.uniqId, this.player.id, "discard")
+        const me = Session.get('player')
+        Meteor.call('playCard', { id: me.id, nameAction: 'discard', uniqIdCard: this.card.uniqId }, error => {
+            if (errorActions(error)) {
+                console.log('erreur', error)
+            }
+        })
     },
     'click .infoCard'() {
         event.target.parentNode.classList.add('showInfo')

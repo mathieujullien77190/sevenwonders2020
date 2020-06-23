@@ -1,10 +1,13 @@
-import { cancelCard } from '../../both/game/board'
+import { errorActions } from './helpers'
 
 Template.cardSelectionActions_template.events({
     'click .cancel'() {
-        if (this.card.buyInfo && this.card.buyInfo.free) {
-            cancelCard(this.board, this.player.id)
-        }
+        const me = Session.get('player')
+        Meteor.call('cancelCard', { id: me.id }, error => {
+            if (errorActions(error)) {
+                console.log('erreur', error)
+            }
+        })
     }
 })
 

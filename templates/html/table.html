@@ -1,12 +1,17 @@
 <template name="table_template">
 
-    <div class="container-fluid">
+    <div class="container-fluid table_globalContainer">
 
         <div class="row">
             <div class="col-12 d-flex justify-content-center">
                 {{#each card in getChoiceCards}}
                 {{> cardChoiceActions_template card=card player=getMe board=board}}
                 {{/each}}
+                {{#if getSelectCard}}
+                <div class="d-flex justify-content-center align-items-center selectCard">
+                    {{> cardSelectionActions_template card=getSelectCard player=getMe board=board}}
+                </div>
+                {{/if}}
             </div>
         </div>
         <div class=" row">

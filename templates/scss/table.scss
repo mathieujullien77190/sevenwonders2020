@@ -1,13 +1,24 @@
 .table_globalContainer {
-    transform: scale(0.8);
-}
+    
+    .playerContainer {
+        border: solid 1px black;
+        padding: 0 !important;
+        overflow-x: auto;
+    }
 
-.playerContainer {
-    border: solid 1px black;
-    padding: 0 !important;
-    overflow-x: auto;
-}
+    .row {
+        margin: 10px 0;
+    }
 
-.row {
-    margin: 10px 0;
+    .selectCard {
+        position: absolute;
+        z-index: 100;
+        width:100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.8);
+    }
+
+    .oneCardSelected {
+        opacity: 0.3;
+    }
 }

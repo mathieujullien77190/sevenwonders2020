@@ -1,7 +1,7 @@
 .card_container {
     border: solid 2px #000000;
     position: relative;
-    font-family: monospace;
+    font-family: Verdana,monospace;
     overflow: hidden;
 
     &.last {
@@ -46,6 +46,10 @@
 
     .bg_purple & {
         font-size: 8px;
+    }
+
+    .card_id_7 & {
+        font-size: 10px;
     }
 }
 
